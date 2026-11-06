@@ -308,7 +308,6 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(68, 56, 44, 0.15);
-            /* Sets the original image as the background for the calendar */
             background-image: url('image_f683fa.jpg');
             background-size: cover;
             background-position: center;
@@ -322,7 +321,7 @@
         .calendar-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(250, 247, 240, 0.92); /* Frosted ivory overlay */
+            background: rgba(250, 247, 240, 0.92);
         }
 
         .calendar-content {
@@ -355,14 +354,29 @@
             color: var(--deep-brown);
         }
 
-        .circled-date {
-            border: 2px solid var(--champagne-gold);
-            border-radius: 50%;
-            color: var(--champagne-gold) !important;
+        /* Bold Red Heart Date Highlight */
+        .heart-date {
+            position: relative;
+            color: #FFFFFF !important;
             font-weight: bold;
-            box-shadow: 0 0 12px rgba(197, 164, 109, 0.4);
-            background: rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        .heart-date::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -46%); /* Centered to perfectly align the number inside the heart */
+            width: 45px;
+            height: 45px;
+            /* Deep, bold romantic red heart SVG */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B22222'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;
+            filter: drop-shadow(0 4px 8px rgba(178, 34, 34, 0.4));
         }
 
         /* --- Names & Parents --- */
@@ -420,7 +434,7 @@
             outline: 2px solid var(--champagne-gold);
             padding: 10px;
             background: var(--white);
-            margin: 0 auto 30px auto;
+            margin: 0 auto 10px auto;
             max-width: 90%;
             width: 480px;
             box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15);
@@ -453,7 +467,7 @@
             font-size: 0.9rem;
             color: var(--champagne-gold);
             font-style: italic;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             background: rgba(255,255,255,0.7);
             padding: 5px 15px;
             border-radius: 20px;
@@ -609,7 +623,7 @@
             .time-box { min-width: 75px; padding: 15px; }
             .time-box span { font-size: 2rem; }
             .parents-section { font-size: 1.05rem; padding: 15px; }
-            .image-frame { border-width: 8px; margin-top: 20px; }
+            .image-frame { border-width: 8px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
         }
@@ -675,12 +689,6 @@
     <!-- 1. Welcome & Save the Date Section -->
     <section id="welcome" style="padding-top: 100px;">
         
-        <!-- The Original Photo FIRST -->
-        <div class="image-frame fade-in" onclick="openLightbox()">
-            <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
-        </div>
-        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
-
         <!-- Save the Date Message -->
         <p class="script-accent fade-in" style="margin-top: 10px; font-size: 4rem;">Save the Date</p>
         
@@ -701,8 +709,14 @@
                 <span>Daughter of Belay Woldesenbet and Hana Abera</span>
             </div>
         </div>
+
+        <!-- The Original Photo moved HERE (After Introduction, before Calendar) -->
+        <div class="image-frame fade-in" onclick="openLightbox()">
+            <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
+        </div>
+        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
         
-        <!-- Beautiful Calendar with Image Background -->
+        <!-- Beautiful Calendar with Image Background & Bold Red Heart -->
         <div class="calendar-container fade-in">
             <div class="calendar-overlay"></div>
             <div class="calendar-content">
@@ -714,7 +728,11 @@
                     <!-- Dates -->
                     <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
                     <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
-                    <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div class="circled-date">21</div>
+                    <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div>
+                    
+                    <!-- Bold Red Heart Highlighting the Wedding Day -->
+                    <div class="heart-date">21</div>
+                    
                     <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
                     <div>29</div><div>30</div><div></div><div></div><div></div><div></div><div></div>
                 </div>
