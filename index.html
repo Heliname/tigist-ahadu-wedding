@@ -37,12 +37,34 @@
             background: linear-gradient(-45deg, #FFFFF0, #FDF7E3, #F5F5DC, #FCF0D8);
             background-size: 400% 400%;
             animation: elegantFlow 15s ease infinite;
+            position: relative;
         }
 
         @keyframes elegantFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* --- Floating Flowers CSS --- */
+        .flower {
+            position: fixed;
+            top: -10vh;
+            z-index: -1; /* Keeps them behind the text and cards */
+            pointer-events: none; /* Guests can't click them by accident */
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+            }
+            50% {
+                transform: translateY(60vh) rotate(180deg) translateX(30px);
+            }
+            100% {
+                transform: translateY(120vh) rotate(360deg) translateX(-30px);
+            }
         }
 
         .amharic {
@@ -395,6 +417,39 @@
     </section>
 
     <script>
+        // --- Floating Flowers Animation Script ---
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            
+            // Elegant SVG path for a 4-petal flower
+            flower.innerHTML = `<svg viewBox="0 0 24 24" fill="var(--champagne-gold)"><path d="M12 2C12 2 9 6 6 8C3 10 2 13 4 15C6 17 9 15 12 12C15 15 18 17 20 15C22 13 21 10 18 8C15 6 12 2 12 2Z"/></svg>`;
+            
+            // Randomize position, size, and falling speed
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 10 + 15 + 's'; // Falls between 15 and 25 seconds (very slow and elegant)
+            
+            // Keep them very faint so they don't distract from the text (10% to 30% visible)
+            flower.style.opacity = Math.random() * 0.2 + 0.1; 
+            
+            const size = Math.random() * 20 + 15; // Size between 15px and 35px
+            flower.querySelector('svg').style.width = size + 'px';
+            flower.querySelector('svg').style.height = size + 'px';
+            
+            document.body.appendChild(flower);
+            
+            // Remove flower when it reaches the bottom, then create a new one to keep it endless
+            setTimeout(() => {
+                flower.remove();
+                createFlower();
+            }, parseFloat(flower.style.animationDuration) * 1000);
+        }
+
+        // Generate 12 beautiful floating flowers to start
+        for(let i = 0; i < 12; i++) {
+            setTimeout(createFlower, Math.random() * 8000);
+        }
+
         // --- Countdown Timer Logic ---
         const targetDate = new Date("November 21, 2026 11:00:00+03:00").getTime();
 
