@@ -33,38 +33,34 @@
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            /* Elegant Flowing Background */
-            background: linear-gradient(-45deg, #FFFFF0, #FDF7E3, #F5F5DC, #FCF0D8);
-            background-size: 400% 400%;
-            animation: elegantFlow 15s ease infinite;
-            position: relative;
         }
 
-        @keyframes elegantFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- Floating Flowers CSS --- */
-        .flower {
+        /* --- Video Background Wallpaper --- */
+        .video-background {
             position: fixed;
-            top: -10vh;
-            z-index: -1; /* Keeps them behind the text and cards */
-            pointer-events: none; /* Guests can't click them by accident */
-            animation: fall linear infinite;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-            }
-            50% {
-                transform: translateY(60vh) rotate(180deg) translateX(30px);
-            }
-            100% {
-                transform: translateY(120vh) rotate(360deg) translateX(-30px);
-            }
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Semi-transparent ivory overlay so the text is still perfectly readable */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 240, 0.75); 
+            z-index: -1;
         }
 
         .amharic {
@@ -103,6 +99,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         /* --- Welcome Section --- */
@@ -113,17 +110,20 @@
         .names-container h1 {
             font-size: 3rem;
             margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
         }
         
         .names-container .amharic-names {
             font-size: 2rem;
             color: var(--text-light);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .date-container {
             margin-bottom: 30px;
             font-size: 1.2rem;
             color: var(--text-light);
+            font-weight: bold;
         }
 
         .image-frame {
@@ -134,12 +134,15 @@
             margin: 30px auto;
             max-width: 90%;
             width: 450px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
         
+        /* Extra Enlarged Frame for the Closing Section */
         .large-frame {
-            width: 750px; /* Much larger width for the second image */
-            max-width: 95%;
+            width: 1200px; /* Massively increased width */
+            max-width: 98vw; /* Takes up almost the entire screen on mobile */
+            padding: 20px;
+            border-width: 12px; /* Thicker border to match the large size */
         }
 
         .image-frame img {
@@ -160,21 +163,24 @@
             display: inline-block;
             margin-top: 20px;
             border: 1px solid var(--champagne-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .btn:hover {
             background-color: transparent;
             color: var(--champagne-gold);
+            background: rgba(255,255,255,0.8);
         }
 
         /* --- Invitation Section --- */
         .scripture-box {
-            background: rgba(255, 255, 255, 0.6);
-            border-top: 1px solid var(--champagne-gold);
-            border-bottom: 1px solid var(--champagne-gold);
+            background: rgba(255, 255, 255, 0.85);
+            border-top: 2px solid var(--champagne-gold);
+            border-bottom: 2px solid var(--champagne-gold);
             padding: 30px 20px;
             max-width: 700px;
             margin: 0 auto 40px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .scripture-box p {
@@ -185,8 +191,12 @@
         }
 
         .invitation-msg {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 10px;
             max-width: 600px;
             font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         /* --- Details Section --- */
@@ -200,12 +210,12 @@
         }
 
         .event-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid var(--light-gold);
             padding: 40px 25px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             position: relative;
         }
 
@@ -225,7 +235,7 @@
         }
 
         .time-highlight {
-            background-color: rgba(255, 253, 208, 0.5);
+            background-color: rgba(255, 253, 208, 0.7);
             padding: 10px;
             margin: 15px 0;
             border-radius: 5px;
@@ -246,12 +256,12 @@
         }
 
         .time-box {
-            background: var(--champagne-gold);
+            background: rgba(212, 175, 55, 0.9);
             color: #fff;
             padding: 20px;
             border-radius: 8px;
             min-width: 80px;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
         }
 
         .time-box span {
@@ -298,10 +308,21 @@
             section { padding: 60px 15px; }
             .time-box { min-width: 70px; padding: 15px; }
             .time-box span { font-size: 1.8rem; }
+            .large-frame { padding: 10px; border-width: 8px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <!-- Must be muted to autoplay properly on mobile devices -->
+        <video autoplay loop muted playsinline>
+            <source src="flowers-wind.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Semi-transparent overlay to ensure text readability -->
+    <div class="video-overlay"></div>
 
     <!-- Background Audio -->
     <audio id="bg-music" loop>
@@ -347,7 +368,7 @@
     <!-- C. Wedding Details Section -->
     <section id="details">
         <h2 class="fade-in">Wedding Details</h2>
-        <p class="fade-in">Saturday, 21 November 2026</p>
+        <p class="fade-in" style="font-weight:bold;">Saturday, 21 November 2026</p>
         
         <div class="cards-container">
             <!-- Event 1: Church Ceremony -->
@@ -383,7 +404,7 @@
     <!-- D. Countdown Section -->
     <section id="countdown-section" class="fade-in">
         <h2>The Countdown</h2>
-        <p>Awaiting our special day...</p>
+        <p style="font-weight:bold;">Awaiting our special day...</p>
         <div class="countdown-container">
             <div class="time-box">
                 <span id="days">00</span>
@@ -407,49 +428,16 @@
     <!-- E. Closing Section -->
     <section id="closing" class="fade-in">
         <div class="image-frame large-frame fade-in">
-            <!-- Second Image - Now uses .large-frame to appear bigger -->
+            <!-- Second Image - Now massively enlarged -->
             <img src="second-image.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="names-container fade-in" style="margin-top: 30px;">
             <h2>Ahadu & Tigist</h2>
-            <div class="amharic" style="font-size: 1.5rem; color: var(--text-light);">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--text-light); text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
         </div>
     </section>
 
     <script>
-        // --- Floating Flowers Animation Script ---
-        function createFlower() {
-            const flower = document.createElement('div');
-            flower.classList.add('flower');
-            
-            // Elegant SVG path for a 4-petal flower
-            flower.innerHTML = `<svg viewBox="0 0 24 24" fill="var(--champagne-gold)"><path d="M12 2C12 2 9 6 6 8C3 10 2 13 4 15C6 17 9 15 12 12C15 15 18 17 20 15C22 13 21 10 18 8C15 6 12 2 12 2Z"/></svg>`;
-            
-            // Randomize position, size, and falling speed
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDuration = Math.random() * 10 + 15 + 's'; // Falls between 15 and 25 seconds (very slow and elegant)
-            
-            // Keep them very faint so they don't distract from the text (10% to 30% visible)
-            flower.style.opacity = Math.random() * 0.2 + 0.1; 
-            
-            const size = Math.random() * 20 + 15; // Size between 15px and 35px
-            flower.querySelector('svg').style.width = size + 'px';
-            flower.querySelector('svg').style.height = size + 'px';
-            
-            document.body.appendChild(flower);
-            
-            // Remove flower when it reaches the bottom, then create a new one to keep it endless
-            setTimeout(() => {
-                flower.remove();
-                createFlower();
-            }, parseFloat(flower.style.animationDuration) * 1000);
-        }
-
-        // Generate 12 beautiful floating flowers to start
-        for(let i = 0; i < 12; i++) {
-            setTimeout(createFlower, Math.random() * 8000);
-        }
-
         // --- Countdown Timer Logic ---
         const targetDate = new Date("November 21, 2026 11:00:00+03:00").getTime();
 
