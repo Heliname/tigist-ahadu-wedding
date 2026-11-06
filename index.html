@@ -290,6 +290,30 @@
             position: relative;
         }
 
+        /* --- Parallax Background for Welcome & Invitation Sections --- */
+        #welcome, #invitation {
+            position: relative;
+            background-image: url('second-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Creates the elegant parallax scrolling effect */
+        }
+
+        /* Soft Ivory Overlay on top of the image so text stays perfectly readable */
+        #welcome::before, #invitation::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(250, 247, 240, 0.75);
+            z-index: 0;
+        }
+
+        /* Ensure content in these sections stays above the overlay */
+        #welcome > *, #invitation > * {
+            position: relative;
+            z-index: 1;
+        }
+
         /* --- The Calendar Widget --- */
         .calendar-container {
             position: relative;
@@ -396,16 +420,18 @@
             gap: 25px;
             margin-bottom: 40px;
             font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.85); /* Slightly less transparent for better readability over photo */
             padding: 25px;
             border-radius: 8px;
             border: 1px solid rgba(197, 164, 109, 0.2);
             transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
         }
         
         .parents-section:hover {
             transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .parents-section p {
@@ -459,36 +485,13 @@
             color: var(--champagne-gold);
             font-style: italic;
             margin-bottom: 40px;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.85);
             padding: 5px 15px;
             border-radius: 20px;
             display: inline-block;
         }
 
-        /* --- Invitation Section (With Parallax Background) --- */
-        #invitation {
-            position: relative;
-            background-image: url('second-image.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Creates the elegant parallax scrolling effect */
-        }
-
-        /* Ivory Overlay on top of the second-image so text stays readable */
-        #invitation::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(250, 247, 240, 0.7);
-            z-index: 0;
-        }
-
-        /* Ensure content in invitation section is above the overlay */
-        #invitation > * {
-            position: relative;
-            z-index: 1;
-        }
-
+        /* --- Invitation Section Elements --- */
         .scripture-box {
             background: rgba(255, 255, 255, 0.9);
             border-top: 2px solid var(--champagne-gold);
@@ -642,7 +645,7 @@
             .image-frame { border-width: 8px; margin-top: 20px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
-            #invitation { background-attachment: scroll; } /* Disable parallax on mobile for smooth scrolling */
+            #welcome, #invitation { background-attachment: scroll; } /* Disable parallax on mobile for smooth scrolling */
         }
     </style>
 </head>
@@ -678,6 +681,7 @@
 
     <!-- Opening Reveal Overlay with Beautiful Thick 3D Rings -->
     <div id="reveal-overlay">
+        <!-- JS will inject large white layered roses here -->
         
         <!-- Thick, Luxury Interlocking Rings -->
         <svg class="ring-icon" viewBox="0 0 140 80" width="150" height="90">
@@ -792,10 +796,9 @@
         </div>
     </section>
 
-    <!-- 3. Invitation Section (Now with Parallax Background) -->
+    <!-- 3. Invitation Section -->
     <section id="invitation" class="fade-in">
         
-        <!-- Beautiful Decorative Gold Seal -->
         <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="60" height="60" style="margin-bottom: 20px;">
             <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
         </svg>
@@ -880,7 +883,7 @@
         
         <div class="names-container fade-in" style="margin-top: 30px;">
             <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
-            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ እና ትግስት</div>
         </div>
     </section>
 
