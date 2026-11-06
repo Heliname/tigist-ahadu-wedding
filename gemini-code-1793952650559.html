@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahadu & Tigist | Wedding Invitation</title>
+    
+    <!-- Google Fonts for English (Playfair Display) and Amharic (Noto Serif Ethiopic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --champagne-gold: #D4AF37;
+            --light-gold: #E6C27A;
+            --ivory: #FFFFF0;
+            --cream: #FFFDD0;
+            --beige: #F5F5DC;
+            --text-dark: #2C2C2C;
+            --text-light: #5A5A5A;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            text-align: center;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .amharic {
+            font-family: 'Noto Serif Ethiopic', serif;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3 {
+            color: var(--champagne-gold);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 80px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Welcome Section --- */
+        #welcome {
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--beige) 100%);
+        }
+
+        .names-container {
+            margin-bottom: 30px;
+        }
+
+        .names-container h1 {
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+        
+        .names-container .amharic-names {
+            font-size: 2rem;
+            color: var(--text-light);
+        }
+
+        .date-container {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .image-frame {
+            border: 8px solid var(--cream);
+            outline: 2px solid var(--champagne-gold);
+            padding: 15px;
+            background: #fff;
+            margin: 30px auto;
+            max-width: 90%;
+            width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn {
+            background-color: var(--champagne-gold);
+            color: #fff;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            display: inline-block;
+            margin-top: 20px;
+            border: 1px solid var(--champagne-gold);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--champagne-gold);
+        }
+
+        /* --- Invitation Section --- */
+        #invitation {
+            background-color: #fff;
+        }
+
+        .scripture-box {
+            border-top: 1px solid var(--champagne-gold);
+            border-bottom: 1px solid var(--champagne-gold);
+            padding: 30px 20px;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+
+        .scripture-box p {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .invitation-msg {
+            max-width: 600px;
+            font-size: 1.2rem;
+        }
+
+        /* --- Details Section --- */
+        #details {
+            background: linear-gradient(to bottom, var(--ivory), var(--beige));
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 900px;
+            margin-top: 40px;
+        }
+
+        .event-card {
+            background: #fff;
+            border: 1px solid var(--light-gold);
+            padding: 40px 25px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .event-card::before {
+            content: "✦";
+            color: var(--light-gold);
+            font-size: 1.5rem;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .event-card h3 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .time-highlight {
+            background-color: var(--cream);
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .time-highlight strong {
+            color: var(--champagne-gold);
+        }
+
+        /* --- Countdown Section --- */
+        #countdown-section {
+            background-color: #fff;
+        }
+
+        .countdown-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: var(--champagne-gold);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 80px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .time-box .label {
+            font-size: 0.9rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- Audio Player --- */
+        .music-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--champagne-gold);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+            .names-container h1 { font-size: 2.2rem; }
+            .names-container .amharic-names { font-size: 1.5rem; }
+            section { padding: 60px 15px; }
+            .time-box { min-width: 70px; padding: 15px; }
+            .time-box span { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Audio (Replace src with your file) -->
+    <audio id="bg-music" loop>
+        <source src="wedding-music.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" id="music-toggle" aria-label="Play Music">🎵</button>
+
+    <!-- A. Welcome Section -->
+    <section id="welcome" class="fade-in">
+        <div class="names-container">
+            <h1>Ahadu & Tigist</h1>
+            <div class="amharic amharic-names">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
+        </div>
+        
+        <div class="date-container">
+            <p>Saturday, 21 November 2026</p>
+            <p class="amharic">12 Hidar 2019 E.C.</p>
+        </div>
+
+        <div class="image-frame fade-in">
+            <!-- Ensure your main photo is named exactly image_f683fa.jpg -->
+            <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
+        </div>
+
+        <a href="#invitation" class="btn fade-in">Open Invitation</a>
+    </section>
+
+    <!-- B. Invitation Section -->
+    <section id="invitation" class="fade-in">
+        <h2>The Invitation</h2>
+        
+        <div class="scripture-box fade-in">
+            <p class="amharic">"እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5 (NASV)</p>
+            <p>"O LORD, how great are thy works! and thy thoughts are very deep."<br>— Psalms 92:5 (KJV)</p>
+        </div>
+
+        <div class="invitation-msg fade-in">
+            <p>We joyfully invite you to share in our happiness as we unite in marriage. Your presence will make our celebration complete.</p>
+            <p class="amharic">በጋብቻ ስንተሳሰር ደስታችንን አብራችሁን እንድታካፍሉ በደስታ እንጋብዛለን። መገኘትዎ ክብራችን ነው።</p>
+        </div>
+    </section>
+
+    <!-- C. Wedding Details Section -->
+    <section id="details">
+        <h2 class="fade-in">Wedding Details</h2>
+        <p class="fade-in">Saturday, 21 November 2026</p>
+        
+        <div class="cards-container">
+            <!-- Event 1: Church Ceremony -->
+            <div class="event-card fade-in">
+                <h3>Church Ceremony</h3>
+                <p class="amharic">የቃል ኪዳን ስርዓት</p>
+                <p><strong>Mekanissa Addis Kidan Baptist Church</strong></p>
+                
+                <div class="time-highlight">
+                    <p><strong>11:00 AM</strong> (International Time)</p>
+                    <p class="amharic"><strong>5:00</strong> (Ethiopian Time)</p>
+                </div>
+                
+                <a href="https://www.google.com/maps/place/Mekanissa+Addis+Kidan+Baptist+Church/@8.9753825,38.7227095,17z/data=!3m1!4b1" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Church Location</a>
+            </div>
+
+            <!-- Event 2: Lunch Celebration -->
+            <div class="event-card fade-in">
+                <h3>Lunch Celebration</h3>
+                <p class="amharic">የምሳ ግብዣ</p>
+                <p><strong>Mekane Yesus Seminary</strong></p>
+                
+                <div class="time-highlight">
+                    <p><strong>1:00 PM</strong> (International Time)</p>
+                    <p class="amharic"><strong>7:00</strong> (Ethiopian Time)</p>
+                </div>
+                
+                <a href="https://maps.app.goo.gl/gy15duS86XDbAvPT7" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Lunch Venue</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- D. Countdown Section -->
+    <section id="countdown-section" class="fade-in">
+        <h2>The Countdown</h2>
+        <p>Awaiting our special day...</p>
+        <div class="countdown-container">
+            <div class="time-box">
+                <span id="days">00</span>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <div class="label">Mins</div>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <div class="label">Secs</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E. Closing Section -->
+    <section id="closing" class="fade-in" style="background-color: var(--ivory);">
+        <div class="image-frame fade-in">
+            <!-- Ensure your second photo is named exactly second-image.jpg (or update this file name) -->
+            <img src="second-image.jpg" alt="Ahadu and Tigist">
+        </div>
+        <div class="names-container fade-in" style="margin-top: 30px;">
+            <h2>Ahadu & Tigist</h2>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--text-light);">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
+        </div>
+    </section>
+
+    <script>
+        // --- Countdown Timer Logic ---
+        // Target Date: Nov 21, 2026, 11:00 AM East Africa Time (UTC+3)
+        const targetDate = new Date("November 21, 2026 11:00:00+03:00").getTime();
+
+        const updateCountdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById("countdown-section").innerHTML = "<h2>Today is the Day!</h2>";
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // --- Music Player Logic ---
+        const audio = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-toggle");
+        let isPlaying = false;
+
+        musicBtn.addEventListener("click", () => {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerText = "🎵";
+            } else {
+                audio.play();
+                musicBtn.innerText = "⏸️";
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // --- Scroll Fade-in Animation Logic ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
