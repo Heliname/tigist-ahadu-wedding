@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahadu & Tigist | Wedding Invitation</title>
     
-    <!-- Google Fonts -->
+    <!-- Custom Gold Ring Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 stroke=%22%23C5A46D%22 stroke-width=%2210%22 fill=%22none%22/></svg>">
+
+    <!-- Google Fonts: Playfair (Serif), Alex Brush (Cursive Script), and Noto Serif Ethiopic (Amharic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Noto+Serif+Ethiopic:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -34,6 +37,52 @@
             scroll-behavior: smooth;
         }
 
+        /* --- Elegant Script Accent Font --- */
+        .script-accent {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3rem;
+            color: var(--champagne-gold);
+            margin-bottom: 10px;
+            font-weight: normal;
+            line-height: 1.2;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        /* --- Loading Screen --- */
+        #page-loader {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            background-color: var(--ivory);
+            z-index: 100000; /* Stays above everything */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-ring {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--beige);
+            border-top: 3px solid var(--champagne-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+
         /* --- Video Background Wallpaper --- */
         .video-background {
             position: fixed;
@@ -52,7 +101,6 @@
             object-fit: cover;
         }
 
-        /* Semi-transparent ivory overlay so the text is perfectly readable */
         .video-overlay {
             position: fixed;
             top: 0;
@@ -86,7 +134,6 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* Slightly transparent so the video hints through before opening */
             background-color: rgba(250, 247, 240, 0.95);
             z-index: 9999;
             display: flex;
@@ -193,6 +240,7 @@
         /* --- Names & Parents --- */
         .names-container {
             margin-bottom: 20px;
+            margin-top: 10px;
         }
 
         .names-container h1 {
@@ -260,7 +308,7 @@
             max-width: 98vw;
             padding: 20px;
             border-width: 12px;
-            cursor: default; /* Disable zoom cursor for the bottom image */
+            cursor: default;
         }
 
         .image-frame:not(.large-frame):hover {
@@ -382,7 +430,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 40px;
+            margin-top: 25px;
             flex-wrap: wrap;
         }
 
@@ -440,6 +488,7 @@
         }
 
         @media (max-width: 600px) {
+            .script-accent { font-size: 2.3rem; }
             .names-container h1 { font-size: 2.2rem; }
             .names-container .amharic-names { font-size: 1.6rem; }
             section { padding: 60px 15px; }
@@ -452,6 +501,12 @@
     </style>
 </head>
 <body>
+
+    <!-- Loading Screen (Fades out once resources load) -->
+    <div id="page-loader">
+        <div class="loader-ring"></div>
+        <p style="margin-top: 25px; font-family: 'Playfair Display', serif; color: var(--champagne-gold); letter-spacing: 2px; font-size: 1.1rem;">Loading...</p>
+    </div>
 
     <!-- Video Background Wallpaper -->
     <div class="video-background">
@@ -506,6 +561,8 @@
     <!-- 1. Welcome Section -->
     <section id="welcome">
         
+        <p class="script-accent fade-in" style="margin-top: 20px;">Together with their families</p>
+        
         <div class="names-container fade-in">
             <h1>Ahadu Fithaamlak & Tigist Belay</h1>
             <div class="amharic amharic-names">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
@@ -544,6 +601,7 @@
     <!-- 2. Invitation Section -->
     <section id="invitation" class="fade-in">
         <h2>The Invitation</h2>
+        <p class="script-accent fade-in" style="margin-bottom: 25px;">Joyfully invite you</p>
         
         <div class="scripture-box fade-in">
             <p class="amharic">"እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5 (NASV)</p>
@@ -592,7 +650,7 @@
                 
                 <div class="location-desc">
                     <p><strong>Mekane Yesus Seminary</strong></p>
-                    <p>Mekanissa, Addis Ababa, Ethiopia.</p>
+                    <p>Addis Ababa, Ethiopia.</p>
                 </div>
                 
                 <div class="time-highlight">
@@ -607,7 +665,7 @@
 
     <!-- 4. Countdown Section -->
     <section id="countdown-section" class="fade-in">
-        <!-- Re-use the realistic 3D Rings here too without the pulse animation -->
+        <!-- Re-use the realistic 3D Rings here too -->
         <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
             <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
             <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
@@ -615,7 +673,7 @@
         </svg>
         
         <h2>The Countdown</h2>
-        <p style="font-size: 1.1rem; color: var(--champagne-gold); font-weight: 600; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 4px;">Awaiting our special day...</p>
+        <p class="script-accent fade-in" style="font-size: 2.2rem;">Awaiting our special day...</p>
         
         <div class="countdown-container">
             <div class="time-box">
@@ -639,10 +697,13 @@
 
     <!-- E. Closing Section -->
     <section id="closing" class="fade-in">
+        <p class="script-accent fade-in" style="margin-bottom: 30px; font-size: 3.5rem;">Forever & Always</p>
+        
         <div class="image-frame large-frame fade-in">
-            <!-- Second Image - Restored and massively enlarged -->
+            <!-- Second Image -->
             <img src="second-image.jpg" alt="Ahadu and Tigist">
         </div>
+        
         <div class="names-container fade-in" style="margin-top: 30px;">
             <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
             <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
@@ -650,12 +711,20 @@
     </section>
 
     <script>
+        // --- Page Loader Logic ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('page-loader');
+            // Slight delay ensures it feels smooth and the video has a moment to start
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500); 
+        });
+
         // --- Intro Reveal & Autoplay Logic ---
         const audio = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-toggle");
         let isPlaying = false;
         
-        // Set a comfortable, elegant volume level
         audio.volume = 0.4;
 
         function openInvitation() {
