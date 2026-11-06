@@ -159,115 +159,51 @@
 
         #reveal-overlay.hidden {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-30px) scale(1.05);
             pointer-events: none;
         }
 
-        /* --- Floating White Flowers --- */
+        /* --- Floating Large Bold Flowers --- */
         .floating-flower {
             position: absolute;
             opacity: 0;
             pointer-events: none;
             z-index: 1; /* Stays behind the envelope */
-            animation: floatUp 6s infinite linear;
+            animation: floatUp 12s infinite linear; /* Slower, more elegant float for large objects */
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15));
         }
 
         @keyframes floatUp {
             0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-            20% { opacity: 0.9; }
-            80% { opacity: 0.9; }
-            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translateY(-20vh) rotate(180deg) scale(1.1); opacity: 0; }
         }
 
-        /* --- Luxury CSS Envelope --- */
-        .envelope-wrapper {
+        /* --- Image Envelope Reveal --- */
+        .envelope-image-wrapper {
             position: relative;
-            width: 340px;
-            height: 230px;
-            background: var(--white);
-            border-radius: 6px;
-            box-shadow: 0 15px 40px rgba(68, 56, 44, 0.15);
-            cursor: pointer;
             z-index: 10;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease;
+            max-width: 90vw;
         }
 
-        .envelope-wrapper:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(68, 56, 44, 0.2);
+        .envelope-image-wrapper:hover {
+            transform: scale(1.03) translateY(-5px);
+            filter: brightness(1.02);
         }
 
-        /* The Card inside the envelope */
-        .envelope-card {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            height: 90%;
-            background-color: #FDFBF7;
-            border: 1px solid var(--champagne-gold);
-            border-radius: 4px;
-            z-index: 1; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 40px;
-            transition: transform 0.8s ease;
-        }
-
-        /* Front Pocket (Covers the bottom half of the card) */
-        .envelope-front-pocket {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+        .envelope-image-wrapper img {
             width: 100%;
-            height: 70%;
-            background-color: #FDFDFD;
-            z-index: 3;
-            border-radius: 0 0 6px 6px;
-            box-shadow: 0 -3px 15px rgba(0,0,0,0.03);
-            overflow: hidden;
-        }
-
-        /* The Flap */
-        .flap-wrapper {
-            position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 60%;
-            z-index: 4;
-            filter: drop-shadow(0px 6px 8px rgba(68, 56, 44, 0.1));
-            transform-origin: top;
-            transition: transform 0.8s ease-in-out, z-index 0.8s;
-        }
-
-        .envelope-flap {
-            width: 100%; 
-            height: 100%;
-            background-color: #FAFAFA;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-        }
-
-        /* The Floral Gold Seal */
-        .envelope-seal {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 45px;
-            height: 45px;
-            background: var(--white);
-            border: 2px solid var(--champagne-gold);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            max-width: 550px; /* Appropriately large for a beautiful envelope */
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(68, 56, 44, 0.3);
+            display: block;
         }
 
         /* --- Luxury Buttons --- */
-        .btn, .reveal-btn {
+        .btn {
             background-color: var(--champagne-gold);
             color: var(--white);
             border: none;
@@ -287,7 +223,7 @@
             z-index: 2;
         }
 
-        .btn::after, .reveal-btn::after {
+        .btn::after {
             content: '';
             position: absolute;
             top: 0;
@@ -300,22 +236,14 @@
             z-index: -1;
         }
 
-        .btn:hover, .reveal-btn:hover {
+        .btn:hover {
             background-color: var(--deep-brown);
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(68, 56, 44, 0.4);
         }
 
-        .btn:hover::after, .reveal-btn:hover::after {
+        .btn:hover::after {
             left: 200%;
-        }
-
-        /* --- Floral Ornaments --- */
-        .ornament {
-            width: 120px;
-            height: auto;
-            margin: 20px auto 40px auto;
-            opacity: 0.8;
         }
 
         /* --- Lightbox for Image --- */
@@ -728,47 +656,14 @@
         <img id="lightbox-img" src="image_f683fa.jpg" alt="Enlarged Wedding Invitation">
     </div>
 
-    <!-- Opening Reveal Overlay with White Envelope -->
+    <!-- Opening Reveal Overlay with Image Envelope -->
     <div id="reveal-overlay">
-        <!-- JS will inject floating white flowers here -->
+        <!-- JS will inject large floating burgundy/gold flowers here -->
         
-        <div class="envelope-wrapper" onclick="openInvitation()">
-            
-            <!-- The Card Inside -->
-            <div class="envelope-card">
-                <h1 style="font-family: 'Alex Brush', cursive; font-size: 2.2rem; color: var(--champagne-gold); margin:0;">Ahadu & Tigist</h1>
-                <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; color: var(--deep-brown);">Open Invitation</p>
-            </div>
-            
-            <!-- The Envelope Front Body with Floral Corners -->
-            <div class="envelope-front-pocket">
-                <svg style="position: absolute; bottom: 10px; left: 10px; width: 45px; opacity: 0.3;" viewBox="0 0 24 24" fill="none" stroke="var(--champagne-gold)" stroke-width="1.2">
-                    <path d="M21 21C21 21 16 19 12 12C8 19 3 21 3 21" />
-                    <path d="M12 12C12 12 14 6 18 3" />
-                    <path d="M12 12C12 12 10 6 6 3" />
-                    <circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/>
-                </svg>
-                <svg style="position: absolute; bottom: 10px; right: 10px; width: 45px; opacity: 0.3; transform: scaleX(-1);" viewBox="0 0 24 24" fill="none" stroke="var(--champagne-gold)" stroke-width="1.2">
-                    <path d="M21 21C21 21 16 19 12 12C8 19 3 21 3 21" />
-                    <path d="M12 12C12 12 14 6 18 3" />
-                    <path d="M12 12C12 12 10 6 6 3" />
-                    <circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/>
-                </svg>
-            </div>
-            
-            <!-- The Envelope Flap with Gold Seal -->
-            <div class="flap-wrapper" id="envelope-flap">
-                <div class="envelope-flap"></div>
-                <div class="envelope-seal">
-                    <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="20" height="20">
-                        <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
-                    </svg>
-                </div>
-            </div>
-
+        <div class="envelope-image-wrapper" onclick="openInvitation()">
+            <img src="image_b25afd.jpg" alt="Tap to open invitation envelope">
         </div>
 
-        <p class="click-hint" style="color: var(--deep-brown); z-index: 10; margin-top: 40px; font-weight: bold; background: rgba(255,255,255,0.85); padding: 8px 20px; border-radius: 20px; letter-spacing: 1px;">Tap envelope to open</p>
     </div>
 
     <!-- 1. Welcome & Save the Date Section -->
@@ -863,7 +758,6 @@
     <!-- 3. Invitation Section -->
     <section id="invitation" class="fade-in">
         
-        <!-- Beautiful Decorative Gold Seal -->
         <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="60" height="60" style="margin-bottom: 20px;">
             <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
         </svg>
@@ -948,25 +842,28 @@
         
         <div class="names-container fade-in" style="margin-top: 30px;">
             <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
-            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ እና ትግስት </div>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ እና ትግስት</div>
         </div>
     </section>
 
     <script>
-        // --- Generate Floating White Flowers on Intro Screen ---
+        // --- Generate Large Bold Floating Flowers on Intro Screen ---
         const overlay = document.getElementById('reveal-overlay');
-        const whiteFlowerSVG = `<svg viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/><circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/></svg>`;
         
-        for (let i = 0; i < 18; i++) {
+        // Deep bold red to match the wax seal, with a shimmering gold center
+        const boldFlowerSVG = `<svg viewBox="0 0 24 24" fill="#B22222"><path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/><circle cx="12" cy="12" r="2" fill="#D4AF37"/></svg>`;
+        
+        for (let i = 0; i < 10; i++) {
             let flower = document.createElement('div');
             flower.classList.add('floating-flower');
-            flower.innerHTML = whiteFlowerSVG;
+            flower.innerHTML = boldFlowerSVG;
             flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDelay = Math.random() * 4 + 's';
-            flower.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            flower.style.animationDelay = Math.random() * 5 + 's';
+            // Slow, elegant floating speed for large elements
+            flower.style.animationDuration = (Math.random() * 6 + 10) + 's'; 
             
-            // Randomize sizes to be beautifully medium (25px to 45px)
-            let size = Math.random() * 20 + 25; 
+            // Very large sizes (80px to 150px)
+            let size = Math.random() * 70 + 80; 
             flower.style.width = size + 'px';
             flower.style.height = size + 'px';
             
@@ -981,7 +878,7 @@
             }, 600); 
         });
 
-        // --- Cinematic Envelope Reveal & Audio Fade-in Logic ---
+        // --- Image Envelope Reveal & Audio Fade-in Logic ---
         const audio = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-toggle");
         let isPlaying = false;
@@ -989,20 +886,19 @@
         audio.volume = 0; // Start at 0 for smooth fade-in
 
         function openInvitation() {
-            const flap = document.getElementById('envelope-flap');
-            const card = document.querySelector('.envelope-card');
+            const envWrapper = document.querySelector('.envelope-image-wrapper');
             
-            // 1. Flip up the envelope flap
-            flap.style.transform = 'rotateX(180deg)';
-            flap.style.zIndex = '2'; // Drops behind the front pocket aesthetically
+            // Shrink and fade the image envelope itself on click
+            envWrapper.style.transform = 'scale(1.1) translateY(-20px)';
+            envWrapper.style.opacity = '0';
             
-            // 2. Play Audio with Fade-in
             let playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
                     isPlaying = true;
                     musicBtn.innerText = "⏸️";
                     
+                    // Smooth volume fade-in up to 40%
                     let vol = 0;
                     const fadeAudio = setInterval(() => {
                         if (vol < 0.4) {
@@ -1012,24 +908,20 @@
                             clearInterval(fadeAudio);
                         }
                     }, 200);
+
                 }).catch(error => {
                     console.log("Audio playback was prevented by the browser.");
                 });
             }
             
-            // 3. Slide the card slightly up out of the envelope
-            setTimeout(() => {
-                card.style.transform = 'translateY(-30px)';
-            }, 400);
-
-            // 4. Fade out the whole overlay screen smoothly
+            // Fade out the whole overlay screen smoothly
             setTimeout(() => {
                 overlay.classList.add('hidden');
-            }, 1400);
+            }, 600);
             
             setTimeout(() => {
                 overlay.style.display = 'none';
-            }, 3000);
+            }, 2000);
         }
 
         // --- Music Toggle Button ---
