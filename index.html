@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahadu & Tigist | Wedding Invitation</title>
     
-    <!-- Google Fonts for English (Playfair Display) and Amharic (Noto Serif Ethiopic) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --champagne-gold: #D4AF37;
-            --light-gold: #E6C27A;
-            --ivory: #FFFFF0;
-            --cream: #FFFDD0;
-            --beige: #F5F5DC;
-            --text-dark: #2C2C2C;
-            --text-light: #5A5A5A;
+            /* Updated Luxury Color Palette */
+            --ivory: #FAF7F0;
+            --champagne-gold: #C5A46D;
+            --beige: #EDE3D2;
+            --deep-brown: #44382C;
+            --white: #FFFFFF;
         }
 
         * {
@@ -29,38 +28,11 @@
 
         body {
             font-family: 'Playfair Display', serif;
-            color: var(--text-dark);
+            color: var(--deep-brown);
+            background-color: var(--ivory);
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
-        }
-
-        /* --- Video Background Wallpaper --- */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-        }
-
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Semi-transparent ivory overlay so the text is still perfectly readable */
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(255, 255, 240, 0.75); 
-            z-index: -1;
         }
 
         .amharic {
@@ -79,13 +51,101 @@
             margin-bottom: 10px;
         }
 
+        /* --- Intro Reveal Overlay (Envelope Effect) --- */
+        #reveal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--ivory);
+            background-image: radial-gradient(circle at center, var(--white) 0%, var(--ivory) 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        }
+
+        #reveal-overlay.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        .ring-icon {
+            margin-bottom: 30px;
+            animation: gentlePulse 3s infinite alternate;
+        }
+
+        @keyframes gentlePulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .reveal-btn {
+            background-color: var(--champagne-gold);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            margin-top: 40px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .reveal-btn:hover {
+            background-color: var(--deep-brown);
+            transform: translateY(-2px);
+        }
+
+        /* --- Floral Ornaments --- */
+        .ornament {
+            width: 120px;
+            height: auto;
+            margin: 20px auto 40px auto;
+            opacity: 0.7;
+        }
+
+        /* --- Lightbox for Image --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(68, 56, 44, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            cursor: pointer;
+        }
+
+        #lightbox.visible {
+            opacity: 1;
+        }
+
+        #lightbox img {
+            max-width: 95%;
+            max-height: 90vh;
+            border: 6px solid var(--ivory);
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
         /* --- Animations --- */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 1.2s ease-out, transform 1.2s ease-out;
         }
-
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
@@ -102,47 +162,69 @@
             position: relative;
         }
 
-        /* --- Welcome Section --- */
+        #welcome {
+            background: linear-gradient(135deg, var(--white) 0%, var(--beige) 100%);
+        }
+
+        /* --- Names & Parents --- */
         .names-container {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .names-container h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            color: var(--deep-brown);
         }
         
         .names-container .amharic-names {
             font-size: 2rem;
-            color: var(--text-light);
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            color: var(--deep-brown);
+            margin-bottom: 30px;
+        }
+
+        .parents-section {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+
+        .parents-section p {
+            margin: 0;
+            color: var(--deep-brown);
+        }
+
+        .parents-section span {
+            font-size: 1rem;
+            color: var(--champagne-gold);
+            font-style: italic;
         }
 
         .date-container {
             margin-bottom: 30px;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .image-frame {
-            border: 8px solid var(--cream);
+            border: 12px solid var(--white);
             outline: 2px solid var(--champagne-gold);
-            padding: 15px;
-            background: #fff;
+            padding: 10px;
+            background: var(--white);
             margin: 30px auto;
             max-width: 90%;
-            width: 450px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            width: 480px;
+            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.1);
+            cursor: zoom-in;
+            transition: transform 0.4s ease;
         }
-        
-        /* Extra Enlarged Frame for the Closing Section */
-        .large-frame {
-            width: 1200px; /* Massively increased width */
-            max-width: 98vw; /* Takes up almost the entire screen on mobile */
-            padding: 20px;
-            border-width: 12px; /* Thicker border to match the large size */
+
+        .image-frame:hover {
+            transform: scale(1.02);
         }
 
         .image-frame img {
@@ -151,130 +233,145 @@
             display: block;
         }
 
-        .btn {
-            background-color: var(--champagne-gold);
-            color: #fff;
-            padding: 15px 40px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            display: inline-block;
-            margin-top: 20px;
-            border: 1px solid var(--champagne-gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .btn:hover {
-            background-color: transparent;
+        .click-hint {
+            font-size: 0.9rem;
             color: var(--champagne-gold);
-            background: rgba(255,255,255,0.8);
+            font-style: italic;
+            margin-top: 10px;
         }
 
         /* --- Invitation Section --- */
+        #invitation {
+            background-color: var(--white);
+        }
+
         .scripture-box {
-            background: rgba(255, 255, 255, 0.85);
-            border-top: 2px solid var(--champagne-gold);
-            border-bottom: 2px solid var(--champagne-gold);
-            padding: 30px 20px;
+            border-top: 1px solid var(--champagne-gold);
+            border-bottom: 1px solid var(--champagne-gold);
+            padding: 40px 20px;
             max-width: 700px;
             margin: 0 auto 40px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .scripture-box p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-style: italic;
-            color: var(--text-light);
+            color: var(--deep-brown);
             margin-bottom: 15px;
         }
 
         .invitation-msg {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 10px;
             max-width: 600px;
-            font-size: 1.2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            font-size: 1.3rem;
+            line-height: 1.8;
         }
 
         /* --- Details Section --- */
+        #details {
+            background: linear-gradient(to bottom, var(--ivory), var(--beige));
+        }
+
         .cards-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 40px;
             justify-content: center;
-            max-width: 900px;
-            margin-top: 40px;
+            max-width: 1000px;
+            margin-top: 30px;
         }
 
         .event-card {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--light-gold);
-            padding: 40px 25px;
+            background: var(--white);
+            border-top: 4px solid var(--champagne-gold);
+            padding: 40px 30px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .event-card::before {
-            content: "✦";
-            color: var(--light-gold);
-            font-size: 1.5rem;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.08);
+            border-radius: 4px;
         }
 
         .event-card h3 {
-            font-size: 1.5rem;
-            margin-top: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .location-desc {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: var(--deep-brown);
         }
 
         .time-highlight {
-            background-color: rgba(255, 253, 208, 0.7);
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 5px;
-            font-size: 0.95rem;
+            background-color: var(--ivory);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            border: 1px solid rgba(197, 164, 109, 0.3);
+            font-size: 1rem;
         }
 
         .time-highlight strong {
             color: var(--champagne-gold);
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            background-color: var(--champagne-gold);
+            color: var(--white);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 1px solid var(--champagne-gold);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--deep-brown);
+            border-color: var(--deep-brown);
         }
 
         /* --- Countdown Section --- */
+        #countdown-section {
+            background-color: var(--white);
+        }
+
         .countdown-container {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
         .time-box {
-            background: rgba(212, 175, 55, 0.9);
-            color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            min-width: 80px;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            background: var(--ivory);
+            border: 1px solid var(--champagne-gold);
+            color: var(--deep-brown);
+            padding: 25px 20px;
+            border-radius: 4px;
+            min-width: 90px;
+            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.15);
         }
 
         .time-box span {
             display: block;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
+            color: var(--champagne-gold);
+            font-family: 'Playfair Display', serif;
         }
 
         .time-box .label {
-            font-size: 0.9rem;
-            font-weight: normal;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-top: 5px;
         }
 
         /* --- Audio Player --- */
@@ -282,47 +379,40 @@
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: var(--champagne-gold);
-            color: #fff;
-            border: none;
+            background: var(--white);
+            color: var(--champagne-gold);
+            border: 1px solid var(--champagne-gold);
             border-radius: 50%;
             width: 55px;
             height: 55px;
             font-size: 1.2rem;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(68, 56, 44, 0.15);
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .music-btn:hover {
+            background: var(--champagne-gold);
+            color: var(--white);
             transform: scale(1.1);
         }
 
         @media (max-width: 600px) {
             .names-container h1 { font-size: 2.2rem; }
-            .names-container .amharic-names { font-size: 1.5rem; }
+            .names-container .amharic-names { font-size: 1.6rem; }
             section { padding: 60px 15px; }
-            .time-box { min-width: 70px; padding: 15px; }
-            .time-box span { font-size: 1.8rem; }
-            .large-frame { padding: 10px; border-width: 8px; }
+            .time-box { min-width: 75px; padding: 15px; }
+            .time-box span { font-size: 2rem; }
+            .parents-section { font-size: 1.1rem; }
+            .image-frame { border-width: 8px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Video Background -->
-    <div class="video-background">
-        <!-- Must be muted to autoplay properly on mobile devices -->
-        <video autoplay loop muted playsinline>
-            <source src="flowers-wind.mp4" type="video/mp4">
-        </video>
-    </div>
-    <!-- Semi-transparent overlay to ensure text readability -->
-    <div class="video-overlay"></div>
 
     <!-- Background Audio -->
     <audio id="bg-music" loop>
@@ -330,27 +420,61 @@
     </audio>
     <button class="music-btn" id="music-toggle" aria-label="Play Music">🎵</button>
 
-    <!-- A. Welcome Section -->
-    <section id="welcome" class="fade-in">
-        <div class="names-container">
-            <h1>Ahadu & Tigist</h1>
-            <div class="amharic amharic-names">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
+    <!-- Full Screen Image Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="image_f683fa.jpg" alt="Enlarged Wedding Invitation">
+    </div>
+
+    <!-- Opening Reveal Overlay -->
+    <div id="reveal-overlay">
+        <!-- Elegant Gold Ring SVG -->
+        <svg class="ring-icon" viewBox="0 0 120 70" width="100" height="60">
+            <circle cx="40" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="3" fill="none" />
+            <circle cx="80" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="3" fill="none" />
+        </svg>
+        <h1 style="color: var(--deep-brown); font-size: 2rem; margin-bottom: 10px;">Ahadu & Tigist</h1>
+        <p style="color: var(--champagne-gold); letter-spacing: 2px;">21 . 11 . 2026</p>
+        <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
+    </div>
+
+    <!-- 1. Welcome Section -->
+    <section id="welcome">
+        
+        <div class="names-container fade-in">
+            <h1>Ahadu Fithaamlak & Tigist Belay</h1>
+            <div class="amharic amharic-names">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
+        </div>
+
+        <div class="parents-section fade-in">
+            <div>
+                <p>Ahadu Fithaamlak</p>
+                <span>Son of [GROOM'S FATHER FULL NAME]</span>
+            </div>
+            <div>
+                <p>Tigist Belay</p>
+                <span>Daughter of [BRIDE'S FATHER FULL NAME]</span>
+            </div>
         </div>
         
-        <div class="date-container">
-            <p>Saturday, 21 November 2026</p>
-            <p class="amharic">12 Hidar 2019 E.C.</p>
+        <!-- Subtle Divider -->
+        <svg class="ornament fade-in" viewBox="0 0 200 20">
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1" fill="none"/>
+            <circle cx="100" cy="10" r="3" fill="var(--champagne-gold)"/>
+        </svg>
+
+        <div class="date-container fade-in">
+            <p>Saturday, November 21, 2026</p>
+            <p class="amharic" style="font-size: 1.1rem; font-weight: normal; margin-top: 5px;">12 Hidar 2019 E.C.</p>
         </div>
 
-        <div class="image-frame fade-in">
-            <!-- First Image -->
+        <div class="image-frame fade-in" onclick="openLightbox()">
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
+        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
 
-        <a href="#invitation" class="btn fade-in">Open Invitation</a>
     </section>
 
-    <!-- B. Invitation Section -->
+    <!-- 2. Invitation Section -->
     <section id="invitation" class="fade-in">
         <h2>The Invitation</h2>
         
@@ -363,48 +487,67 @@
             <p>We joyfully invite you to share in our happiness as we unite in marriage. Your presence will make our celebration complete.</p>
             <p class="amharic">በጋብቻ ስንተሳሰር ደስታችንን አብራችሁን እንድታካፍሉ በደስታ እንጋብዛለን። መገኘትዎ ክብራችን ነው።</p>
         </div>
+        
+        <svg class="ornament fade-in" style="margin-top: 60px;" viewBox="0 0 200 20">
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1" fill="none"/>
+            <circle cx="100" cy="10" r="3" fill="var(--champagne-gold)"/>
+        </svg>
     </section>
 
-    <!-- C. Wedding Details Section -->
+    <!-- 3. Wedding Details Section -->
     <section id="details">
         <h2 class="fade-in">Wedding Details</h2>
-        <p class="fade-in" style="font-weight:bold;">Saturday, 21 November 2026</p>
+        <p class="fade-in" style="font-weight:600; font-size: 1.1rem;">Saturday, November 21, 2026</p>
         
         <div class="cards-container">
             <!-- Event 1: Church Ceremony -->
             <div class="event-card fade-in">
                 <h3>Church Ceremony</h3>
-                <p class="amharic">የቃል ኪዳን ስርዓት</p>
-                <p><strong>Mekanissa Addis Kidan Baptist Church</strong></p>
+                <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የቃል ኪዳን ስርዓት</p>
+                
+                <div class="location-desc">
+                    <p><strong>Mekanissa Addis Kidan Baptist Church</strong></p>
+                    <p>Mekanissa, Addis Ababa, Ethiopia.</p>
+                </div>
                 
                 <div class="time-highlight">
                     <p><strong>11:00 AM</strong> (International Time)</p>
-                    <p class="amharic"><strong>5:00</strong> (Ethiopian Time)</p>
+                    <p class="amharic" style="margin-top: 5px;"><strong>5:00</strong> (Ethiopian Time)</p>
                 </div>
                 
-                <a href="https://maps.app.goo.gl/wechTC3SKB32mkos7" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Church Location</a>
+                <a href="https://maps.app.goo.gl/wechTC3SKB32mkos7" target="_blank" class="btn">View Church Location</a>
             </div>
 
             <!-- Event 2: Lunch Celebration -->
             <div class="event-card fade-in">
                 <h3>Lunch Celebration</h3>
-                <p class="amharic">የምሳ ግብዣ</p>
-                <p><strong>Mekane Yesus Seminary</strong></p>
+                <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የምሳ ግብዣ</p>
+                
+                <div class="location-desc">
+                    <p><strong>Mekane Yesus Seminary</strong></p>
+                    <p>Addis Ababa, Ethiopia.</p>
+                </div>
                 
                 <div class="time-highlight">
                     <p><strong>1:00 PM</strong> (International Time)</p>
-                    <p class="amharic"><strong>7:00</strong> (Ethiopian Time)</p>
+                    <p class="amharic" style="margin-top: 5px;"><strong>7:00</strong> (Ethiopian Time)</p>
                 </div>
                 
-                <a href="https://maps.app.goo.gl/gy15duS86XDbAvPT7" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Lunch Venue</a>
+                <a href="https://maps.app.goo.gl/gy15duS86XDbAvPT7" target="_blank" class="btn">View Lunch Venue</a>
             </div>
         </div>
     </section>
 
-    <!-- D. Countdown Section -->
+    <!-- 4. Countdown Section -->
     <section id="countdown-section" class="fade-in">
+        <svg class="ring-icon" viewBox="0 0 120 70" width="80" height="50" style="animation: none; margin-bottom: 10px;">
+            <circle cx="40" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="2" fill="none" />
+            <circle cx="80" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="2" fill="none" />
+        </svg>
+        
         <h2>The Countdown</h2>
-        <p style="font-weight:bold;">Awaiting our special day...</p>
+        <p style="font-size: 1.1rem; color: var(--champagne-gold);">Awaiting our special day...</p>
+        
         <div class="countdown-container">
             <div class="time-box">
                 <span id="days">00</span>
@@ -425,19 +568,66 @@
         </div>
     </section>
 
-    <!-- E. Closing Section -->
-    <section id="closing" class="fade-in">
-        <div class="image-frame large-frame fade-in">
-            <!-- Second Image - Now massively enlarged -->
-            <img src="second-image.jpg" alt="Ahadu and Tigist">
-        </div>
-        <div class="names-container fade-in" style="margin-top: 30px;">
-            <h2>Ahadu & Tigist</h2>
-            <div class="amharic" style="font-size: 1.5rem; color: var(--text-light); text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ & ትግስት በላይ</div>
-        </div>
-    </section>
-
     <script>
+        // --- Intro Reveal & Autoplay Logic ---
+        const audio = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-toggle");
+        let isPlaying = false;
+        
+        // Set a comfortable, elegant volume level
+        audio.volume = 0.4;
+
+        function openInvitation() {
+            const overlay = document.getElementById('reveal-overlay');
+            overlay.classList.add('hidden');
+            
+            // Start audio upon clicking the reveal button (guarantees playback on all browsers)
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isPlaying = true;
+                    musicBtn.innerText = "⏸️";
+                }).catch(error => {
+                    console.log("Audio playback was prevented by the browser.");
+                });
+            }
+            
+            // Remove overlay from DOM after animation finishes so it doesn't block clicks
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1500);
+        }
+
+        // --- Music Toggle Button ---
+        musicBtn.addEventListener("click", () => {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerText = "🎵";
+            } else {
+                audio.play();
+                musicBtn.innerText = "⏸️";
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // --- Lightbox Logic ---
+        const lightbox = document.getElementById('lightbox');
+        
+        function openLightbox() {
+            lightbox.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before setting opacity for smooth fade
+            setTimeout(() => {
+                lightbox.classList.add('visible');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('visible');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+            }, 400); // Matches CSS transition time
+        }
+
         // --- Countdown Timer Logic ---
         const targetDate = new Date("November 21, 2026 11:00:00+03:00").getTime();
 
@@ -456,22 +646,6 @@
             document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
-
-        // --- Music Player Logic ---
-        const audio = document.getElementById("bg-music");
-        const musicBtn = document.getElementById("music-toggle");
-        let isPlaying = false;
-
-        musicBtn.addEventListener("click", () => {
-            if (isPlaying) {
-                audio.pause();
-                musicBtn.innerText = "🎵";
-            } else {
-                audio.play();
-                musicBtn.innerText = "⏸️";
-            }
-            isPlaying = !isPlaying;
-        });
 
         // --- Scroll Fade-in Animation Logic ---
         const observerOptions = {
