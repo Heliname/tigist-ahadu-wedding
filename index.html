@@ -163,20 +163,20 @@
             pointer-events: none;
         }
 
-        /* --- Floating Large Bold Flowers --- */
+        /* --- Floating Large White Roses --- */
         .floating-flower {
             position: absolute;
             opacity: 0;
             pointer-events: none;
             z-index: 1; /* Stays behind the envelope */
-            animation: floatUp 12s infinite linear; /* Slower, more elegant float for large objects */
-            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15));
+            animation: floatUp 12s infinite linear; 
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.1));
         }
 
         @keyframes floatUp {
             0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-            15% { opacity: 0.9; }
-            85% { opacity: 0.9; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
             100% { transform: translateY(-20vh) rotate(180deg) scale(1.1); opacity: 0; }
         }
 
@@ -196,10 +196,22 @@
 
         .envelope-image-wrapper img {
             width: 100%;
-            max-width: 550px; /* Appropriately large for a beautiful envelope */
+            max-width: 350px; /* Greatly reduced size for a delicate look */
             border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(68, 56, 44, 0.3);
+            box-shadow: 0 15px 40px rgba(68, 56, 44, 0.25);
             display: block;
+        }
+
+        .click-hint {
+            font-size: 0.9rem;
+            color: var(--champagne-gold);
+            font-style: italic;
+            margin-top: 30px;
+            background: rgba(255,255,255,0.85);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            z-index: 10;
         }
 
         /* --- Luxury Buttons --- */
@@ -460,17 +472,6 @@
             display: block;
         }
 
-        .click-hint {
-            font-size: 0.9rem;
-            color: var(--champagne-gold);
-            font-style: italic;
-            margin-bottom: 40px;
-            background: rgba(255,255,255,0.7);
-            padding: 5px 15px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
         /* --- Invitation Section --- */
         .scripture-box {
             background: rgba(255, 255, 255, 0.85);
@@ -623,6 +624,7 @@
             .image-frame { border-width: 8px; margin-top: 20px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
+            .envelope-image-wrapper img { max-width: 280px; } /* Slightly smaller on very narrow phones */
         }
     </style>
 </head>
@@ -658,12 +660,12 @@
 
     <!-- Opening Reveal Overlay with Image Envelope -->
     <div id="reveal-overlay">
-        <!-- JS will inject large floating burgundy/gold flowers here -->
+        <!-- JS will inject large white layered roses here -->
         
         <div class="envelope-image-wrapper" onclick="openInvitation()">
-            <img src="image_b25afd.jpg" alt="Tap to open invitation envelope">
+            <img src="envelope.jpg" alt="Tap to open invitation envelope">
         </div>
-
+        <p class="click-hint" style="margin-top: 25px;">Tap envelope to open</p>
     </div>
 
     <!-- 1. Welcome & Save the Date Section -->
@@ -694,7 +696,7 @@
         <div class="image-frame fade-in" onclick="openLightbox()">
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
-        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
+        <p class="click-hint fade-in" style="margin-bottom: 30px;">Tap the invitation to enlarge</p>
         
         <!-- Beautiful Calendar with Image Background & Bold Red Heart -->
         <div class="calendar-container fade-in">
@@ -847,23 +849,28 @@
     </section>
 
     <script>
-        // --- Generate Large Bold Floating Flowers on Intro Screen ---
+        // --- Generate Elegant White Rose Flowers on Intro Screen ---
         const overlay = document.getElementById('reveal-overlay');
         
-        // Deep bold red to match the wax seal, with a shimmering gold center
-        const boldFlowerSVG = `<svg viewBox="0 0 24 24" fill="#B22222"><path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/><circle cx="12" cy="12" r="2" fill="#D4AF37"/></svg>`;
+        // Multi-layered beautiful blooming white rose SVG
+        const whiteRoseSVG = `<svg viewBox="0 0 512 512" fill="#FFFFFF" filter="drop-shadow(2px 4px 6px rgba(0,0,0,0.15))">
+            <path fill="#F9F9F9" d="M362.6,356.5c-27.4,32.7-72.3,44.7-111.9,35.6c-13-3-26.6-1.5-38.3,6.2 c-25.5,16.7-60.8,11.2-79.6-11.8c-14.8-18.1-15.6-43.2-3.8-61.9c7.6-12,8-27.2,1.3-39.6C114.7,255.4,115.3,218,137,192 c21.4-25.6,56.6-32.9,85.2-20.9c12.2,5.1,26.4,3.7,37.3-4.5c24.6-18.4,59.3-17.7,82.8,3.2c16.3,14.5,23.3,37.3,16.2,58 c-4,11.8-1.5,25.2,6.5,34.7C384.6,285.9,386.6,327.9,362.6,356.5z"/>
+            <path fill="#FFFFFF" d="M251.3,212.8c-28.7-22.3-69.7-17.2-91.8,11.5c-16.1,20.8-16.1,49.5,0.7,69.7 c8.6,10.3,10.6,24.8,5.4,37.3c-9.6,23.3-3.6,50.7,15.7,66.7c17.5,14.5,42.8,14.3,60.6-2.2c10.4-9.6,25.6-12.7,39.1-7.8 c25.7,9.3,55.1,1.3,71.2-20.8c13-17.8,13.2-42.3,2.5-60.2c-6.8-11.4-6.2-26.2,1.8-37c14.2-19,16.8-44.5,6.2-65.7 c-8.5-17.1-25.5-27.9-44.6-28.5c-13.4-0.4-26.2-7.1-33.8-18C274.6,143.2,253.9,139.7,235.1,148.1c-14.7,6.6-25,20.1-27.8,36.1 c-1.6,9.1,1.5,18.4,8.1,25.2C226.7,218.8,240.2,221.7,251.3,212.8z"/>
+            <path fill="#F2F2F2" d="M256,234.7c-21.7-13.8-50-7.3-63.7,14.4c-9.9,15.8-7.8,36.5,4.7,50.2 c8.1,8.9,11.4,21.5,8.1,33.1c-5.8,20.3,6.2,42.1,26.5,48c17.1,5,35.8-2.6,44.7-17.6c5.9-10,17.2-15.5,28.8-13.5 c19.7,3.4,39.7-8.3,46.1-27.5c4.7-14.3,0.3-30.3-10.7-40c-7.9-7-11-18.3-7.5-28.1c6.5-18.4,0.4-39.3-15-50.5 C304.7,193.5,281.3,196.4,268.1,213.3C263.2,219.5,264.4,228.6,256,234.7z"/>
+            <path fill="#EAEAEA" d="M256,266.7c-11.4-8.8-28.2-6.7-36.9,4.7c-6.1,8-4.7,19.6,3.3,25.7 c5.7,4.3,8.4,11.7,6.5,18.6c-3.1,11,4.2,22.4,15.2,25.2c9.5,2.4,19.5-2.7,23.3-11.7c3.1-7.4,11.1-11.5,19-9.5 c10.3,2.6,21.2-3.1,24.4-13.2c2.4-7.6-0.6-16-7.3-19.9c-4.9-2.9-7.4-8.9-5.9-14.4c2.8-10-3-20.7-12.9-23.7 C275,245.5,263,251,256,266.7z"/>
+        </svg>`;
         
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 12; i++) {
             let flower = document.createElement('div');
             flower.classList.add('floating-flower');
-            flower.innerHTML = boldFlowerSVG;
+            flower.innerHTML = whiteRoseSVG;
             flower.style.left = Math.random() * 100 + 'vw';
             flower.style.animationDelay = Math.random() * 5 + 's';
             // Slow, elegant floating speed for large elements
             flower.style.animationDuration = (Math.random() * 6 + 10) + 's'; 
             
-            // Very large sizes (80px to 150px)
-            let size = Math.random() * 70 + 80; 
+            // Randomly large sizes (40px to 80px)
+            let size = Math.random() * 40 + 40; 
             flower.style.width = size + 'px';
             flower.style.height = size + 'px';
             
@@ -887,10 +894,12 @@
 
         function openInvitation() {
             const envWrapper = document.querySelector('.envelope-image-wrapper');
+            const hint = document.querySelector('.click-hint');
             
             // Shrink and fade the image envelope itself on click
             envWrapper.style.transform = 'scale(1.1) translateY(-20px)';
             envWrapper.style.opacity = '0';
+            if(hint) hint.style.opacity = '0';
             
             let playPromise = audio.play();
             if (playPromise !== undefined) {
