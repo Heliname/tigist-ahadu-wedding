@@ -45,7 +45,7 @@
             left: 15px;
             right: 15px;
             border: 1px solid var(--champagne-gold);
-            pointer-events: none; /* So it doesn't block clicks */
+            pointer-events: none; 
             z-index: 9998;
             opacity: 0.4;
         }
@@ -140,7 +140,7 @@
             margin-bottom: 10px;
         }
 
-        /* --- Intro Reveal Overlay (Envelope Effect) --- */
+        /* --- Intro Reveal Overlay with Sparkles --- */
         #reveal-overlay {
             position: fixed;
             top: 0;
@@ -154,6 +154,7 @@
             justify-content: center;
             align-items: center;
             transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            overflow: hidden;
         }
 
         #reveal-overlay.hidden {
@@ -165,31 +166,80 @@
         .ring-icon {
             margin-bottom: 30px;
             animation: gentlePulse 3s infinite alternate;
+            z-index: 2;
         }
 
         @keyframes gentlePulse {
             0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
             100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.5)); }
         }
+        
+        /* Floating Magical Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: var(--champagne-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(197, 164, 109, 0.6);
+            opacity: 0;
+            animation: floatUp 4s infinite linear;
+        }
 
-        .reveal-btn {
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; transform: translateY(50vh) scale(1.5); }
+            100% { transform: translateY(-10vh) scale(0); opacity: 0; }
+        }
+
+        /* --- Luxury Button with Sweep Shine --- */
+        .btn, .reveal-btn {
             background-color: var(--champagne-gold);
             color: var(--white);
             border: none;
             padding: 15px 40px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-family: 'Playfair Display', serif;
             letter-spacing: 1.5px;
             border-radius: 4px;
-            margin-top: 40px;
+            margin-top: 20px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(197, 164, 109, 0.4);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+            z-index: 2;
         }
 
-        .reveal-btn:hover {
+        .reveal-btn {
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+
+        /* The Shine Effect */
+        .btn::after, .reveal-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            transition: all 0.7s ease;
+            z-index: -1;
+        }
+
+        .btn:hover, .reveal-btn:hover {
             background-color: var(--deep-brown);
             transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(68, 56, 44, 0.4);
+        }
+
+        .btn:hover::after, .reveal-btn:hover::after {
+            left: 200%;
         }
 
         /* --- Floral Ornaments --- */
@@ -280,6 +330,12 @@
             padding: 25px;
             border-radius: 8px;
             border: 1px solid rgba(197, 164, 109, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .parents-section:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .parents-section p {
@@ -312,7 +368,7 @@
             width: 480px;
             box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15);
             cursor: zoom-in;
-            transition: transform 0.4s ease;
+            transition: all 0.4s ease;
         }
         
         .large-frame {
@@ -325,6 +381,7 @@
 
         .image-frame:not(.large-frame):hover {
             transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(197, 164, 109, 0.3);
         }
 
         .image-frame img {
@@ -389,6 +446,11 @@
             max-width: 420px;
             box-shadow: 0 15px 35px rgba(68, 56, 44, 0.1);
             border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
         }
 
         .event-card h3 {
@@ -415,26 +477,6 @@
             color: var(--champagne-gold);
             display: inline-block;
             margin-bottom: 5px;
-        }
-
-        .btn {
-            background-color: var(--champagne-gold);
-            color: var(--white);
-            padding: 12px 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            border: 1px solid var(--champagne-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--white);
-            color: var(--deep-brown);
-            border-color: var(--deep-brown);
         }
 
         /* --- Countdown Section --- */
@@ -496,7 +538,7 @@
         .music-btn:hover {
             background: var(--champagne-gold);
             color: var(--white);
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(10deg);
         }
 
         @media (max-width: 600px) {
@@ -544,9 +586,10 @@
         <img id="lightbox-img" src="image_f683fa.jpg" alt="Enlarged Wedding Invitation">
     </div>
 
-    <!-- Opening Reveal Overlay -->
+    <!-- Opening Reveal Overlay with Sparkles -->
     <div id="reveal-overlay">
-        <!-- Realistic 3D Interlocking Metallic Gold Rings SVG -->
+        <!-- JS will inject sparkles here -->
+        
         <svg class="ring-icon" viewBox="0 0 140 80" width="120" height="70">
             <defs>
                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -565,8 +608,8 @@
             <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
         </svg>
 
-        <h1 style="color: var(--deep-brown); font-size: 2.2rem; margin-bottom: 10px;">Ahadu & Tigist</h1>
-        <p style="color: var(--champagne-gold); letter-spacing: 2px; font-weight: 600;">21 . 11 . 2026</p>
+        <h1 style="color: var(--deep-brown); font-size: 2.2rem; margin-bottom: 10px; z-index: 2;">Ahadu & Tigist</h1>
+        <p style="color: var(--champagne-gold); letter-spacing: 2px; font-weight: 600; z-index: 2;">21 . 11 . 2026</p>
         <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
     </div>
 
@@ -591,7 +634,6 @@
             </div>
         </div>
         
-        <!-- Subtle Divider -->
         <svg class="ornament fade-in" viewBox="0 0 200 20">
             <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
             <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
@@ -709,7 +751,6 @@
     <!-- E. Closing Section -->
     <section id="closing" class="fade-in">
         
-        <!-- Classic closing message -->
         <div class="fade-in" style="margin-bottom: 30px; background: rgba(255,255,255,0.7); padding: 15px 30px; border-radius: 8px;">
             <p style="font-size: 1.2rem; font-weight: 600; color: var(--deep-brown);">We look forward to celebrating with you.</p>
             <p class="amharic" style="font-size: 1.1rem; color: var(--champagne-gold);">ይህንን ልዩ ቀን ከእናንተ ጋር ለማክበር በጉጉት እንጠብቃለን።</p>
@@ -729,23 +770,33 @@
     </section>
 
     <script>
+        // --- Generate Magical Sparkles on Intro Screen ---
+        const overlay = document.getElementById('reveal-overlay');
+        for (let i = 0; i < 20; i++) {
+            let sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.animationDelay = Math.random() * 4 + 's';
+            sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            overlay.appendChild(sparkle);
+        }
+
         // --- Page Loader Logic ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loader');
             setTimeout(() => {
                 loader.classList.add('hidden');
-            }, 500); 
+            }, 600); 
         });
 
-        // --- Intro Reveal & Autoplay Logic ---
+        // --- Cinematic Audio Fade-in & Reveal Logic ---
         const audio = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-toggle");
         let isPlaying = false;
         
-        audio.volume = 0.4;
+        audio.volume = 0; // Start at 0 for fade-in
 
         function openInvitation() {
-            const overlay = document.getElementById('reveal-overlay');
             overlay.classList.add('hidden');
             
             let playPromise = audio.play();
@@ -753,6 +804,18 @@
                 playPromise.then(_ => {
                     isPlaying = true;
                     musicBtn.innerText = "⏸️";
+                    
+                    // Smooth volume fade-in up to 40%
+                    let vol = 0;
+                    const fadeAudio = setInterval(() => {
+                        if (vol < 0.4) {
+                            vol += 0.05;
+                            audio.volume = Math.min(vol, 0.4);
+                        } else {
+                            clearInterval(fadeAudio);
+                        }
+                    }, 200);
+
                 }).catch(error => {
                     console.log("Audio playback was prevented by the browser.");
                 });
