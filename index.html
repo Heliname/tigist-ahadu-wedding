@@ -8,7 +8,7 @@
     <!-- Custom Gold Ring Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 stroke=%22%23C5A46D%22 stroke-width=%2210%22 fill=%22none%22/></svg>">
 
-    <!-- Google Fonts: Playfair (Serif), Alex Brush (Cursive Script), and Noto Serif Ethiopic (Amharic) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Noto+Serif+Ethiopic:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -37,6 +37,19 @@
             scroll-behavior: smooth;
         }
 
+        /* --- Classic Printed Card Border --- */
+        #page-border {
+            position: fixed;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            border: 1px solid var(--champagne-gold);
+            pointer-events: none; /* So it doesn't block clicks */
+            z-index: 9998;
+            opacity: 0.4;
+        }
+
         /* --- Elegant Script Accent Font --- */
         .script-accent {
             font-family: 'Alex Brush', cursive;
@@ -56,7 +69,7 @@
             width: 100vw; 
             height: 100vh;
             background-color: var(--ivory);
-            z-index: 100000; /* Stays above everything */
+            z-index: 100000;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -302,7 +315,6 @@
             transition: transform 0.4s ease;
         }
         
-        /* Extra Enlarged Frame for the Closing Section */
         .large-frame {
             width: 1200px;
             max-width: 98vw;
@@ -497,12 +509,16 @@
             .parents-section { font-size: 1.05rem; padding: 15px; }
             .image-frame { border-width: 8px; }
             .large-frame { padding: 10px; border-width: 8px; }
+            #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen (Fades out once resources load) -->
+    <!-- Classic Printed Card Golden Border -->
+    <div id="page-border"></div>
+
+    <!-- Loading Screen -->
     <div id="page-loader">
         <div class="loader-ring"></div>
         <p style="margin-top: 25px; font-family: 'Playfair Display', serif; color: var(--champagne-gold); letter-spacing: 2px; font-size: 1.1rem;">Loading...</p>
@@ -510,7 +526,6 @@
 
     <!-- Video Background Wallpaper -->
     <div class="video-background">
-        <!-- Must be muted to autoplay properly on mobile devices -->
         <video autoplay loop muted playsinline>
             <source src="flowers-wind.mp4" type="video/mp4">
         </video>
@@ -545,11 +560,8 @@
                     <feDropShadow dx="2" dy="5" stdDeviation="3" flood-opacity="0.4"/>
                 </filter>
             </defs>
-            <!-- Left Ring -->
             <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <!-- Right Ring -->
             <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <!-- Interlock overlap (Top part of left ring drawn over the right ring) -->
             <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
         </svg>
 
@@ -591,7 +603,6 @@
         </div>
 
         <div class="image-frame fade-in" onclick="openLightbox()">
-            <!-- First Image -->
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
         <p class="click-hint fade-in">Tap the invitation to enlarge</p>
@@ -622,6 +633,7 @@
     <!-- 3. Wedding Details Section -->
     <section id="details">
         <h2 class="fade-in">Wedding Details</h2>
+        <p class="script-accent fade-in" style="font-size: 2.2rem; margin-bottom: 15px;">Reception to follow</p>
         <p class="fade-in" style="font-weight:600; font-size: 1.1rem; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 4px;">Saturday, November 21, 2026</p>
         
         <div class="cards-container">
@@ -665,7 +677,6 @@
 
     <!-- 4. Countdown Section -->
     <section id="countdown-section" class="fade-in">
-        <!-- Re-use the realistic 3D Rings here too -->
         <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
             <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
             <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
@@ -697,6 +708,13 @@
 
     <!-- E. Closing Section -->
     <section id="closing" class="fade-in">
+        
+        <!-- Classic closing message -->
+        <div class="fade-in" style="margin-bottom: 30px; background: rgba(255,255,255,0.7); padding: 15px 30px; border-radius: 8px;">
+            <p style="font-size: 1.2rem; font-weight: 600; color: var(--deep-brown);">We look forward to celebrating with you.</p>
+            <p class="amharic" style="font-size: 1.1rem; color: var(--champagne-gold);">ይህንን ልዩ ቀን ከእናንተ ጋር ለማክበር በጉጉት እንጠብቃለን።</p>
+        </div>
+
         <p class="script-accent fade-in" style="margin-bottom: 30px; font-size: 3.5rem;">Forever & Always</p>
         
         <div class="image-frame large-frame fade-in">
@@ -714,7 +732,6 @@
         // --- Page Loader Logic ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('page-loader');
-            // Slight delay ensures it feels smooth and the video has a moment to start
             setTimeout(() => {
                 loader.classList.add('hidden');
             }, 500); 
@@ -731,7 +748,6 @@
             const overlay = document.getElementById('reveal-overlay');
             overlay.classList.add('hidden');
             
-            // Start audio upon clicking the reveal button
             let playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
@@ -742,7 +758,6 @@
                 });
             }
             
-            // Remove overlay from DOM after animation finishes
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 1500);
