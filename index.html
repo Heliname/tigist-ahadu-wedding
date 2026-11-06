@@ -140,14 +140,14 @@
             margin-bottom: 10px;
         }
 
-        /* --- Intro Reveal Overlay with Sparkles --- */
+        /* --- Intro Reveal Overlay (The Interactive Envelope Screen) --- */
         #reveal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(250, 247, 240, 0.95);
+            background-color: rgba(250, 247, 240, 0.98);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -159,36 +159,111 @@
 
         #reveal-overlay.hidden {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-30px);
             pointer-events: none;
         }
 
-        .ring-icon {
-            margin-bottom: 30px;
-            animation: gentlePulse 3s infinite alternate;
-            z-index: 2;
-        }
-
-        @keyframes gentlePulse {
-            0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.5)); }
-        }
-        
-        .sparkle {
+        /* --- Floating White Flowers --- */
+        .floating-flower {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: var(--champagne-gold);
-            border-radius: 50%;
-            box-shadow: 0 0 8px 2px rgba(197, 164, 109, 0.6);
             opacity: 0;
-            animation: floatUp 4s infinite linear;
+            pointer-events: none;
+            z-index: 1; /* Stays behind the envelope */
+            animation: floatUp 6s infinite linear;
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 0.8; transform: translateY(50vh) scale(1.5); }
-            100% { transform: translateY(-10vh) scale(0); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* --- Luxury CSS Envelope --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 340px;
+            height: 230px;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 15px 40px rgba(68, 56, 44, 0.15);
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(68, 56, 44, 0.2);
+        }
+
+        /* The Card inside the envelope */
+        .envelope-card {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            height: 90%;
+            background-color: #FDFBF7;
+            border: 1px solid var(--champagne-gold);
+            border-radius: 4px;
+            z-index: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            transition: transform 0.8s ease;
+        }
+
+        /* Front Pocket (Covers the bottom half of the card) */
+        .envelope-front-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background-color: #FDFDFD;
+            z-index: 3;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 -3px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+
+        /* The Flap */
+        .flap-wrapper {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 60%;
+            z-index: 4;
+            filter: drop-shadow(0px 6px 8px rgba(68, 56, 44, 0.1));
+            transform-origin: top;
+            transition: transform 0.8s ease-in-out, z-index 0.8s;
+        }
+
+        .envelope-flap {
+            width: 100%; 
+            height: 100%;
+            background-color: #FAFAFA;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        /* The Floral Gold Seal */
+        .envelope-seal {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 45px;
+            background: var(--white);
+            border: 2px solid var(--champagne-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         /* --- Luxury Buttons --- */
@@ -210,11 +285,6 @@
             text-decoration: none;
             display: inline-block;
             z-index: 2;
-        }
-
-        .reveal-btn {
-            margin-top: 40px;
-            font-size: 1.2rem;
         }
 
         .btn::after, .reveal-btn::after {
@@ -367,10 +437,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -46%); /* Centered to perfectly align the number inside the heart */
+            transform: translate(-50%, -46%); 
             width: 45px;
             height: 45px;
-            /* Deep, bold romantic red heart SVG */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B22222'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
@@ -623,7 +692,7 @@
             .time-box { min-width: 75px; padding: 15px; }
             .time-box span { font-size: 2rem; }
             .parents-section { font-size: 1.05rem; padding: 15px; }
-            .image-frame { border-width: 8px; }
+            .image-frame { border-width: 8px; margin-top: 20px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
         }
@@ -659,31 +728,47 @@
         <img id="lightbox-img" src="image_f683fa.jpg" alt="Enlarged Wedding Invitation">
     </div>
 
-    <!-- Opening Reveal Overlay with Sparkles -->
+    <!-- Opening Reveal Overlay with White Envelope -->
     <div id="reveal-overlay">
-        <!-- JS will inject sparkles here -->
+        <!-- JS will inject floating white flowers here -->
         
-        <svg class="ring-icon" viewBox="0 0 140 80" width="120" height="70">
-            <defs>
-                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#E6C27A" />
-                    <stop offset="25%" stop-color="#D4AF37" />
-                    <stop offset="50%" stop-color="#FFFDD0" />
-                    <stop offset="75%" stop-color="#C5A46D" />
-                    <stop offset="100%" stop-color="#997A3D" />
-                </linearGradient>
-                <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="2" dy="5" stdDeviation="3" flood-opacity="0.4"/>
-                </filter>
-            </defs>
-            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
-        </svg>
+        <div class="envelope-wrapper" onclick="openInvitation()">
+            
+            <!-- The Card Inside -->
+            <div class="envelope-card">
+                <h1 style="font-family: 'Alex Brush', cursive; font-size: 2.2rem; color: var(--champagne-gold); margin:0;">Ahadu & Tigist</h1>
+                <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; color: var(--deep-brown);">Open Invitation</p>
+            </div>
+            
+            <!-- The Envelope Front Body with Floral Corners -->
+            <div class="envelope-front-pocket">
+                <svg style="position: absolute; bottom: 10px; left: 10px; width: 45px; opacity: 0.3;" viewBox="0 0 24 24" fill="none" stroke="var(--champagne-gold)" stroke-width="1.2">
+                    <path d="M21 21C21 21 16 19 12 12C8 19 3 21 3 21" />
+                    <path d="M12 12C12 12 14 6 18 3" />
+                    <path d="M12 12C12 12 10 6 6 3" />
+                    <circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/>
+                </svg>
+                <svg style="position: absolute; bottom: 10px; right: 10px; width: 45px; opacity: 0.3; transform: scaleX(-1);" viewBox="0 0 24 24" fill="none" stroke="var(--champagne-gold)" stroke-width="1.2">
+                    <path d="M21 21C21 21 16 19 12 12C8 19 3 21 3 21" />
+                    <path d="M12 12C12 12 14 6 18 3" />
+                    <path d="M12 12C12 12 10 6 6 3" />
+                    <circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/>
+                </svg>
+            </div>
+            
+            <!-- The Envelope Flap with Gold Seal -->
+            <div class="flap-wrapper" id="envelope-flap">
+                <div class="envelope-flap"></div>
+                <div class="envelope-seal">
+                    <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="20" height="20">
+                        <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
+                    </svg>
+                </div>
+            </div>
 
-        <h1 style="color: var(--deep-brown); font-size: 2.2rem; margin-bottom: 10px; z-index: 2;">Ahadu & Tigist</h1>
-        <p style="color: var(--champagne-gold); letter-spacing: 2px; font-weight: 600; z-index: 2;">21 . 11 . 2026</p>
-        <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
+        </div>
+
+        <p class="click-hint" style="color: var(--deep-brown); z-index: 10; margin-top: 40px; font-weight: bold; background: rgba(255,255,255,0.85); padding: 8px 20px; border-radius: 20px; letter-spacing: 1px;">Tap envelope to open</p>
     </div>
 
     <!-- 1. Welcome & Save the Date Section -->
@@ -710,7 +795,7 @@
             </div>
         </div>
 
-        <!-- The Original Photo moved HERE (After Introduction, before Calendar) -->
+        <!-- The Original Photo -->
         <div class="image-frame fade-in" onclick="openLightbox()">
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
@@ -777,10 +862,10 @@
 
     <!-- 3. Invitation Section -->
     <section id="invitation" class="fade-in">
-        <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
-            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
+        
+        <!-- Beautiful Decorative Gold Seal -->
+        <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="60" height="60" style="margin-bottom: 20px;">
+            <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
         </svg>
 
         <p class="script-accent fade-in" style="margin-bottom: 25px;">Joyfully invite you</p>
@@ -863,20 +948,29 @@
         
         <div class="names-container fade-in" style="margin-top: 30px;">
             <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
-            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ እና ትግስት </div>
         </div>
     </section>
 
     <script>
-        // --- Generate Magical Sparkles on Intro Screen ---
+        // --- Generate Floating White Flowers on Intro Screen ---
         const overlay = document.getElementById('reveal-overlay');
-        for (let i = 0; i < 20; i++) {
-            let sparkle = document.createElement('div');
-            sparkle.classList.add('sparkle');
-            sparkle.style.left = Math.random() * 100 + 'vw';
-            sparkle.style.animationDelay = Math.random() * 4 + 's';
-            sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            overlay.appendChild(sparkle);
+        const whiteFlowerSVG = `<svg viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/><circle cx="12" cy="12" r="2" fill="var(--champagne-gold)"/></svg>`;
+        
+        for (let i = 0; i < 18; i++) {
+            let flower = document.createElement('div');
+            flower.classList.add('floating-flower');
+            flower.innerHTML = whiteFlowerSVG;
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDelay = Math.random() * 4 + 's';
+            flower.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            
+            // Randomize sizes to be beautifully medium (25px to 45px)
+            let size = Math.random() * 20 + 25; 
+            flower.style.width = size + 'px';
+            flower.style.height = size + 'px';
+            
+            overlay.appendChild(flower);
         }
 
         // --- Page Loader Logic ---
@@ -887,7 +981,7 @@
             }, 600); 
         });
 
-        // --- Cinematic Audio Fade-in & Reveal Logic ---
+        // --- Cinematic Envelope Reveal & Audio Fade-in Logic ---
         const audio = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-toggle");
         let isPlaying = false;
@@ -895,15 +989,20 @@
         audio.volume = 0; // Start at 0 for smooth fade-in
 
         function openInvitation() {
-            overlay.classList.add('hidden');
+            const flap = document.getElementById('envelope-flap');
+            const card = document.querySelector('.envelope-card');
             
+            // 1. Flip up the envelope flap
+            flap.style.transform = 'rotateX(180deg)';
+            flap.style.zIndex = '2'; // Drops behind the front pocket aesthetically
+            
+            // 2. Play Audio with Fade-in
             let playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
                     isPlaying = true;
                     musicBtn.innerText = "⏸️";
                     
-                    // Smooth volume fade-in up to 40%
                     let vol = 0;
                     const fadeAudio = setInterval(() => {
                         if (vol < 0.4) {
@@ -913,15 +1012,24 @@
                             clearInterval(fadeAudio);
                         }
                     }, 200);
-
                 }).catch(error => {
                     console.log("Audio playback was prevented by the browser.");
                 });
             }
             
+            // 3. Slide the card slightly up out of the envelope
+            setTimeout(() => {
+                card.style.transform = 'translateY(-30px)';
+            }, 400);
+
+            // 4. Fade out the whole overlay screen smoothly
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 1400);
+            
             setTimeout(() => {
                 overlay.style.display = 'none';
-            }, 1500);
+            }, 3000);
         }
 
         // --- Music Toggle Button ---
