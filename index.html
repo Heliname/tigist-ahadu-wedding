@@ -29,11 +29,20 @@
 
         body {
             font-family: 'Playfair Display', serif;
-            background-color: var(--ivory);
             color: var(--text-dark);
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            /* Elegant Flowing Background */
+            background: linear-gradient(-45deg, #FFFFF0, #FDF7E3, #F5F5DC, #FCF0D8);
+            background-size: 400% 400%;
+            animation: elegantFlow 15s ease infinite;
+        }
+
+        @keyframes elegantFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .amharic {
@@ -75,10 +84,6 @@
         }
 
         /* --- Welcome Section --- */
-        #welcome {
-            background: linear-gradient(135deg, var(--ivory) 0%, var(--beige) 100%);
-        }
-
         .names-container {
             margin-bottom: 30px;
         }
@@ -109,6 +114,11 @@
             width: 450px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
+        
+        .large-frame {
+            width: 750px; /* Much larger width for the second image */
+            max-width: 95%;
+        }
 
         .image-frame img {
             width: 100%;
@@ -136,11 +146,8 @@
         }
 
         /* --- Invitation Section --- */
-        #invitation {
-            background-color: #fff;
-        }
-
         .scripture-box {
+            background: rgba(255, 255, 255, 0.6);
             border-top: 1px solid var(--champagne-gold);
             border-bottom: 1px solid var(--champagne-gold);
             padding: 30px 20px;
@@ -161,10 +168,6 @@
         }
 
         /* --- Details Section --- */
-        #details {
-            background: linear-gradient(to bottom, var(--ivory), var(--beige));
-        }
-
         .cards-container {
             display: flex;
             flex-wrap: wrap;
@@ -175,7 +178,7 @@
         }
 
         .event-card {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.85);
             border: 1px solid var(--light-gold);
             padding: 40px 25px;
             width: 100%;
@@ -200,7 +203,7 @@
         }
 
         .time-highlight {
-            background-color: var(--cream);
+            background-color: rgba(255, 253, 208, 0.5);
             padding: 10px;
             margin: 15px 0;
             border-radius: 5px;
@@ -212,10 +215,6 @@
         }
 
         /* --- Countdown Section --- */
-        #countdown-section {
-            background-color: #fff;
-        }
-
         .countdown-container {
             display: flex;
             gap: 15px;
@@ -282,7 +281,7 @@
 </head>
 <body>
 
-    <!-- Background Audio (Replace src with your file) -->
+    <!-- Background Audio -->
     <audio id="bg-music" loop>
         <source src="wedding-music.mp3" type="audio/mpeg">
     </audio>
@@ -301,7 +300,7 @@
         </div>
 
         <div class="image-frame fade-in">
-            <!-- Ensure your main photo is named exactly image_f683fa.jpg -->
+            <!-- First Image -->
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
 
@@ -340,7 +339,7 @@
                     <p class="amharic"><strong>5:00</strong> (Ethiopian Time)</p>
                 </div>
                 
-                <a href="https://www.google.com/maps/place/Mekanissa+Addis+Kidan+Baptist+Church/@8.9753825,38.7227095,17z/data=!3m1!4b1" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Church Location</a>
+                <a href="https://maps.app.goo.gl/wechTC3SKB32mkos7" target="_blank" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">View Church Location</a>
             </div>
 
             <!-- Event 2: Lunch Celebration -->
@@ -384,9 +383,9 @@
     </section>
 
     <!-- E. Closing Section -->
-    <section id="closing" class="fade-in" style="background-color: var(--ivory);">
-        <div class="image-frame fade-in">
-            <!-- Ensure your second photo is named exactly second-image.jpg (or update this file name) -->
+    <section id="closing" class="fade-in">
+        <div class="image-frame large-frame fade-in">
+            <!-- Second Image - Now uses .large-frame to appear bigger -->
             <img src="second-image.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="names-container fade-in" style="margin-top: 30px;">
@@ -397,7 +396,6 @@
 
     <script>
         // --- Countdown Timer Logic ---
-        // Target Date: Nov 21, 2026, 11:00 AM East Africa Time (UTC+3)
         const targetDate = new Date("November 21, 2026 11:00:00+03:00").getTime();
 
         const updateCountdown = setInterval(() => {
@@ -442,7 +440,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
