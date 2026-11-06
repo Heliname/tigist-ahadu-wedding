@@ -147,7 +147,10 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(250, 247, 240, 0.98);
+            /* Added second-image.jpg as background with a soft ivory overlay for text readability */
+            background: linear-gradient(rgba(250, 247, 240, 0.8), rgba(250, 247, 240, 0.8)), url('second-image.jpg');
+            background-size: cover;
+            background-position: center;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -296,7 +299,7 @@
             background-image: url('second-image.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Creates the elegant parallax scrolling effect */
+            background-attachment: fixed; 
         }
 
         /* Soft Ivory Overlay on top of the image so text stays perfectly readable */
@@ -420,7 +423,7 @@
             gap: 25px;
             margin-bottom: 40px;
             font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.85); /* Slightly less transparent for better readability over photo */
+            background: rgba(255, 255, 255, 0.85); 
             padding: 25px;
             border-radius: 8px;
             border: 1px solid rgba(197, 164, 109, 0.2);
@@ -645,7 +648,7 @@
             .image-frame { border-width: 8px; margin-top: 20px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
-            #welcome, #invitation { background-attachment: scroll; } /* Disable parallax on mobile for smooth scrolling */
+            #welcome, #invitation { background-attachment: scroll; }
         }
     </style>
 </head>
