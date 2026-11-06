@@ -53,7 +53,7 @@
         /* --- Elegant Script Accent Font --- */
         .script-accent {
             font-family: 'Alex Brush', cursive;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--champagne-gold);
             margin-bottom: 10px;
             font-weight: normal;
@@ -174,7 +174,6 @@
             100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.5)); }
         }
         
-        /* Floating Magical Sparkles */
         .sparkle {
             position: absolute;
             width: 4px;
@@ -192,7 +191,7 @@
             100% { transform: translateY(-10vh) scale(0); opacity: 0; }
         }
 
-        /* --- Luxury Button with Sweep Shine --- */
+        /* --- Luxury Buttons --- */
         .btn, .reveal-btn {
             background-color: var(--champagne-gold);
             color: var(--white);
@@ -218,7 +217,6 @@
             font-size: 1.2rem;
         }
 
-        /* The Shine Effect */
         .btn::after, .reveal-btn::after {
             content: '';
             position: absolute;
@@ -291,13 +289,80 @@
 
         /* --- Sections --- */
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
+        }
+
+        /* --- The Calendar Widget --- */
+        .calendar-container {
+            position: relative;
+            max-width: 420px;
+            width: 100%;
+            margin: 30px auto 40px auto;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.15);
+            /* Sets the original image as the background for the calendar */
+            background-image: url('image_f683fa.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .calendar-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .calendar-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(250, 247, 240, 0.92); /* Frosted ivory overlay */
+        }
+
+        .calendar-content {
+            position: relative;
+            z-index: 1;
+            padding: 30px 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .day-name {
+            font-weight: bold;
+            color: var(--champagne-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .calendar-grid div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 35px;
+            font-size: 1.15rem;
+            color: var(--deep-brown);
+        }
+
+        .circled-date {
+            border: 2px solid var(--champagne-gold);
+            border-radius: 50%;
+            color: var(--champagne-gold) !important;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(197, 164, 109, 0.4);
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
         }
 
         /* --- Names & Parents --- */
@@ -307,7 +372,7 @@
         }
 
         .names-container h1 {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             margin-bottom: 5px;
             color: var(--deep-brown);
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
@@ -350,25 +415,19 @@
             font-style: italic;
         }
 
-        .date-container {
-            margin-bottom: 30px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
         .image-frame {
             border: 12px solid var(--white);
             outline: 2px solid var(--champagne-gold);
             padding: 10px;
             background: var(--white);
-            margin: 30px auto;
+            margin: 0 auto 30px auto;
             max-width: 90%;
             width: 480px;
             box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15);
             cursor: zoom-in;
             transition: all 0.4s ease;
+            position: relative;
+            z-index: 10;
         }
         
         .large-frame {
@@ -394,10 +453,11 @@
             font-size: 0.9rem;
             color: var(--champagne-gold);
             font-style: italic;
-            margin-top: 10px;
+            margin-bottom: 30px;
             background: rgba(255,255,255,0.7);
             padding: 5px 15px;
             border-radius: 20px;
+            display: inline-block;
         }
 
         /* --- Invitation Section --- */
@@ -484,7 +544,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 25px;
+            margin-top: 10px;
             flex-wrap: wrap;
         }
 
@@ -542,14 +602,14 @@
         }
 
         @media (max-width: 600px) {
-            .script-accent { font-size: 2.3rem; }
-            .names-container h1 { font-size: 2.2rem; }
+            .script-accent { font-size: 2.5rem; }
+            .names-container h1 { font-size: 2.3rem; }
             .names-container .amharic-names { font-size: 1.6rem; }
-            section { padding: 60px 15px; }
+            section { padding: 80px 15px 40px 15px; }
             .time-box { min-width: 75px; padding: 15px; }
             .time-box span { font-size: 2rem; }
             .parents-section { font-size: 1.05rem; padding: 15px; }
-            .image-frame { border-width: 8px; }
+            .image-frame { border-width: 8px; margin-top: 20px; }
             .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
         }
@@ -572,7 +632,6 @@
             <source src="flowers-wind.mp4" type="video/mp4">
         </video>
     </div>
-    <!-- Semi-transparent overlay to ensure text readability -->
     <div class="video-overlay"></div>
 
     <!-- Background Audio -->
@@ -613,16 +672,25 @@
         <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
     </div>
 
-    <!-- 1. Welcome Section -->
-    <section id="welcome">
+    <!-- 1. Welcome & Save the Date Section -->
+    <section id="welcome" style="padding-top: 100px;">
         
-        <p class="script-accent fade-in" style="margin-top: 20px;">Together with their families</p>
+        <!-- The Original Photo FIRST -->
+        <div class="image-frame fade-in" onclick="openLightbox()">
+            <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
+        </div>
+        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
+
+        <!-- Save the Date Message -->
+        <p class="script-accent fade-in" style="margin-top: 10px; font-size: 4rem;">Save the Date</p>
         
+        <!-- Names -->
         <div class="names-container fade-in">
             <h1>Ahadu Fithaamlak & Tigist Belay</h1>
             <div class="amharic amharic-names">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
         </div>
 
+        <!-- Parents -->
         <div class="parents-section fade-in">
             <div>
                 <p>Ahadu Fithaamlak</p>
@@ -634,26 +702,69 @@
             </div>
         </div>
         
-        <svg class="ornament fade-in" viewBox="0 0 200 20">
+        <!-- Beautiful Calendar with Image Background -->
+        <div class="calendar-container fade-in">
+            <div class="calendar-overlay"></div>
+            <div class="calendar-content">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px;">November 2026</h3>
+                
+                <div class="calendar-grid">
+                    <!-- Days of Week -->
+                    <div class="day-name">S</div><div class="day-name">M</div><div class="day-name">T</div><div class="day-name">W</div><div class="day-name">T</div><div class="day-name">F</div><div class="day-name">S</div>
+                    <!-- Dates -->
+                    <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+                    <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+                    <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div class="circled-date">21</div>
+                    <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
+                    <div>29</div><div>30</div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                
+                <div style="margin-top: 25px; border-top: 1px solid var(--champagne-gold); padding-top: 15px;">
+                    <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0;">Saturday, November 21, 2026</p>
+                    <p class="amharic" style="font-size: 1rem; color: var(--champagne-gold); margin-bottom: 0;">12 Hidar 2019 E.C.</p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- 2. Countdown Section -->
+    <section id="countdown-section" class="fade-in">
+        <svg class="ornament fade-in" viewBox="0 0 200 20" style="margin-bottom: 10px;">
             <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
             <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
         </svg>
 
-        <div class="date-container fade-in">
-            <p>Saturday, November 21, 2026</p>
-            <p class="amharic" style="font-size: 1.1rem; font-weight: normal; margin-top: 5px;">12 Hidar 2019 E.C.</p>
+        <p class="script-accent fade-in" style="font-size: 2.8rem; margin-top: 10px;">Awaiting our special day...</p>
+        
+        <div class="countdown-container">
+            <div class="time-box">
+                <span id="days">00</span>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <div class="label">Mins</div>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <div class="label">Secs</div>
+            </div>
         </div>
-
-        <div class="image-frame fade-in" onclick="openLightbox()">
-            <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
-        </div>
-        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
-
     </section>
 
-    <!-- 2. Invitation Section -->
+    <!-- 3. Invitation Section -->
     <section id="invitation" class="fade-in">
-        <h2>The Invitation</h2>
+        <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
+            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
+        </svg>
+
         <p class="script-accent fade-in" style="margin-bottom: 25px;">Joyfully invite you</p>
         
         <div class="scripture-box fade-in">
@@ -666,17 +777,17 @@
             <p class="amharic">በጋብቻ ስንተሳሰር ደስታችንን አብራችሁን እንድታካፍሉ በደስታ እንጋብዛለን። መገኘትዎ ክብራችን ነው።</p>
         </div>
         
-        <svg class="ornament fade-in" style="margin-top: 60px;" viewBox="0 0 200 20">
+    </section>
+
+    <!-- 4. Wedding Details Section -->
+    <section id="details">
+        <svg class="ornament fade-in" style="margin-bottom: 10px;" viewBox="0 0 200 20">
             <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
             <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
         </svg>
-    </section>
 
-    <!-- 3. Wedding Details Section -->
-    <section id="details">
         <h2 class="fade-in">Wedding Details</h2>
         <p class="script-accent fade-in" style="font-size: 2.2rem; margin-bottom: 15px;">Reception to follow</p>
-        <p class="fade-in" style="font-weight:600; font-size: 1.1rem; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 4px;">Saturday, November 21, 2026</p>
         
         <div class="cards-container">
             <!-- Event 1: Church Ceremony -->
@@ -717,38 +828,7 @@
         </div>
     </section>
 
-    <!-- 4. Countdown Section -->
-    <section id="countdown-section" class="fade-in">
-        <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
-            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
-            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
-        </svg>
-        
-        <h2>The Countdown</h2>
-        <p class="script-accent fade-in" style="font-size: 2.2rem;">Awaiting our special day...</p>
-        
-        <div class="countdown-container">
-            <div class="time-box">
-                <span id="days">00</span>
-                <div class="label">Days</div>
-            </div>
-            <div class="time-box">
-                <span id="hours">00</span>
-                <div class="label">Hours</div>
-            </div>
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <div class="label">Mins</div>
-            </div>
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <div class="label">Secs</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- E. Closing Section -->
+    <!-- 5. Closing Section -->
     <section id="closing" class="fade-in">
         
         <div class="fade-in" style="margin-bottom: 30px; background: rgba(255,255,255,0.7); padding: 15px 30px; border-radius: 8px;">
@@ -794,7 +874,7 @@
         const musicBtn = document.getElementById("music-toggle");
         let isPlaying = false;
         
-        audio.volume = 0; // Start at 0 for fade-in
+        audio.volume = 0; // Start at 0 for smooth fade-in
 
         function openInvitation() {
             overlay.classList.add('hidden');
