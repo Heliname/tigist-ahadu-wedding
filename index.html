@@ -12,7 +12,7 @@
     
     <style>
         :root {
-            /* Updated Luxury Color Palette */
+            /* Luxury Color Palette */
             --ivory: #FAF7F0;
             --champagne-gold: #C5A46D;
             --beige: #EDE3D2;
@@ -29,10 +29,38 @@
         body {
             font-family: 'Playfair Display', serif;
             color: var(--deep-brown);
-            background-color: var(--ivory);
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
+        }
+
+        /* --- Video Background Wallpaper --- */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            background-color: var(--ivory);
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Semi-transparent ivory overlay so the text is perfectly readable */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(250, 247, 240, 0.75); 
+            z-index: -1;
         }
 
         .amharic {
@@ -58,8 +86,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--ivory);
-            background-image: radial-gradient(circle at center, var(--white) 0%, var(--ivory) 100%);
+            /* Slightly transparent so the video hints through before opening */
+            background-color: rgba(250, 247, 240, 0.95);
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -80,8 +108,8 @@
         }
 
         @keyframes gentlePulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.05); opacity: 1; }
+            0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.5)); }
         }
 
         .reveal-btn {
@@ -95,7 +123,7 @@
             border-radius: 4px;
             margin-top: 40px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.3);
+            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.4);
             transition: all 0.3s ease;
         }
 
@@ -109,7 +137,7 @@
             width: 120px;
             height: auto;
             margin: 20px auto 40px auto;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         /* --- Lightbox for Image --- */
@@ -119,7 +147,7 @@
             z-index: 10000;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            background: rgba(68, 56, 44, 0.9);
+            background: rgba(68, 56, 44, 0.95);
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -162,10 +190,6 @@
             position: relative;
         }
 
-        #welcome {
-            background: linear-gradient(135deg, var(--white) 0%, var(--beige) 100%);
-        }
-
         /* --- Names & Parents --- */
         .names-container {
             margin-bottom: 20px;
@@ -175,12 +199,14 @@
             font-size: 2.8rem;
             margin-bottom: 5px;
             color: var(--deep-brown);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
         
         .names-container .amharic-names {
             font-size: 2rem;
             color: var(--deep-brown);
             margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
 
         .parents-section {
@@ -189,15 +215,20 @@
             gap: 25px;
             margin-bottom: 40px;
             font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(197, 164, 109, 0.2);
         }
 
         .parents-section p {
             margin: 0;
+            font-weight: 600;
             color: var(--deep-brown);
         }
 
         .parents-section span {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--champagne-gold);
             font-style: italic;
         }
@@ -218,12 +249,21 @@
             margin: 30px auto;
             max-width: 90%;
             width: 480px;
-            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.1);
+            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15);
             cursor: zoom-in;
             transition: transform 0.4s ease;
         }
+        
+        /* Extra Enlarged Frame for the Closing Section */
+        .large-frame {
+            width: 1200px;
+            max-width: 98vw;
+            padding: 20px;
+            border-width: 12px;
+            cursor: default; /* Disable zoom cursor for the bottom image */
+        }
 
-        .image-frame:hover {
+        .image-frame:not(.large-frame):hover {
             transform: scale(1.02);
         }
 
@@ -238,19 +278,20 @@
             color: var(--champagne-gold);
             font-style: italic;
             margin-top: 10px;
+            background: rgba(255,255,255,0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
         }
 
         /* --- Invitation Section --- */
-        #invitation {
-            background-color: var(--white);
-        }
-
         .scripture-box {
-            border-top: 1px solid var(--champagne-gold);
-            border-bottom: 1px solid var(--champagne-gold);
+            background: rgba(255, 255, 255, 0.85);
+            border-top: 2px solid var(--champagne-gold);
+            border-bottom: 2px solid var(--champagne-gold);
             padding: 40px 20px;
             max-width: 700px;
             margin: 0 auto 40px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .scripture-box p {
@@ -261,16 +302,16 @@
         }
 
         .invitation-msg {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 10px;
             max-width: 600px;
             font-size: 1.3rem;
             line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         /* --- Details Section --- */
-        #details {
-            background: linear-gradient(to bottom, var(--ivory), var(--beige));
-        }
-
         .cards-container {
             display: flex;
             flex-wrap: wrap;
@@ -281,12 +322,12 @@
         }
 
         .event-card {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.95);
             border-top: 4px solid var(--champagne-gold);
             padding: 40px 30px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.08);
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.1);
             border-radius: 4px;
         }
 
@@ -302,7 +343,7 @@
         }
 
         .time-highlight {
-            background-color: var(--ivory);
+            background-color: rgba(250, 247, 240, 0.9);
             padding: 15px;
             margin: 20px 0;
             border-radius: 4px;
@@ -327,19 +368,16 @@
             transition: all 0.3s ease;
             display: inline-block;
             border: 1px solid var(--champagne-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn:hover {
-            background-color: transparent;
+            background-color: var(--white);
             color: var(--deep-brown);
             border-color: var(--deep-brown);
         }
 
         /* --- Countdown Section --- */
-        #countdown-section {
-            background-color: var(--white);
-        }
-
         .countdown-container {
             display: flex;
             gap: 15px;
@@ -349,13 +387,13 @@
         }
 
         .time-box {
-            background: var(--ivory);
+            background: rgba(250, 247, 240, 0.95);
             border: 1px solid var(--champagne-gold);
             color: var(--deep-brown);
             padding: 25px 20px;
             border-radius: 4px;
             min-width: 90px;
-            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.15);
+            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.2);
         }
 
         .time-box span {
@@ -388,7 +426,7 @@
             font-size: 1.2rem;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(68, 56, 44, 0.15);
+            box-shadow: 0 4px 15px rgba(68, 56, 44, 0.2);
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -407,12 +445,23 @@
             section { padding: 60px 15px; }
             .time-box { min-width: 75px; padding: 15px; }
             .time-box span { font-size: 2rem; }
-            .parents-section { font-size: 1.1rem; }
+            .parents-section { font-size: 1.05rem; padding: 15px; }
             .image-frame { border-width: 8px; }
+            .large-frame { padding: 10px; border-width: 8px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Video Background Wallpaper -->
+    <div class="video-background">
+        <!-- Must be muted to autoplay properly on mobile devices -->
+        <video autoplay loop muted playsinline>
+            <source src="flowers-wind.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Semi-transparent overlay to ensure text readability -->
+    <div class="video-overlay"></div>
 
     <!-- Background Audio -->
     <audio id="bg-music" loop>
@@ -427,13 +476,30 @@
 
     <!-- Opening Reveal Overlay -->
     <div id="reveal-overlay">
-        <!-- Elegant Gold Ring SVG -->
-        <svg class="ring-icon" viewBox="0 0 120 70" width="100" height="60">
-            <circle cx="40" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="3" fill="none" />
-            <circle cx="80" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="3" fill="none" />
+        <!-- Realistic 3D Interlocking Metallic Gold Rings SVG -->
+        <svg class="ring-icon" viewBox="0 0 140 80" width="120" height="70">
+            <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#E6C27A" />
+                    <stop offset="25%" stop-color="#D4AF37" />
+                    <stop offset="50%" stop-color="#FFFDD0" />
+                    <stop offset="75%" stop-color="#C5A46D" />
+                    <stop offset="100%" stop-color="#997A3D" />
+                </linearGradient>
+                <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="2" dy="5" stdDeviation="3" flood-opacity="0.4"/>
+                </filter>
+            </defs>
+            <!-- Left Ring -->
+            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <!-- Right Ring -->
+            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <!-- Interlock overlap (Top part of left ring drawn over the right ring) -->
+            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
         </svg>
-        <h1 style="color: var(--deep-brown); font-size: 2rem; margin-bottom: 10px;">Ahadu & Tigist</h1>
-        <p style="color: var(--champagne-gold); letter-spacing: 2px;">21 . 11 . 2026</p>
+
+        <h1 style="color: var(--deep-brown); font-size: 2.2rem; margin-bottom: 10px;">Ahadu & Tigist</h1>
+        <p style="color: var(--champagne-gold); letter-spacing: 2px; font-weight: 600;">21 . 11 . 2026</p>
         <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
     </div>
 
@@ -448,18 +514,18 @@
         <div class="parents-section fade-in">
             <div>
                 <p>Ahadu Fithaamlak</p>
-                <span>Son of [GROOM'S FATHER FULL NAME]</span>
+                <span>Son of Shaleqa Fithaamlak Enyew and Azalech Senqe</span>
             </div>
             <div>
                 <p>Tigist Belay</p>
-                <span>Daughter of [BRIDE'S FATHER FULL NAME]</span>
+                <span>Daughter of Belay Woldesenbet and Hana Abera</span>
             </div>
         </div>
         
         <!-- Subtle Divider -->
         <svg class="ornament fade-in" viewBox="0 0 200 20">
-            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1" fill="none"/>
-            <circle cx="100" cy="10" r="3" fill="var(--champagne-gold)"/>
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
         </svg>
 
         <div class="date-container fade-in">
@@ -468,6 +534,7 @@
         </div>
 
         <div class="image-frame fade-in" onclick="openLightbox()">
+            <!-- First Image -->
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
         <p class="click-hint fade-in">Tap the invitation to enlarge</p>
@@ -489,15 +556,15 @@
         </div>
         
         <svg class="ornament fade-in" style="margin-top: 60px;" viewBox="0 0 200 20">
-            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1" fill="none"/>
-            <circle cx="100" cy="10" r="3" fill="var(--champagne-gold)"/>
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
         </svg>
     </section>
 
     <!-- 3. Wedding Details Section -->
     <section id="details">
         <h2 class="fade-in">Wedding Details</h2>
-        <p class="fade-in" style="font-weight:600; font-size: 1.1rem;">Saturday, November 21, 2026</p>
+        <p class="fade-in" style="font-weight:600; font-size: 1.1rem; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 4px;">Saturday, November 21, 2026</p>
         
         <div class="cards-container">
             <!-- Event 1: Church Ceremony -->
@@ -525,7 +592,7 @@
                 
                 <div class="location-desc">
                     <p><strong>Mekane Yesus Seminary</strong></p>
-                    <p>Addis Ababa, Ethiopia.</p>
+                    <p>Mekanissa, Addis Ababa, Ethiopia.</p>
                 </div>
                 
                 <div class="time-highlight">
@@ -540,13 +607,15 @@
 
     <!-- 4. Countdown Section -->
     <section id="countdown-section" class="fade-in">
-        <svg class="ring-icon" viewBox="0 0 120 70" width="80" height="50" style="animation: none; margin-bottom: 10px;">
-            <circle cx="40" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="2" fill="none" />
-            <circle cx="80" cy="35" r="26" stroke="var(--champagne-gold)" stroke-width="2" fill="none" />
+        <!-- Re-use the realistic 3D Rings here too without the pulse animation -->
+        <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60" style="animation: none; margin-bottom: 20px;">
+            <circle cx="50" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <circle cx="90" cy="40" r="28" stroke="url(#goldGrad)" stroke-width="7" fill="none" filter="url(#dropShadow)" />
+            <path d="M 74 24.5 A 28 28 0 0 0 50 12" stroke="url(#goldGrad)" stroke-width="7.5" fill="none" />
         </svg>
         
         <h2>The Countdown</h2>
-        <p style="font-size: 1.1rem; color: var(--champagne-gold);">Awaiting our special day...</p>
+        <p style="font-size: 1.1rem; color: var(--champagne-gold); font-weight: 600; background: rgba(255,255,255,0.7); padding: 5px 15px; border-radius: 4px;">Awaiting our special day...</p>
         
         <div class="countdown-container">
             <div class="time-box">
@@ -568,6 +637,18 @@
         </div>
     </section>
 
+    <!-- E. Closing Section -->
+    <section id="closing" class="fade-in">
+        <div class="image-frame large-frame fade-in">
+            <!-- Second Image - Restored and massively enlarged -->
+            <img src="second-image.jpg" alt="Ahadu and Tigist">
+        </div>
+        <div class="names-container fade-in" style="margin-top: 30px;">
+            <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
+            <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
+        </div>
+    </section>
+
     <script>
         // --- Intro Reveal & Autoplay Logic ---
         const audio = document.getElementById("bg-music");
@@ -581,7 +662,7 @@
             const overlay = document.getElementById('reveal-overlay');
             overlay.classList.add('hidden');
             
-            // Start audio upon clicking the reveal button (guarantees playback on all browsers)
+            // Start audio upon clicking the reveal button
             let playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(_ => {
@@ -592,7 +673,7 @@
                 });
             }
             
-            // Remove overlay from DOM after animation finishes so it doesn't block clicks
+            // Remove overlay from DOM after animation finishes
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 1500);
@@ -615,7 +696,6 @@
         
         function openLightbox() {
             lightbox.style.display = 'flex';
-            // Slight delay to allow display:flex to apply before setting opacity for smooth fade
             setTimeout(() => {
                 lightbox.classList.add('visible');
             }, 10);
@@ -625,7 +705,7 @@
             lightbox.classList.remove('visible');
             setTimeout(() => {
                 lightbox.style.display = 'none';
-            }, 400); // Matches CSS transition time
+            }, 400); 
         }
 
         // --- Countdown Timer Logic ---
