@@ -24,10 +24,25 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             color: var(--deep-brown);
-            background-color: var(--ivory);
+            /* Background is transparent so the fixed global video shows through */
+            background-color: transparent;
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
+        }
+
+        /* --- Global Video Background (Flowers Wind) --- */
+        .global-video-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; overflow: hidden;
+        }
+        .global-video-bg video {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .global-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(250, 247, 240, 0.85); /* Frosted ivory overlay so text is readable */
+            z-index: -1;
         }
 
         /* --- Language System --- */
@@ -65,7 +80,6 @@
         .lang-divider { color: var(--champagne-gold); opacity: 0.5; }
 
         .script-font { font-family: 'Alex Brush', cursive; }
-        /* Beautiful Amharic Rendering */
         .amharic-text { font-family: 'Noto Serif Ethiopic', serif; line-height: 1.8; }
 
         h1, h2, h3 { color: var(--champagne-gold); font-weight: normal; margin-bottom: 15px; }
@@ -87,52 +101,50 @@
         }
         .floating-nav a:hover { color: var(--champagne-gold); }
 
-        /* --- Audio Gate (Split Screen with Video Background) --- */
+        /* --- Audio Gate (Split Screen with Photo 1) --- */
         #audio-gate {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 10000; overflow: hidden;
+            background-color: var(--ivory); z-index: 10000;
             display: flex; transition: opacity 1s ease, transform 1s ease;
         }
         #audio-gate.hidden { opacity: 0; transform: translateY(-20px); pointer-events: none; }
         
-        .gate-video-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0;
-        }
-        .gate-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(40, 30, 20, 0.6); z-index: 1; 
-        }
-
         .gate-image-container {
             flex: 1; width: 50vw; height: 100vh; 
             display: flex; justify-content: center; align-items: center;
-            padding: 20px; /* Reduced padding to make the image much larger */
-            position: relative; z-index: 2;
+            background-color: var(--soft-beige); padding: 40px;
         }
-        /* Enlarged Photo 1 */
         .gate-image-container img {
-            width: 100%; height: 100%; object-fit: contain; 
-            max-height: 95vh; /* Allows the image to span taller */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 4px;
+            width: 100%; height: 100%; object-fit: contain; max-height: 95vh;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-radius: 4px;
         }
         
         .gate-content {
             flex: 1; width: 50vw; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px; position: relative; z-index: 2;
+            padding: 40px; background-color: var(--ivory);
         }
 
         .ring-icon { margin-bottom: 20px; animation: gentlePulse 3s infinite alternate; }
         @keyframes gentlePulse {
-            0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(255, 255, 255, 0.4)); }
+            0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.4)); }
+        }
+
+        @media (max-width: 900px) {
+            #audio-gate { flex-direction: column; }
+            .gate-image-container { width: 100vw; height: 50vh; padding: 20px; }
+            .gate-content { width: 100vw; height: 50vh; padding: 20px; }
+            .floating-nav { top: auto; bottom: 25px; padding: 12px 20px; gap: 15px; }
+            .lang-switcher { top: 15px; right: 15px; }
         }
         
-        /* --- Hero Video Section --- */
+        /* --- Hero Video Section (main-video.mp4) --- */
         .hero-section {
             position: relative; height: 100vh; width: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;
+            /* Give it a solid background so the global video doesn't show through during loading */
+            background-color: var(--deep-brown);
         }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         .hero-overlay {
@@ -145,7 +157,8 @@
 
         /* --- Global Sections --- */
         section { padding: 90px 20px; display: flex; flex-direction: column; align-items: center; }
-        .bg-beige { background-color: var(--soft-beige); }
+        /* Semi-transparent beige to allow background video to subtly show through */
+        .bg-beige { background-color: rgba(244, 239, 230, 0.6); }
 
         /* --- Welcome & Parents --- */
         .parents-block { display: flex; flex-direction: column; gap: 30px; margin: 40px auto; max-width: 600px; }
@@ -235,7 +248,7 @@
         .closing-container { max-width: 1200px; margin: 0 auto; text-align: center; width: 100%; }
         .closing-image-frame {
             background: var(--white); padding: 15px; margin: 40px auto; 
-            width: 100%; max-width: 1200px; /* Increased from 900px to 1200px */
+            width: 100%; max-width: 1200px; 
             box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15); border: 1px solid rgba(197, 164, 109, 0.3); border-radius: 8px;
         }
         .closing-image-frame img { width: 100%; height: auto; display: block; border-radius: 4px; }
@@ -263,13 +276,6 @@
            MOBILE RESPONSIVENESS FIXES
            ========================================= */
         @media screen and (max-width: 900px) {
-            /* Fix the Audio Gate to stack perfectly on mobile */
-            #audio-gate { flex-direction: column; }
-            .gate-image-container { width: 100vw; height: 50vh; padding: 10px; }
-            .gate-content { width: 100vw; height: 50vh; padding: 20px; }
-            .gate-content h2.script-font { font-size: 2.8rem !important; }
-            .gate-content .amharic-text { font-size: 2.2rem !important; }
-
             /* Fix Typography for mobile screens */
             .script-font { font-size: 2.8rem !important; }
             h1 { font-size: 2.8rem !important; }
@@ -299,6 +305,14 @@
 </head>
 <body class="lang-en">
 
+    <!-- Global Video Background (Plays behind all sections below the Hero) -->
+    <div class="global-video-bg">
+        <video autoplay loop muted playsinline>
+            <source src="flowers-wind.mp4" type="video/mp4">
+        </video>
+        <div class="global-overlay"></div>
+    </div>
+
     <!-- Bilingual Toggle -->
     <div class="lang-switcher">
         <button id="btn-en" class="lang-btn active" onclick="setLang('en')">English</button>
@@ -325,14 +339,10 @@
     </audio>
     <button class="music-btn" id="music-toggle" aria-label="Play Music">🎵</button>
 
-    <!-- Tap to Enter Gate (SPLIT SCREEN WITH VIDEO BACKGROUND) -->
+    <!-- Tap to Enter Gate (SPLIT SCREEN WITH PHOTO 1) -->
     <div id="audio-gate">
-        <video class="gate-video-bg" autoplay loop muted playsinline>
-            <source src="flowers-wind.mp4" type="video/mp4">
-        </video>
-        <div class="gate-overlay"></div>
-
         <div class="gate-image-container">
+            <!-- Ensure Photo 1 is visible and perfectly uncropped -->
             <img src="photo1.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="gate-content">
@@ -346,7 +356,7 @@
                         <stop offset="100%" stop-color="#8B6508" />
                     </linearGradient>
                     <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.5"/>
+                        <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.3"/>
                     </filter>
                 </defs>
                 <circle cx="50" cy="40" r="26" stroke="url(#goldGrad)" stroke-width="8" fill="none" filter="url(#dropShadow)" />
@@ -354,11 +364,11 @@
                 <path d="M 73 24 A 26 26 0 0 0 50 14" stroke="url(#goldGrad)" stroke-width="8.5" fill="none" />
             </svg>
 
-            <h2 class="script-font" style="color: var(--champagne-gold); margin-bottom: 10px;">
+            <h2 class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 10px;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text" style="font-size: 2.8rem;">አሐዱ እና ትግስት</span>
             </h2>
-            <p style="letter-spacing: 3px; font-size: 1rem; color: var(--white); margin-bottom: 40px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">
+            <p style="letter-spacing: 3px; font-size: 1rem; color: var(--deep-brown); margin-bottom: 40px; font-weight: bold;">
                 <span class="lang-en">NOVEMBER 21, 2026</span>
                 <span class="lang-am amharic-text" style="letter-spacing: 1px;">ኅዳር 12, 2019 ዓ.ም</span>
             </p>
@@ -369,20 +379,20 @@
         </div>
     </div>
 
-    <!-- 1. Cinematic Hero Section -->
+    <!-- 1. Cinematic Hero Section (Main Video) -->
     <div class="hero-section">
         <video class="hero-video" autoplay loop muted playsinline>
-            <source src="flowers-wind.mp4" type="video/mp4">
+            <source src="main-video.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="script-font" style="color: var(--champagne-gold); margin-bottom: 0;">
+            <p class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 0;">
                 <span class="lang-en">Save the Date</span>
-                <span class="lang-am amharic-text">ቀኑን ያስታውሱ</span>
+                <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን ያስታውሱ</span>
             </p>
-            <h1 style="font-family: 'Times New Roman', Times, serif;">
+            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 4rem;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">አሐዱ እና ትግስት</span>
             </h1>
             <p class="hero-date">
                 <span class="lang-en">11 . 21 . 2026</span>
@@ -393,9 +403,9 @@
 
     <!-- 2. Welcome, Parents, and Calendar -->
     <section id="welcome">
-        <h2 class="script-font">
+        <h2 class="script-font" style="font-size: 3.5rem;">
             <span class="lang-en">With Joyful Hearts</span>
-            <span class="lang-am amharic-text">በታላቅ ደስታ</span>
+            <span class="lang-am amharic-text" style="font-size: 2.8rem;">በታላቅ ደስታ</span>
         </h2>
         <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: var(--champagne-gold); font-weight: bold;">
             <span class="lang-en">We invite you to our wedding</span>
@@ -425,6 +435,7 @@
             </div>
         </div>
 
+        <!-- Beautiful Calendar with Gold Highlight -->
         <div class="calendar-container fade-in">
             <div class="calendar-content">
                 <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 1.8rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px;">
@@ -468,11 +479,11 @@
         </div>
     </section>
 
-    <!-- 4. Our Memories (Photo Gallery) -->
+    <!-- 4. Our Memories (Photo Gallery: Photos 2 - 9) -->
     <section id="gallery">
-        <h2 class="script-font">
+        <h2 class="script-font" style="font-size: 4rem;">
             <span class="lang-en">Our Memories</span>
-            <span class="lang-am amharic-text">ትዝታዎቻችን</span>
+            <span class="lang-am amharic-text" style="font-size: 3rem;">ትዝታዎቻችን</span>
         </h2>
         <p style="letter-spacing: 2px; font-size: 1rem; text-transform: uppercase; margin-bottom: 40px; font-weight: bold;">
             <span class="lang-en">A glimpse into our story</span>
@@ -480,22 +491,22 @@
         </p>
         
         <div class="gallery-grid fade-in">
-            <img src="photo1.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo2.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo3.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo4.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo5.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo6.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo7.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
-            <img src="photo8(2).jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
+            <img src="photo8.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
+            <img src="photo9(2).jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
         </div>
     </section>
 
     <!-- 5. Wedding Details (Timeline) -->
     <section id="details" class="bg-beige">
-        <h2 class="script-font">
+        <h2 class="script-font" style="font-size: 4rem;">
             <span class="lang-en">The Celebration</span>
-            <span class="lang-am amharic-text">የሰርጉ ፕሮግራም</span>
+            <span class="lang-am amharic-text" style="font-size: 3rem;">የሰርጉ ፕሮግራም</span>
         </h2>
         
         <div class="timeline fade-in">
@@ -510,8 +521,8 @@
                     <span class="lang-am amharic-text">ከጠዋቱ 5፡00 ሰዓት</span>
                 </div>
                 <p style="font-size: 1.1rem;">
-                    <span class="lang-en"><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Addis Ababa, Ethiopia</span>
-                    <span class="lang-am amharic-text"><strong>መካኒሳ አዲስ ኪዳን ባፕቲስት ቤተክርስቲያን</strong><br>አዲስ አበባ፣ ኢትዮጵያ</span>
+                    <span class="lang-en"><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
+                    <span class="lang-am amharic-text"><strong>መካኒሳ አዲስ ኪዳን ባፕቲስት ቤተክርስቲያን</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
                 <a href="https://maps.app.goo.gl/wechTC3SKB32mkos7" target="_blank" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">
                     <span class="lang-en">View Map</span>
@@ -530,8 +541,8 @@
                     <span class="lang-am amharic-text">ከቀኑ 7፡00 ሰዓት</span>
                 </div>
                 <p style="font-size: 1.1rem;">
-                    <span class="lang-en"><strong>Mekane Yesus Seminary</strong><br>Addis Ababa, Ethiopia</span>
-                    <span class="lang-am amharic-text"><strong>መካነ ኢየሱስ ሴሚናሪ</strong><br>አዲስ አበባ፣ ኢትዮጵያ</span>
+                    <span class="lang-en"><strong>Mekane Yesus Seminary</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
+                    <span class="lang-am amharic-text"><strong>መካነ ኢየሱስ ሴሚናሪ</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
                 <a href="https://maps.app.goo.gl/gy15duS86XDbAvPT7" target="_blank" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">
                     <span class="lang-en">View Map</span>
@@ -543,9 +554,9 @@
 
     <!-- 6. Countdown -->
     <section id="countdown">
-        <h2 class="script-font">
+        <h2 class="script-font" style="font-size: 4rem;">
             <span class="lang-en">Awaiting the Day</span>
-            <span class="lang-am amharic-text">ቀኑን በመጠባበቅ ላይ</span>
+            <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን በመጠባበቅ ላይ</span>
         </h2>
         <div class="countdown-container fade-in">
             <div class="time-box">
