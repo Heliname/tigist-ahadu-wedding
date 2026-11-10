@@ -65,6 +65,7 @@
         .lang-divider { color: var(--champagne-gold); opacity: 0.5; }
 
         .script-font { font-family: 'Alex Brush', cursive; }
+        /* Beautiful Amharic Rendering */
         .amharic-text { font-family: 'Noto Serif Ethiopic', serif; line-height: 1.8; }
 
         h1, h2, h3 { color: var(--champagne-gold); font-weight: normal; margin-bottom: 15px; }
@@ -100,16 +101,19 @@
         }
         .gate-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(40, 30, 20, 0.6); z-index: 1; /* Dark overlay for text readability */
+            background: rgba(40, 30, 20, 0.6); z-index: 1; 
         }
 
         .gate-image-container {
             flex: 1; width: 50vw; height: 100vh; 
             display: flex; justify-content: center; align-items: center;
-            padding: 40px; position: relative; z-index: 2;
+            padding: 20px; /* Reduced padding to make the image much larger */
+            position: relative; z-index: 2;
         }
+        /* Enlarged Photo 1 */
         .gate-image-container img {
             width: 100%; height: 100%; object-fit: contain; 
+            max-height: 95vh; /* Allows the image to span taller */
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 4px;
         }
         
@@ -124,14 +128,6 @@
             0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2)); }
             100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(255, 255, 255, 0.4)); }
         }
-
-        @media (max-width: 900px) {
-            #audio-gate { flex-direction: column; }
-            .gate-image-container { width: 100vw; height: 50vh; padding: 20px; }
-            .gate-content { width: 100vw; height: 50vh; padding: 20px; }
-            .floating-nav { top: auto; bottom: 25px; padding: 12px 20px; gap: 15px; }
-            .lang-switcher { top: 15px; right: 15px; }
-        }
         
         /* --- Hero Video Section --- */
         .hero-section {
@@ -144,7 +140,7 @@
             background: rgba(68, 56, 44, 0.45); z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; color: var(--white); padding: 20px; }
-        .hero-content h1 { color: var(--white); font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); margin-bottom: 5px; }
+        .hero-content h1 { color: var(--white); font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); margin-bottom: 5px; }
         .hero-date { letter-spacing: 4px; text-transform: uppercase; font-size: 1.1rem; margin-top: 20px; font-weight: bold; }
 
         /* --- Global Sections --- */
@@ -235,11 +231,11 @@
         .guestbook-form textarea { resize: vertical; min-height: 100px; }
         .guestbook-form input:focus, .guestbook-form textarea:focus { outline: none; border-color: var(--champagne-gold); }
 
-        /* --- Closing Section --- */
-        .closing-container { max-width: 1000px; margin: 0 auto; text-align: center; width: 100%; }
+        /* --- Closing Section (Greatly Enlarged Photo 10) --- */
+        .closing-container { max-width: 1200px; margin: 0 auto; text-align: center; width: 100%; }
         .closing-image-frame {
             background: var(--white); padding: 15px; margin: 40px auto; 
-            width: 100%; max-width: 900px; 
+            width: 100%; max-width: 1200px; /* Increased from 900px to 1200px */
             box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15); border: 1px solid rgba(197, 164, 109, 0.3); border-radius: 8px;
         }
         .closing-image-frame img { width: 100%; height: auto; display: block; border-radius: 4px; }
@@ -263,6 +259,42 @@
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+        /* =========================================
+           MOBILE RESPONSIVENESS FIXES
+           ========================================= */
+        @media screen and (max-width: 900px) {
+            /* Fix the Audio Gate to stack perfectly on mobile */
+            #audio-gate { flex-direction: column; }
+            .gate-image-container { width: 100vw; height: 50vh; padding: 10px; }
+            .gate-content { width: 100vw; height: 50vh; padding: 20px; }
+            .gate-content h2.script-font { font-size: 2.8rem !important; }
+            .gate-content .amharic-text { font-size: 2.2rem !important; }
+
+            /* Fix Typography for mobile screens */
+            .script-font { font-size: 2.8rem !important; }
+            h1 { font-size: 2.8rem !important; }
+            h2 .lang-am.amharic-text { font-size: 2.2rem !important; }
+            .hero-content h1 { font-size: 3rem !important; }
+            .hero-content .lang-am.amharic-text { font-size: 2.5rem !important; }
+            
+            /* Fix Timeline so it aligns nicely on small screens */
+            .timeline::before { left: 0; }
+            .event-box { margin-left: 20px; padding: 20px; text-align: left; }
+            .event-box::after { left: -20px; }
+            .event-box h3 { font-size: 1.6rem; }
+            
+            /* Fix Photo Gallery to 2 columns on mobile */
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .gallery-item { height: 180px; }
+            .gallery-item:nth-child(2n) { height: 220px; }
+
+            /* Adjust Menu and Buttons */
+            .floating-nav { width: 95%; padding: 10px; gap: 10px; bottom: 20px; top: auto; justify-content: center; }
+            .floating-nav a { font-size: 0.75rem; letter-spacing: 1px; }
+            .lang-switcher { top: 15px; right: 15px; padding: 5px 10px; }
+            .time-box { min-width: 70px; padding: 15px; }
+            .time-box span { font-size: 2rem; }
+        }
     </style>
 </head>
 <body class="lang-en">
@@ -295,18 +327,15 @@
 
     <!-- Tap to Enter Gate (SPLIT SCREEN WITH VIDEO BACKGROUND) -->
     <div id="audio-gate">
-        <!-- New Video Background for the Opening Page -->
         <video class="gate-video-bg" autoplay loop muted playsinline>
             <source src="flowers-wind.mp4" type="video/mp4">
         </video>
         <div class="gate-overlay"></div>
 
         <div class="gate-image-container">
-            <!-- Ensure Photo 1 is visible and perfectly uncropped -->
             <img src="photo1.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="gate-content">
-            <!-- Luxury Gold Rings -->
             <svg class="ring-icon" viewBox="0 0 140 80" width="100" height="60">
                 <defs>
                     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -325,9 +354,9 @@
                 <path d="M 73 24 A 26 26 0 0 0 50 14" stroke="url(#goldGrad)" stroke-width="8.5" fill="none" />
             </svg>
 
-            <h2 class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 10px;">
+            <h2 class="script-font" style="color: var(--champagne-gold); margin-bottom: 10px;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text" style="font-size: 2.8rem;">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
             </h2>
             <p style="letter-spacing: 3px; font-size: 1rem; color: var(--white); margin-bottom: 40px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">
                 <span class="lang-en">NOVEMBER 21, 2026</span>
@@ -343,17 +372,17 @@
     <!-- 1. Cinematic Hero Section -->
     <div class="hero-section">
         <video class="hero-video" autoplay loop muted playsinline>
-            <source src="main-video.mp4" type="video/mp4">
+            <source src="flowers-wind.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 0;">
+            <p class="script-font" style="color: var(--champagne-gold); margin-bottom: 0;">
                 <span class="lang-en">Save the Date</span>
-                <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን ያስታውሱ</span>
+                <span class="lang-am amharic-text">ቀኑን ያስታውሱ</span>
             </p>
-            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 4rem;">
+            <h1 style="font-family: 'Times New Roman', Times, serif;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text" style="font-size: 3.5rem;">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
             </h1>
             <p class="hero-date">
                 <span class="lang-en">11 . 21 . 2026</span>
@@ -364,9 +393,9 @@
 
     <!-- 2. Welcome, Parents, and Calendar -->
     <section id="welcome">
-        <h2 class="script-font" style="font-size: 3.5rem;">
+        <h2 class="script-font">
             <span class="lang-en">With Joyful Hearts</span>
-            <span class="lang-am amharic-text" style="font-size: 2.8rem;">በታላቅ ደስታ</span>
+            <span class="lang-am amharic-text">በታላቅ ደስታ</span>
         </h2>
         <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: var(--champagne-gold); font-weight: bold;">
             <span class="lang-en">We invite you to our wedding</span>
@@ -396,7 +425,6 @@
             </div>
         </div>
 
-        <!-- Beautiful Calendar with Gold Highlight -->
         <div class="calendar-container fade-in">
             <div class="calendar-content">
                 <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 1.8rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px;">
@@ -440,11 +468,11 @@
         </div>
     </section>
 
-    <!-- 4. Our Memories (Photo Gallery: Photos 2 - 9) -->
+    <!-- 4. Our Memories (Photo Gallery) -->
     <section id="gallery">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font">
             <span class="lang-en">Our Memories</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">ትዝታዎቻችን</span>
+            <span class="lang-am amharic-text">ትዝታዎቻችን</span>
         </h2>
         <p style="letter-spacing: 2px; font-size: 1rem; text-transform: uppercase; margin-bottom: 40px; font-weight: bold;">
             <span class="lang-en">A glimpse into our story</span>
@@ -459,15 +487,15 @@
             <img src="photo5.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo6.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo7.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
-            <img src="photo8.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
+            <img src="photo8(2).jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
         </div>
     </section>
 
     <!-- 5. Wedding Details (Timeline) -->
     <section id="details" class="bg-beige">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font">
             <span class="lang-en">The Celebration</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">የሰርጉ ፕሮግራም</span>
+            <span class="lang-am amharic-text">የሰርጉ ፕሮግራም</span>
         </h2>
         
         <div class="timeline fade-in">
@@ -515,9 +543,9 @@
 
     <!-- 6. Countdown -->
     <section id="countdown">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font">
             <span class="lang-en">Awaiting the Day</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን በመጠባበቅ ላይ</span>
+            <span class="lang-am amharic-text">ቀኑን በመጠባበቅ ላይ</span>
         </h2>
         <div class="countdown-container fade-in">
             <div class="time-box">
@@ -550,7 +578,6 @@
     <!-- 7. Interactive Features (Upload & Guestbook) -->
     <section id="interactive" class="bg-beige">
         
-        <!-- Capture the Moment -->
         <div class="interactive-card fade-in" style="margin-bottom: 40px;">
             <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -564,14 +591,12 @@
                 <span class="lang-en">Please upload the photos and videos you take during our special day to our shared album.</span>
                 <span class="lang-am amharic-text">በሰርጋችን ቀን ያነሳችሁትን ፎቶ እና ቪዲዮ እዚህ ላይ ላኩልን።</span>
             </p>
-            <!-- REPLACE THIS HREF WITH YOUR GOOGLE PHOTOS OR GOOGLE DRIVE LINK -->
             <a href="PUT_YOUR_GOOGLE_PHOTOS_LINK_HERE" target="_blank" class="btn" onclick="checkLink(event, this)">
                 <span class="lang-en">Upload Media Here</span>
                 <span class="lang-am amharic-text">ፎቶ እና ቪዲዮ ይጫኑ</span>
             </a>
         </div>
 
-        <!-- Digital Guestbook -->
         <div class="interactive-card fade-in">
             <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -585,7 +610,6 @@
                 <span class="lang-am amharic-text">ለሙሽሮቹ መልካም ምኞትዎን እና ማስታወሻዎን እዚህ ያስቀምጡ።</span>
             </p>
             
-            <!-- REPLACE THIS ACTION LINK WITH YOUR FORMSPREE.IO LINK -->
             <form action="PUT_YOUR_FORMSPREE_LINK_HERE" method="POST" class="guestbook-form" onsubmit="checkForm(event, this)">
                 <input type="text" name="name" placeholder="Name / ስም" required>
                 <textarea name="message" placeholder="Message / መልእክትዎን እዚህ ይፃፉ..." required></textarea>
@@ -595,7 +619,6 @@
                 </button>
             </form>
         </div>
-
     </section>
 
     <!-- 8. Closing Section -->
@@ -642,7 +665,7 @@
             setLang(savedLang);
         });
 
-        // --- Safe Check for External Links (Upload & Guestbook) ---
+        // --- Safe Check for External Links ---
         function checkLink(e, element) {
             if(element.getAttribute('href').includes('PUT_YOUR')) {
                 e.preventDefault();
