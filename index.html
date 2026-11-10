@@ -37,32 +37,46 @@
         h1, h2, h3 { color: var(--champagne-gold); font-weight: 600; margin-bottom: 15px; }
         p { line-height: 1.6; margin-bottom: 10px; }
 
-        /* --- Audio Gate (Tap to Enter) --- */
+        /* --- Audio Gate (First Page with Photo 1 on the side) --- */
         #audio-gate {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--ivory);
             z-index: 10000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; 
             transition: opacity 1s ease, transform 1s ease;
         }
         #audio-gate.hidden { opacity: 0; transform: translateY(-20px); pointer-events: none; }
         
+        .gate-image {
+            flex: 1;
+            background-image: url('photo1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .gate-content {
+            flex: 1;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 40px;
+            background-color: var(--ivory);
+        }
+
+        @media (max-width: 768px) {
+            #audio-gate { flex-direction: column; }
+            .gate-image { flex: 0.55; width: 100%; }
+            .gate-content { flex: 0.45; padding: 20px; }
+        }
+        
         /* --- Hero Video Section --- */
         .hero-section {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            overflow: hidden;
+            position: relative; height: 100vh; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;
         }
-        .hero-video {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
-        }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(68, 56, 44, 0.4); /* Dark overlay to make gold text pop */
-            z-index: 1;
+            background: rgba(68, 56, 44, 0.45); z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; color: var(--white); padding: 20px; }
         .hero-content h1 { color: var(--white); font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); margin-bottom: 5px; }
@@ -70,46 +84,66 @@
         .hero-date { font-family: 'Montserrat', sans-serif; letter-spacing: 4px; text-transform: uppercase; font-size: 1rem; margin-top: 20px; }
 
         /* --- Global Sections --- */
-        section { padding: 90px 20px; }
+        section { padding: 90px 20px; display: flex; flex-direction: column; align-items: center; }
         .bg-beige { background-color: var(--soft-beige); }
 
         /* --- Welcome & Parents --- */
-        .parents-block {
-            display: flex; flex-direction: column; gap: 30px; margin: 40px auto; max-width: 600px;
-        }
+        .parents-block { display: flex; flex-direction: column; gap: 30px; margin: 40px auto; max-width: 600px; }
         .parent-names { font-size: 1.2rem; }
         .parent-names span { display: block; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
 
-        /* --- Photo Gallery (Eventoly Arch Vibe) --- */
+        /* --- The Calendar Widget --- */
+        .calendar-container {
+            position: relative; max-width: 420px; width: 100%; margin: 30px auto 40px auto;
+            border: 2px solid var(--champagne-gold); border-radius: 8px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.10); background-color: var(--white);
+            transition: transform 0.3s ease;
+        }
+        .calendar-container:hover { transform: translateY(-5px); }
+        .calendar-content { position: relative; z-index: 1; padding: 30px 20px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 20px; font-family: 'Playfair Display', serif; }
+        .day-name { font-weight: bold; color: var(--champagne-gold); font-size: 0.9rem; text-transform: uppercase; }
+        .calendar-grid div { display: flex; justify-content: center; align-items: center; height: 35px; font-size: 1.15rem; color: var(--deep-brown); }
+        .heart-date { position: relative; color: #FFFFFF !important; font-weight: bold; z-index: 1; }
+        .heart-date::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -46%); 
+            width: 45px; height: 45px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B22222'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: contain; background-repeat: no-repeat; background-position: center; z-index: -1;
+            filter: drop-shadow(0 4px 8px rgba(178, 34, 34, 0.3));
+        }
+
+        /* --- Photo Gallery (Photos 2-9) --- */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 10px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
+            max-width: 1000px; margin: 40px auto; padding: 0 10px; width: 100%;
         }
         .gallery-item {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.4s ease;
+            width: 100%; height: 250px; object-fit: cover; border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.4s ease;
         }
-        /* Make some photos arches dynamically */
         .gallery-item:nth-child(2n) { border-radius: 150px 150px 8px 8px; height: 300px; }
         .gallery-item:nth-child(5n) { border-radius: 8px 8px 150px 150px; }
         .gallery-item:hover { transform: scale(1.03); z-index: 10; position: relative; }
 
         @media (min-width: 768px) {
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
-            .gallery-item { height: 350px; }
-            .gallery-item:nth-child(2n) { height: 400px; }
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .gallery-item { height: 300px; }
+            .gallery-item:nth-child(2n) { height: 350px; }
+        }
+
+        /* --- Invitation & Scripture Box --- */
+        .scripture-box {
+            background: var(--white); border-top: 1px solid var(--champagne-gold); border-bottom: 1px solid var(--champagne-gold);
+            padding: 40px 20px; max-width: 700px; margin: 0 auto 40px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .invitation-msg {
+            background: var(--white); padding: 30px; border-radius: 12px; max-width: 600px;
+            font-size: 1.3rem; line-height: 1.8; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
         }
 
         /* --- Vertical Timeline --- */
-        .timeline { position: relative; max-width: 600px; margin: 40px auto; }
+        .timeline { position: relative; max-width: 600px; margin: 40px auto; width: 100%; }
         .timeline::before {
             content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--champagne-gold); transform: translateX(-50%); opacity: 0.5;
         }
@@ -123,19 +157,16 @@
         .event-time { font-family: 'Montserrat', sans-serif; color: var(--champagne-gold); font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; margin: 15px 0; }
 
         /* --- Countdown --- */
-        .countdown-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
-        .time-box {
-            background: var(--white); border: 1px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 80px;
-        }
+        .countdown-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;}
+        .time-box { background: var(--white); border: 1px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 80px; }
         .time-box span { display: block; font-size: 2.5rem; color: var(--champagne-gold); }
         .time-box .label { font-size: 0.75rem; font-family: 'Montserrat', sans-serif; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
 
         /* --- Interactive Sections (Upload & Guestbook) --- */
         .interactive-card {
-            background: var(--white); max-width: 700px; margin: 0 auto; padding: 50px 30px; border-radius: 16px;
+            background: var(--white); max-width: 700px; width: 100%; margin: 0 auto; padding: 50px 30px; border-radius: 16px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-top: 4px solid var(--champagne-gold);
         }
-        
         .guestbook-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
         .guestbook-form input, .guestbook-form textarea {
             width: 100%; padding: 15px; border: 1px solid rgba(197, 164, 109, 0.4); border-radius: 8px;
@@ -143,6 +174,16 @@
         }
         .guestbook-form textarea { resize: vertical; min-height: 100px; }
         .guestbook-form input:focus, .guestbook-form textarea:focus { outline: none; border-color: var(--champagne-gold); }
+
+        /* --- Closing / Footer --- */
+        .closing-container {
+            max-width: 800px; margin: 0 auto; text-align: center;
+        }
+        .image-frame {
+            background: var(--white); padding: 15px; margin: 30px auto; max-width: 100%; width: 500px;
+            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15); border: 1px solid rgba(197, 164, 109, 0.3); border-radius: 8px;
+        }
+        .image-frame img { width: 100%; height: auto; display: block; border-radius: 4px; }
 
         /* --- Buttons --- */
         .btn {
@@ -179,11 +220,16 @@
     </audio>
     <button class="music-btn" id="music-toggle" aria-label="Play Music">🎵</button>
 
-    <!-- Tap to Enter Gate (Ensures Audio Works & Feels Premium) -->
+    <!-- Tap to Enter Gate (FIRST PAGE WITH PHOTO 1) -->
     <div id="audio-gate">
-        <h2 style="font-size: 2rem; color: var(--deep-brown); margin-bottom: 5px;">Ahadu & Tigist</h2>
-        <p class="sans-serif" style="letter-spacing: 3px; font-size: 0.8rem; color: var(--champagne-gold); margin-bottom: 40px;">NOVEMBER 21, 2026</p>
-        <button class="btn" onclick="enterSite()">Enter Invitation</button>
+        <!-- Photo 1 on the side -->
+        <div class="gate-image"></div>
+        <!-- Welcome content on the other side -->
+        <div class="gate-content">
+            <h2 class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 10px;">Ahadu & Tigist</h2>
+            <p class="sans-serif" style="letter-spacing: 3px; font-size: 0.8rem; color: var(--deep-brown); margin-bottom: 40px; font-weight: 500;">NOVEMBER 21, 2026</p>
+            <button class="btn" onclick="enterSite()">Tap to Open Invitation</button>
+        </div>
     </div>
 
     <!-- 1. Cinematic Hero Section -->
@@ -193,14 +239,14 @@
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="script-font" style="font-size: 3rem; color: var(--champagne-gold); margin-bottom: 0;">Forever Begins</p>
+            <p class="script-font" style="font-size: 3rem; color: var(--champagne-gold); margin-bottom: 0;">Save the Date</p>
             <h1>Ahadu & Tigist</h1>
             <div class="amharic">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
             <p class="hero-date">11 . 21 . 2026</p>
         </div>
     </div>
 
-    <!-- 2. Welcome & Parents -->
+    <!-- 2. Welcome, Parents, and Calendar -->
     <section id="welcome">
         <h2 class="script-font" style="font-size: 3.5rem;">With Joyful Hearts</h2>
         <p class="sans-serif" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; color: var(--champagne-gold);">We invite you to our wedding</p>
@@ -216,20 +262,47 @@
             </div>
         </div>
 
-        <div style="max-width: 600px; margin: 0 auto; border-top: 1px solid var(--champagne-gold); border-bottom: 1px solid var(--champagne-gold); padding: 30px 20px;" class="fade-in">
-            <p class="amharic" style="font-size: 1.1rem; color: var(--deep-brown);">"እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5</p>
-            <p style="font-size: 1.1rem; font-style: italic;">"O LORD, how great are thy works! and thy thoughts are very deep."<br>— Psalms 92:5</p>
+        <!-- Beautiful Calendar with Bold Red Heart -->
+        <div class="calendar-container fade-in">
+            <div class="calendar-content">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px;">November 2026</h3>
+                <div class="calendar-grid">
+                    <div class="day-name">S</div><div class="day-name">M</div><div class="day-name">T</div><div class="day-name">W</div><div class="day-name">T</div><div class="day-name">F</div><div class="day-name">S</div>
+                    <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+                    <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+                    <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div>
+                    <div class="heart-date">21</div>
+                    <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
+                    <div>29</div><div>30</div><div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div style="margin-top: 25px; border-top: 1px solid var(--champagne-gold); padding-top: 15px;">
+                    <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0;">Saturday, November 21, 2026</p>
+                    <p class="amharic" style="font-size: 1rem; color: var(--champagne-gold); margin-bottom: 0;">12 Hidar 2019 E.C.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 3. Our Memories (Photo Gallery) -->
-    <section id="gallery" class="bg-beige">
+    <!-- 3. Invitation Message -->
+    <section id="invitation" class="bg-beige">
+        <div class="scripture-box fade-in">
+            <p class="amharic">"እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5 (NASV)</p>
+            <p>"O LORD, how great are thy works! and thy thoughts are very deep."<br>— Psalms 92:5 (KJV)</p>
+        </div>
+
+        <div class="invitation-msg fade-in">
+            <p>We joyfully invite you to share in our happiness as we unite in marriage. Your presence will make our celebration complete.</p>
+            <p class="amharic">በጋብቻ ስንተሳሰር ደስታችንን አብራችሁን እንድታካፍሉ በደስታ እንጋብዛለን። መገኘትዎ ክብራችን ነው።</p>
+        </div>
+    </section>
+
+    <!-- 4. Our Memories (Photo Gallery: Photos 2 - 9) -->
+    <section id="gallery">
         <h2 class="script-font" style="font-size: 3.5rem;">Our Memories</h2>
         <p class="sans-serif" style="letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 40px;">A glimpse into our story</p>
         
         <div class="gallery-grid fade-in">
-            <!-- Ensure your 10 photos are exactly named like this in GitHub -->
-            <img src="photo1.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
+            <!-- Photos 2 through 9 are here (Photo 1 is at top, Photo 10 is at bottom) -->
             <img src="photo2.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo3.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo4.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
@@ -238,38 +311,37 @@
             <img src="photo7.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo8.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
             <img src="photo9.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
-            <img src="photo10.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
         </div>
     </section>
 
-    <!-- 4. Wedding Details (Timeline) -->
-    <section id="details">
+    <!-- 5. Wedding Details (Timeline) -->
+    <section id="details" class="bg-beige">
         <h2 class="script-font" style="font-size: 3.5rem;">The Celebration</h2>
         <p class="sans-serif" style="letter-spacing: 2px; font-size: 0.85rem; text-transform: uppercase;">Saturday, Nov 21, 2026</p>
         
         <div class="timeline fade-in">
-            <!-- Ceremony -->
+            <!-- Event 1: Church Ceremony -->
             <div class="event-box">
                 <h3 style="font-size: 1.8rem; margin-bottom: 5px;">Church Ceremony</h3>
                 <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የቃል ኪዳን ስርዓት</p>
                 <div class="event-time">11:00 AM (Intl) | 5:00 (Local)</div>
-                <p><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Mekanissa, Addis Ababa</p>
+                <p><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Mekanissa, Addis Ababa, Ethiopia.</p>
                 <a href="https://maps.app.goo.gl/wechTC3SKB32mkos7" target="_blank" class="btn" style="padding: 10px 25px; font-size: 0.8rem;">View Map</a>
             </div>
 
-            <!-- Reception -->
+            <!-- Event 2: Lunch Celebration -->
             <div class="event-box">
                 <h3 style="font-size: 1.8rem; margin-bottom: 5px;">Lunch Celebration</h3>
                 <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የምሳ ግብዣ</p>
                 <div class="event-time">1:00 PM (Intl) | 7:00 (Local)</div>
-                <p><strong>Mekane Yesus Seminary</strong><br>Addis Ababa, Ethiopia</p>
+                <p><strong>Mekane Yesus Seminary</strong><br>Addis Ababa, Ethiopia.</p>
                 <a href="https://maps.app.goo.gl/gy15duS86XDbAvPT7" target="_blank" class="btn" style="padding: 10px 25px; font-size: 0.8rem;">View Map</a>
             </div>
         </div>
     </section>
 
-    <!-- 5. Countdown -->
-    <section id="countdown" class="bg-beige">
+    <!-- 6. Countdown -->
+    <section id="countdown">
         <h2 class="script-font" style="font-size: 3rem;">Awaiting the Day</h2>
         <div class="countdown-container fade-in">
             <div class="time-box"><span id="days">00</span><div class="label">Days</div></div>
@@ -279,10 +351,10 @@
         </div>
     </section>
 
-    <!-- 6. Interactive Features (Upload & Guestbook) -->
-    <section id="interactive">
+    <!-- 7. Interactive Features (Upload & Guestbook) -->
+    <section id="interactive" class="bg-beige">
         
-        <!-- Capture the Moment (Upload Photos) -->
+        <!-- Capture the Moment -->
         <div class="interactive-card fade-in" style="margin-bottom: 40px;">
             <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
@@ -291,11 +363,10 @@
             <h2 style="font-size: 2rem;">Share Your Photos</h2>
             <p>Help us capture every beautiful moment. Please upload the photos and videos you take during our special day to our shared album.</p>
             <p class="amharic" style="color: var(--champagne-gold);">በሰርጋችን ቀን ያነሳችሁትን ፎቶ እና ቪዲዮ እዚህ ላይ ላኩልን።</p>
-            <!-- Replace "#" with your actual Google Photos or Eventoly upload link -->
             <a href="#" target="_blank" class="btn">Upload Media Here</a>
         </div>
 
-        <!-- Leave a Message (Digital Guestbook) -->
+        <!-- Digital Guestbook -->
         <div class="interactive-card fade-in">
             <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -303,7 +374,6 @@
             <h2 style="font-size: 2rem;">Digital Guestbook</h2>
             <p>Leave a note of love, advice, or your favorite memory with the bride and groom.</p>
             
-            <!-- Instructions: Go to formspree.io, create a free form, and paste the link in the action="" below -->
             <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST" class="guestbook-form">
                 <input type="text" name="name" placeholder="Your Name(s)" required>
                 <textarea name="message" placeholder="Write your message here..." required></textarea>
@@ -313,11 +383,31 @@
 
     </section>
 
-    <!-- 7. Footer -->
-    <footer style="padding: 60px 20px; background-color: var(--deep-brown); color: var(--ivory);">
-        <p class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 0;">Forever & Always</p>
-        <h2 style="font-size: 1.5rem; color: var(--ivory); letter-spacing: 2px;">Ahadu & Tigist</h2>
-        <p class="sans-serif" style="font-size: 0.8rem; opacity: 0.7; margin-top: 20px;">We look forward to celebrating with you.</p>
+    <!-- 8. Closing Section (With Photo 10) -->
+    <section id="closing">
+        <div class="closing-container">
+            <div class="fade-in" style="margin-bottom: 30px; background: var(--white); padding: 25px 40px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid rgba(197, 164, 109, 0.2);">
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--deep-brown); margin-bottom: 5px;">We look forward to celebrating with you.</p>
+                <p class="amharic" style="font-size: 1.1rem; color: var(--champagne-gold); margin-bottom: 0;">ይህንን ልዩ ቀን ከእናንተ ጋር ለማክበር በጉጉት እንጠብቃለን።</p>
+            </div>
+
+            <p class="script-font fade-in" style="font-size: 4rem; color: var(--champagne-gold); margin-bottom: 20px;">Forever & Always</p>
+            
+            <!-- Photo 10 Featured at the bottom -->
+            <div class="image-frame fade-in">
+                <img src="photo10.jpg" alt="Ahadu and Tigist">
+            </div>
+            
+            <div class="names-container fade-in" style="margin-top: 30px;">
+                <h2 style="font-size: 2.5rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">Ahadu & Tigist</h2>
+                <div class="amharic" style="font-size: 1.5rem; color: var(--deep-brown); text-shadow: 1px 1px 3px rgba(255,255,255,0.8);">አሐዱ ፍትሐ አምላክ እና ትግስት በላይ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Small Footer -->
+    <footer style="background-color: var(--deep-brown); color: var(--ivory); padding: 20px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;">
+        <p style="margin: 0; opacity: 0.6;">© 2026 Ahadu & Tigist</p>
     </footer>
 
     <script>
