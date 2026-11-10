@@ -15,6 +15,7 @@
             --ivory: #FAF7F0;
             --champagne-gold: #C5A46D;
             --deep-brown: #44382C;
+            --solid-black: #000000;
             --soft-beige: #F4EFE6;
             --white: #FFFFFF;
         }
@@ -24,8 +25,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             color: var(--deep-brown);
-            /* Background is transparent so the fixed global video shows through */
-            background-color: transparent;
+            background-color: transparent; /* Lets the global video show through */
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -54,7 +54,7 @@
             top: 20px;
             right: 25px;
             z-index: 10001;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(5px);
             padding: 8px 15px;
             border-radius: 30px;
@@ -88,7 +88,7 @@
         /* --- Minimalist Floating Navigation --- */
         .floating-nav {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 20px; background: rgba(255, 255, 255, 0.85);
+            display: flex; gap: 20px; background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 12px 30px; border-radius: 50px; border: 1px solid rgba(197, 164, 109, 0.3);
             z-index: 9990; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -101,40 +101,47 @@
         }
         .floating-nav a:hover { color: var(--champagne-gold); }
 
-        /* --- Audio Gate (Split Screen with Photo 1) --- */
+        /* --- Audio Gate (Split Screen with Global Video Background) --- */
         #audio-gate {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--ivory); z-index: 10000;
+            background-color: transparent; /* Lets the global video show through */
+            z-index: 10000; overflow: hidden;
             display: flex; transition: opacity 1s ease, transform 1s ease;
+        }
+        #audio-gate::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(250, 247, 240, 0.65); /* Soft overlay so video is visible but text is readable */
+            z-index: 0; backdrop-filter: blur(4px);
         }
         #audio-gate.hidden { opacity: 0; transform: translateY(-20px); pointer-events: none; }
         
         .gate-image-container {
-            flex: 1; width: 50vw; height: 100vh; 
+            flex: 1.2; width: 55vw; height: 100vh; 
             display: flex; justify-content: center; align-items: center;
-            background-color: var(--soft-beige); padding: 40px;
+            padding: 15px; /* Reduced padding for larger image */
+            position: relative; z-index: 2;
         }
         .gate-image-container img {
-            width: 100%; height: 100%; object-fit: contain; max-height: 95vh;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-radius: 4px;
+            width: 100%; height: 100%; object-fit: contain; max-height: 98vh; /* Maximized height */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2); border-radius: 4px;
         }
         
         .gate-content {
-            flex: 1; width: 50vw; height: 100vh;
+            flex: 0.8; width: 45vw; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px; background-color: var(--ivory);
+            padding: 30px; position: relative; z-index: 2;
         }
 
         .ring-icon { margin-bottom: 20px; animation: gentlePulse 3s infinite alternate; }
         @keyframes gentlePulse {
             0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
-            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.4)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.6)); }
         }
 
         @media (max-width: 900px) {
             #audio-gate { flex-direction: column; }
-            .gate-image-container { width: 100vw; height: 50vh; padding: 20px; }
-            .gate-content { width: 100vw; height: 50vh; padding: 20px; }
+            .gate-image-container { width: 100vw; height: 55vh; padding: 10px; flex: none; }
+            .gate-content { width: 100vw; height: 45vh; padding: 15px; flex: none; justify-content: flex-start; }
             .floating-nav { top: auto; bottom: 25px; padding: 12px 20px; gap: 15px; }
             .lang-switcher { top: 15px; right: 15px; }
         }
@@ -143,47 +150,59 @@
         .hero-section {
             position: relative; height: 100vh; width: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;
-            /* Give it a solid background so the global video doesn't show through during loading */
             background-color: var(--deep-brown);
         }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(68, 56, 44, 0.45); z-index: 1;
+            background: rgba(40, 30, 20, 0.55); z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; color: var(--white); padding: 20px; }
-        .hero-content h1 { color: var(--white); font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); margin-bottom: 5px; }
-        .hero-date { letter-spacing: 4px; text-transform: uppercase; font-size: 1.1rem; margin-top: 20px; font-weight: bold; }
+        .hero-content h1 { color: var(--white); font-size: 4rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); margin-bottom: 5px; }
+        .hero-date { letter-spacing: 4px; text-transform: uppercase; font-size: 1.1rem; margin-top: 20px; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 
         /* --- Global Sections --- */
         section { padding: 90px 20px; display: flex; flex-direction: column; align-items: center; }
-        /* Semi-transparent beige to allow background video to subtly show through */
         .bg-beige { background-color: rgba(244, 239, 230, 0.6); }
 
-        /* --- Welcome & Parents --- */
-        .parents-block { display: flex; flex-direction: column; gap: 30px; margin: 40px auto; max-width: 600px; }
-        .parent-names { font-size: 1.4rem; }
-        .parent-names span { display: block; font-size: 1rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+        /* --- Welcome & Parents (FROSTED CARD FOR VISIBILITY) --- */
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(197, 164, 109, 0.4);
+            max-width: 800px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            margin: 0 auto;
+        }
+        .welcome-card h2 { color: var(--champagne-gold); }
+        .welcome-card .intro-text { color: var(--solid-black); font-weight: bold; }
+        
+        .parents-block { display: flex; flex-direction: column; gap: 40px; margin: 40px auto; }
+        .parent-names p { font-size: 1.6rem; color: var(--solid-black); font-weight: bold; }
+        .parent-names span { display: block; font-size: 1.05rem; color: var(--solid-black); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.9; }
 
         /* --- The Calendar Widget --- */
         .calendar-container {
             position: relative; max-width: 450px; width: 100%; margin: 30px auto 10px auto;
             border: 1px solid var(--champagne-gold); border-radius: 12px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.08); background-color: var(--white);
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.1); background-color: var(--white);
             transition: transform 0.3s ease;
         }
         .calendar-container:hover { transform: translateY(-5px); }
         .calendar-content { position: relative; z-index: 1; padding: 40px 20px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 20px; }
         .day-name { font-weight: bold; color: var(--champagne-gold); font-size: 1.1rem; text-transform: uppercase; }
-        .calendar-grid div { display: flex; justify-content: center; align-items: center; height: 35px; font-size: 1.3rem; color: var(--deep-brown); }
+        .calendar-grid div { display: flex; justify-content: center; align-items: center; height: 35px; font-size: 1.3rem; color: var(--solid-black); font-weight: bold; }
         
-        .heart-date { position: relative; color: var(--deep-brown) !important; font-weight: bold; z-index: 1; }
+        .heart-date { position: relative; color: var(--solid-black) !important; font-weight: bold; z-index: 1; }
         .heart-date::before {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             width: 45px; height: 45px;
             border: 2px solid var(--champagne-gold); border-radius: 50%;
-            background-color: rgba(197, 164, 109, 0.15); z-index: -1;
+            background-color: rgba(197, 164, 109, 0.2); z-index: -1;
         }
 
         /* --- Photo Gallery --- */
@@ -193,7 +212,8 @@
         }
         .gallery-item {
             width: 100%; height: 250px; object-fit: cover; border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: transform 0.4s ease;
+            background: var(--white); border: 2px solid var(--white);
         }
         .gallery-item:nth-child(2n) { border-radius: 150px 150px 8px 8px; height: 300px; }
         .gallery-item:nth-child(5n) { border-radius: 8px 8px 150px 150px; }
@@ -207,8 +227,8 @@
 
         /* --- Scripture Box --- */
         .scripture-box {
-            background: var(--white); border-top: 1px solid var(--champagne-gold); border-bottom: 1px solid var(--champagne-gold);
-            padding: 40px 20px; max-width: 700px; margin: 0 auto 40px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95); border-top: 2px solid var(--champagne-gold); border-bottom: 2px solid var(--champagne-gold);
+            padding: 40px 20px; max-width: 700px; margin: 0 auto 40px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         /* --- Vertical Timeline --- */
@@ -217,8 +237,8 @@
             content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--champagne-gold); transform: translateX(-50%); opacity: 0.5;
         }
         .event-box {
-            background: var(--white); padding: 30px; border-radius: 12px; margin-bottom: 40px; position: relative; z-index: 2;
-            box-shadow: 0 15px 30px rgba(68, 56, 44, 0.05); border: 1px solid rgba(197, 164, 109, 0.2);
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 12px; margin-bottom: 40px; position: relative; z-index: 2;
+            box-shadow: 0 15px 30px rgba(68, 56, 44, 0.1); border: 1px solid rgba(197, 164, 109, 0.4);
         }
         .event-box::after {
             content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: var(--champagne-gold); border-radius: 50%;
@@ -227,14 +247,14 @@
 
         /* --- Countdown --- */
         .countdown-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;}
-        .time-box { background: var(--white); border: 1px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 90px; }
-        .time-box span { display: block; font-size: 2.5rem; color: var(--champagne-gold); }
-        .time-box .label { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; font-weight: bold; }
+        .time-box { background: rgba(255, 255, 255, 0.95); border: 1px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 90px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .time-box span { display: block; font-size: 2.5rem; color: var(--solid-black); font-weight: bold; }
+        .time-box .label { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; font-weight: bold; color: var(--champagne-gold); }
 
         /* --- Interactive Sections (Upload & Guestbook) --- */
         .interactive-card {
-            background: var(--white); max-width: 700px; width: 100%; margin: 0 auto; padding: 50px 30px; border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-top: 4px solid var(--champagne-gold);
+            background: rgba(255, 255, 255, 0.95); max-width: 700px; width: 100%; margin: 0 auto; padding: 50px 30px; border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-top: 4px solid var(--champagne-gold);
         }
         .guestbook-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
         .guestbook-form input, .guestbook-form textarea {
@@ -257,7 +277,7 @@
         .btn {
             background-color: var(--champagne-gold); color: var(--white); border: none; padding: 15px 35px;
             font-family: 'Times New Roman', Times, serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
-            border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; margin-top: 15px;
+            border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; margin-top: 15px; font-weight: bold;
         }
         .btn:hover { background-color: var(--deep-brown); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(68,56,44,0.2); color: var(--white); }
 
@@ -265,7 +285,7 @@
         .music-btn {
             position: fixed; bottom: 25px; left: 25px; background: var(--white); color: var(--champagne-gold);
             border: 1px solid var(--champagne-gold); border-radius: 50%; width: 50px; height: 50px;
-            font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 1.2rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         /* --- Animations --- */
@@ -305,7 +325,7 @@
 </head>
 <body class="lang-en">
 
-    <!-- Global Video Background (Plays behind all sections below the Hero) -->
+    <!-- Global Video Background (Plays behind all sections) -->
     <div class="global-video-bg">
         <video autoplay loop muted playsinline>
             <source src="flowers-wind.mp4" type="video/mp4">
@@ -339,10 +359,10 @@
     </audio>
     <button class="music-btn" id="music-toggle" aria-label="Play Music">🎵</button>
 
-    <!-- Tap to Enter Gate (SPLIT SCREEN WITH PHOTO 1) -->
+    <!-- Tap to Enter Gate (SPLIT SCREEN) -->
     <div id="audio-gate">
         <div class="gate-image-container">
-            <!-- Ensure Photo 1 is visible and perfectly uncropped -->
+            <!-- Maximized uncropped Photo 1 -->
             <img src="photo1.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="gate-content">
@@ -368,7 +388,7 @@
                 <span class="lang-en">Ahadu & Tigist</span>
                 <span class="lang-am amharic-text" style="font-size: 2.8rem;">አሐዱ እና ትግስት</span>
             </h2>
-            <p style="letter-spacing: 3px; font-size: 1rem; color: var(--deep-brown); margin-bottom: 40px; font-weight: bold;">
+            <p style="letter-spacing: 3px; font-size: 1rem; color: var(--solid-black); margin-bottom: 40px; font-weight: bold;">
                 <span class="lang-en">NOVEMBER 21, 2026</span>
                 <span class="lang-am amharic-text" style="letter-spacing: 1px;">ኅዳር 12, 2019 ዓ.ም</span>
             </p>
@@ -403,35 +423,39 @@
 
     <!-- 2. Welcome, Parents, and Calendar -->
     <section id="welcome">
-        <h2 class="script-font" style="font-size: 3.5rem;">
-            <span class="lang-en">With Joyful Hearts</span>
-            <span class="lang-am amharic-text" style="font-size: 2.8rem;">በታላቅ ደስታ</span>
-        </h2>
-        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; color: var(--champagne-gold); font-weight: bold;">
-            <span class="lang-en">We invite you to our wedding</span>
-            <span class="lang-am amharic-text" style="letter-spacing: 0;">ወደ ሰርጋችን በደስታ እንጋብዛለን</span>
-        </p>
         
-        <div class="parents-block fade-in">
-            <div class="parent-names">
-                <p>
-                    <span class="lang-en">Ahadu Fithaamlak</span>
-                    <span class="lang-am amharic-text">አሐዱ ፍትሐ አምላክ</span>
-                </p>
-                <span>
-                    <span class="lang-en">Son of Shaleqa Fithaamlak Enyew and Azalech Senqe</span>
-                    <span class="lang-am amharic-text">የሻለቃ ፍትሐ አምላክ እንየው እና የአዛለች ስንቄ ልጅ</span>
-                </span>
-            </div>
-            <div class="parent-names">
-                <p>
-                    <span class="lang-en">Tigist Belay</span>
-                    <span class="lang-am amharic-text">ትግስት በላይ</span>
-                </p>
-                <span>
-                    <span class="lang-en">Daughter of Belay Woldesenbet and Hana Abera</span>
-                    <span class="lang-am amharic-text">የበላይ ወልደሰንበት እና የሐና አበራ ልጅ</span>
-                </span>
+        <!-- FROSTED CARD ADDED HERE FOR GUARANTEED READABILITY -->
+        <div class="welcome-card fade-in">
+            <h2 class="script-font" style="font-size: 3.5rem;">
+                <span class="lang-en">With Joyful Hearts</span>
+                <span class="lang-am amharic-text" style="font-size: 2.8rem;">በታላቅ ደስታ</span>
+            </h2>
+            <p class="intro-text" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.95rem;">
+                <span class="lang-en">We invite you to our wedding</span>
+                <span class="lang-am amharic-text" style="letter-spacing: 0;">ወደ ሰርጋችን በደስታ እንጋብዛለን</span>
+            </p>
+            
+            <div class="parents-block">
+                <div class="parent-names">
+                    <p>
+                        <span class="lang-en">Ahadu Fithaamlak</span>
+                        <span class="lang-am amharic-text">አሐዱ ፍትሐ አምላክ</span>
+                    </p>
+                    <span>
+                        <span class="lang-en">Son of Shaleqa Fithaamlak Enyew and Azalech Senqe</span>
+                        <span class="lang-am amharic-text">የሻለቃ ፍትሐ አምላክ እንየው እና የአዛለች ስንቄ ልጅ</span>
+                    </span>
+                </div>
+                <div class="parent-names">
+                    <p>
+                        <span class="lang-en">Tigist Belay</span>
+                        <span class="lang-am amharic-text">ትግስት በላይ</span>
+                    </p>
+                    <span>
+                        <span class="lang-en">Daughter of Belay Woldesenbet and Hana Abera</span>
+                        <span class="lang-am amharic-text">የበላይ ወልደሰንበት እና የሐና አበራ ልጅ</span>
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -452,10 +476,10 @@
                     <div>29</div><div>30</div><div></div><div></div><div></div><div></div><div></div>
                 </div>
                 <div style="margin-top: 25px; border-top: 1px solid var(--champagne-gold); padding-top: 15px;">
-                    <p style="font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; color: var(--deep-brown);">
+                    <p style="font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; color: var(--solid-black);">
                         Saturday, November 21, 2026
                     </p>
-                    <p class="amharic-text" style="font-size: 1.1rem; color: var(--champagne-gold); margin-bottom: 15px;">
+                    <p class="amharic-text" style="font-weight: bold; font-size: 1.1rem; color: var(--champagne-gold); margin-bottom: 15px;">
                         ቅዳሜ፣ 12 ኅዳር 2019 ዓ.ም.
                     </p>
                     <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261121T080000Z%0ADTEND:20261121T140000Z%0ASUMMARY:Ahadu%20%26%20Tigist%20Wedding%0ALOCATION:Addis%20Ababa%2C%20Ethiopia%0ADESCRIPTION:Join%20us%20to%20celebrate%20the%20wedding%20of%20Ahadu%20and%20Tigist!%0AEND:VEVENT%0AEND:VCALENDAR" download="ahadu-tigist-wedding.ics" class="btn" style="padding: 10px 20px; font-size: 0.8rem;">
@@ -470,10 +494,10 @@
     <!-- 3. Invitation Message -->
     <section id="invitation" class="bg-beige">
         <div class="scripture-box fade-in">
-            <p style="font-size: 1.3rem; font-style: italic;">
+            <p style="font-size: 1.3rem; font-style: italic; color: var(--solid-black); font-weight: bold;">
                 "O LORD, how great are thy works! and thy thoughts are very deep."<br>— Psalms 92:5
             </p>
-            <p class="amharic-text" style="margin-top: 15px; color: var(--champagne-gold); font-size: 1.2rem;">
+            <p class="amharic-text" style="margin-top: 15px; color: var(--champagne-gold); font-size: 1.2rem; font-weight: bold;">
                 "እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5
             </p>
         </div>
@@ -481,14 +505,10 @@
 
     <!-- 4. Our Memories (Photo Gallery: Photos 2 - 9) -->
     <section id="gallery">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
             <span class="lang-en">Our Memories</span>
             <span class="lang-am amharic-text" style="font-size: 3rem;">ትዝታዎቻችን</span>
         </h2>
-        <p style="letter-spacing: 2px; font-size: 1rem; text-transform: uppercase; margin-bottom: 40px; font-weight: bold;">
-            <span class="lang-en">A glimpse into our story</span>
-            <span class="lang-am amharic-text" style="letter-spacing: 0;">አጭር ታሪካችን</span>
-        </p>
         
         <div class="gallery-grid fade-in">
             <img src="photo2.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
@@ -504,7 +524,7 @@
 
     <!-- 5. Wedding Details (Timeline) -->
     <section id="details" class="bg-beige">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
             <span class="lang-en">The Celebration</span>
             <span class="lang-am amharic-text" style="font-size: 3rem;">የሰርጉ ፕሮግራም</span>
         </h2>
@@ -520,7 +540,7 @@
                     <span class="lang-en">11:00 AM (Intl) | 5:00 (Local)</span>
                     <span class="lang-am amharic-text">ከጠዋቱ 5፡00 ሰዓት</span>
                 </div>
-                <p style="font-size: 1.1rem;">
+                <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
                     <span class="lang-en"><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
                     <span class="lang-am amharic-text"><strong>መካኒሳ አዲስ ኪዳን ባፕቲስት ቤተክርስቲያን</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
@@ -540,7 +560,7 @@
                     <span class="lang-en">1:00 PM (Intl) | 7:00 (Local)</span>
                     <span class="lang-am amharic-text">ከቀኑ 7፡00 ሰዓት</span>
                 </div>
-                <p style="font-size: 1.1rem;">
+                <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
                     <span class="lang-en"><strong>Mekane Yesus Seminary</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
                     <span class="lang-am amharic-text"><strong>መካነ ኢየሱስ ሴሚናሪ</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
@@ -554,7 +574,7 @@
 
     <!-- 6. Countdown -->
     <section id="countdown">
-        <h2 class="script-font" style="font-size: 4rem;">
+        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
             <span class="lang-en">Awaiting the Day</span>
             <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን በመጠባበቅ ላይ</span>
         </h2>
@@ -598,7 +618,7 @@
                 <span class="lang-en">Share Your Photos</span>
                 <span class="lang-am amharic-text">ፎቶዎችን ያጋሩ</span>
             </h2>
-            <p style="margin-bottom: 20px; font-size: 1.1rem;">
+            <p style="margin-bottom: 20px; font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
                 <span class="lang-en">Please upload the photos and videos you take during our special day to our shared album.</span>
                 <span class="lang-am amharic-text">በሰርጋችን ቀን ያነሳችሁትን ፎቶ እና ቪዲዮ እዚህ ላይ ላኩልን።</span>
             </p>
@@ -616,7 +636,7 @@
                 <span class="lang-en">Digital Guestbook</span>
                 <span class="lang-am amharic-text">የማስታወሻ ደብተር</span>
             </h2>
-            <p style="font-size: 1.1rem;">
+            <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
                 <span class="lang-en">Leave a note of love, advice, or your favorite memory with the bride and groom.</span>
                 <span class="lang-am amharic-text">ለሙሽሮቹ መልካም ምኞትዎን እና ማስታወሻዎን እዚህ ያስቀምጡ።</span>
             </p>
@@ -636,7 +656,7 @@
     <section id="closing" style="padding-bottom: 120px;">
         <div class="closing-container">
             
-            <h2 class="script-font fade-in" style="font-size: 5rem; color: var(--champagne-gold); margin-bottom: 40px;">
+            <h2 class="script-font fade-in" style="font-size: 5rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8); margin-bottom: 40px;">
                 <span class="lang-en">Forever and Ever</span>
                 <span class="lang-am amharic-text" style="font-size: 4rem;">ለዘላለም</span>
             </h2>
@@ -645,15 +665,15 @@
                 <img src="photo10.jpg" alt="Ahadu and Tigist - Forever">
             </div>
 
-            <div class="fade-in" style="margin-top: 40px; margin-bottom: 30px;">
-                <p style="font-size: 1.3rem; font-weight: bold; color: var(--deep-brown); margin-bottom: 10px;">
+            <div class="fade-in" style="margin-top: 40px; margin-bottom: 30px; background: rgba(255, 255, 255, 0.9); padding: 15px 30px; border-radius: 8px; display: inline-block;">
+                <p style="font-size: 1.3rem; font-weight: bold; color: var(--solid-black); margin-bottom: 0;">
                     <span class="lang-en">We look forward to celebrating this beautiful beginning with you.</span>
                     <span class="lang-am amharic-text">ይህንን ልዩ ቀን ከእናንተ ጋር ለማክበር በጉጉት እንጠብቃለን።</span>
                 </p>
             </div>
             
             <div class="names-container fade-in">
-                <h2 style="font-family: 'Times New Roman', Times, serif; font-size: 3rem; text-shadow: 1px 1px 3px rgba(255,255,255,0.8); margin-bottom: 5px;">
+                <h2 style="font-family: 'Times New Roman', Times, serif; font-size: 3.5rem; color: var(--champagne-gold); text-shadow: 1px 1px 5px rgba(0,0,0,0.8); margin-bottom: 5px;">
                     <span class="lang-en">Ahadu & Tigist</span>
                     <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
                 </h2>
@@ -736,7 +756,7 @@
             
             if (distance < 0) {
                 clearInterval(updateCountdown);
-                document.querySelector(".countdown-container").innerHTML = "<h2 class='script-font' style='font-size: 3rem; color: var(--champagne-gold);'>Today is the Day!</h2>";
+                document.querySelector(".countdown-container").innerHTML = "<h2 class='script-font' style='font-size: 3.5rem; color: var(--champagne-gold); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);'>Today is the Day!</h2>";
                 return;
             }
             if(daysEl) {
