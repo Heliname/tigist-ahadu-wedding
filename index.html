@@ -37,46 +37,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- Minimalist Floating Navigation (Eventoly Style) --- */
-        .floating-nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 12px 30px;
-            border-radius: 50px;
-            border: 1px solid rgba(197, 164, 109, 0.3);
-            z-index: 9990;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1s ease 2s; /* Fades in after envelope opens */
-        }
-
-        .floating-nav.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .floating-nav a {
-            text-decoration: none;
-            color: var(--deep-brown);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .floating-nav a:hover {
-            color: var(--champagne-gold);
-        }
-
         /* --- Classic Printed Card Border --- */
         #page-border {
             position: fixed;
@@ -86,7 +46,7 @@
             right: 15px;
             border: 1px solid var(--champagne-gold);
             pointer-events: none; 
-            z-index: 9989;
+            z-index: 9998;
             opacity: 0.4;
         }
 
@@ -180,14 +140,17 @@
             margin-bottom: 10px;
         }
 
-        /* --- Intro Reveal Overlay (The Interactive Envelope Screen) --- */
+        /* --- Intro Reveal Overlay (The Gold Rings Screen) --- */
         #reveal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(250, 247, 240, 0.98);
+            /* Added second-image.jpg as background with a soft ivory overlay for text readability */
+            background: linear-gradient(rgba(250, 247, 240, 0.8), rgba(250, 247, 240, 0.8)), url('second-image.jpg');
+            background-size: cover;
+            background-position: center;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -199,8 +162,19 @@
 
         #reveal-overlay.hidden {
             opacity: 0;
-            transform: translateY(-30px) scale(1.05);
+            transform: translateY(-20px);
             pointer-events: none;
+        }
+
+        .ring-icon {
+            margin-bottom: 30px;
+            animation: gentlePulse 3s infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes gentlePulse {
+            0% { transform: scale(1); filter: drop-shadow(0px 0px 5px rgba(197, 164, 109, 0.2)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0px 10px 15px rgba(197, 164, 109, 0.5)); }
         }
 
         /* --- Floating Large White Roses --- */
@@ -208,7 +182,7 @@
             position: absolute;
             opacity: 0;
             pointer-events: none;
-            z-index: 1; 
+            z-index: 1; /* Stays behind the rings */
             animation: floatUp 12s infinite linear; 
             filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.1));
         }
@@ -220,42 +194,8 @@
             100% { transform: translateY(-20vh) rotate(180deg) scale(1.1); opacity: 0; }
         }
 
-        /* --- Image Envelope Reveal --- */
-        .envelope-image-wrapper {
-            position: relative;
-            z-index: 10;
-            cursor: pointer;
-            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease;
-            max-width: 90vw;
-        }
-
-        .envelope-image-wrapper:hover {
-            transform: scale(1.03) translateY(-5px);
-            filter: brightness(1.02);
-        }
-
-        .envelope-image-wrapper img {
-            width: 100%;
-            max-width: 350px; 
-            border-radius: 4px;
-            box-shadow: 0 15px 40px rgba(68, 56, 44, 0.25);
-            display: block;
-        }
-
-        .click-hint {
-            font-size: 0.9rem;
-            color: var(--champagne-gold);
-            font-style: italic;
-            margin-top: 30px;
-            background: rgba(255,255,255,0.85);
-            padding: 5px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            z-index: 10;
-        }
-
         /* --- Luxury Buttons --- */
-        .btn {
+        .btn, .reveal-btn {
             background-color: var(--champagne-gold);
             color: var(--white);
             border: none;
@@ -263,7 +203,7 @@
             font-size: 1.1rem;
             font-family: 'Playfair Display', serif;
             letter-spacing: 1.5px;
-            border-radius: 40px; /* Eventoly style rounded buttons */
+            border-radius: 4px;
             margin-top: 20px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(197, 164, 109, 0.4);
@@ -275,7 +215,12 @@
             z-index: 2;
         }
 
-        .btn::after {
+        .reveal-btn {
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+
+        .btn::after, .reveal-btn::after {
             content: '';
             position: absolute;
             top: 0;
@@ -288,13 +233,13 @@
             z-index: -1;
         }
 
-        .btn:hover {
+        .btn:hover, .reveal-btn:hover {
             background-color: var(--deep-brown);
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(68, 56, 44, 0.4);
         }
 
-        .btn:hover::after {
+        .btn:hover::after, .reveal-btn:hover::after {
             left: 200%;
         }
 
@@ -339,7 +284,7 @@
 
         /* --- Sections --- */
         section {
-            padding: 100px 20px 60px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -348,16 +293,40 @@
             position: relative;
         }
 
+        /* --- Parallax Background for Welcome & Invitation Sections --- */
+        #welcome, #invitation {
+            position: relative;
+            background-image: url('second-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+        }
+
+        /* Soft Ivory Overlay on top of the image so text stays perfectly readable */
+        #welcome::before, #invitation::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(250, 247, 240, 0.75);
+            z-index: 0;
+        }
+
+        /* Ensure content in these sections stays above the overlay */
+        #welcome > *, #invitation > * {
+            position: relative;
+            z-index: 1;
+        }
+
         /* --- The Calendar Widget --- */
         .calendar-container {
             position: relative;
             max-width: 420px;
             width: 100%;
             margin: 30px auto 40px auto;
-            border: 1px solid var(--champagne-gold);
-            border-radius: 12px;
+            border: 2px solid var(--champagne-gold);
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.10);
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.15);
             background-image: url('image_f683fa.jpg');
             background-size: cover;
             background-position: center;
@@ -371,13 +340,13 @@
         .calendar-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(250, 247, 240, 0.92);
         }
 
         .calendar-content {
             position: relative;
             z-index: 1;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
         .calendar-grid {
@@ -425,7 +394,7 @@
             background-repeat: no-repeat;
             background-position: center;
             z-index: -1;
-            filter: drop-shadow(0 4px 8px rgba(178, 34, 34, 0.3));
+            filter: drop-shadow(0 4px 8px rgba(178, 34, 34, 0.4));
         }
 
         /* --- Names & Parents --- */
@@ -454,17 +423,18 @@
             gap: 25px;
             margin-bottom: 40px;
             font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.7); 
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(197, 164, 109, 0.15);
+            background: rgba(255, 255, 255, 0.85); 
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(197, 164, 109, 0.2);
             transition: transform 0.3s ease;
-            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
         }
         
         .parents-section:hover {
             transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .parents-section p {
@@ -479,52 +449,60 @@
             font-style: italic;
         }
 
-        /* --- Arch-Shaped Photography (Eventoly Style) --- */
         .image-frame {
+            border: 12px solid var(--white);
+            outline: 2px solid var(--champagne-gold);
+            padding: 10px;
             background: var(--white);
-            padding: 12px;
             margin: 0 auto 10px auto;
             max-width: 90%;
             width: 480px;
-            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.1);
+            box-shadow: 0 20px 40px rgba(68, 56, 44, 0.15);
             cursor: zoom-in;
             transition: all 0.4s ease;
             position: relative;
             z-index: 10;
-            border: 1px solid rgba(197, 164, 109, 0.3);
-            /* Arch shape formatting */
-            border-radius: 240px 240px 12px 12px; 
         }
         
         .large-frame {
-            width: 800px; /* Kept large, but refined */
-            max-width: 95vw;
-            padding: 15px;
+            width: 1200px;
+            max-width: 98vw;
+            padding: 20px;
+            border-width: 12px;
             cursor: default;
         }
 
         .image-frame:not(.large-frame):hover {
             transform: scale(1.02);
-            box-shadow: 0 25px 50px rgba(197, 164, 109, 0.2);
+            box-shadow: 0 25px 50px rgba(197, 164, 109, 0.3);
         }
 
         .image-frame img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 230px 230px 6px 6px; /* Matches the outer arch */
-            object-fit: cover;
+        }
+
+        .click-hint {
+            font-size: 0.9rem;
+            color: var(--champagne-gold);
+            font-style: italic;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.85);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
         /* --- Invitation Section Elements --- */
         .scripture-box {
             background: rgba(255, 255, 255, 0.9);
-            border-top: 1px solid var(--champagne-gold);
-            border-bottom: 1px solid var(--champagne-gold);
+            border-top: 2px solid var(--champagne-gold);
+            border-bottom: 2px solid var(--champagne-gold);
             padding: 40px 20px;
             max-width: 700px;
             margin: 0 auto 40px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             backdrop-filter: blur(5px);
         }
 
@@ -538,48 +516,33 @@
         .invitation-msg {
             background: rgba(255, 255, 255, 0.9);
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 10px;
             max-width: 600px;
             font-size: 1.3rem;
             line-height: 1.8;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             backdrop-filter: blur(5px);
         }
 
-        /* --- Vertical Timeline Details Section (Eventoly Style) --- */
-        .timeline-container {
+        /* --- Details Section --- */
+        .cards-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            max-width: 600px;
-            width: 100%;
-            margin-top: 40px;
+            flex-wrap: wrap;
             gap: 40px;
-        }
-
-        /* The vertical gold line */
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 1px;
-            background: var(--champagne-gold);
-            z-index: 0;
+            justify-content: center;
+            max-width: 1000px;
+            margin-top: 30px;
         }
 
         .event-card {
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(197, 164, 109, 0.3);
+            border-top: 4px solid var(--champagne-gold);
             padding: 40px 30px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.08);
-            border-radius: 12px;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(68, 56, 44, 0.1);
+            border-radius: 4px;
             transition: transform 0.3s ease;
-            position: relative;
-            z-index: 1;
         }
 
         .event-card:hover {
@@ -601,8 +564,8 @@
             background-color: rgba(250, 247, 240, 0.9);
             padding: 15px;
             margin: 20px 0;
-            border-radius: 8px;
-            border: 1px solid rgba(197, 164, 109, 0.2);
+            border-radius: 4px;
+            border: 1px solid rgba(197, 164, 109, 0.3);
             font-size: 1rem;
         }
 
@@ -622,13 +585,13 @@
         }
 
         .time-box {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(197, 164, 109, 0.3);
+            background: rgba(250, 247, 240, 0.95);
+            border: 1px solid var(--champagne-gold);
             color: var(--deep-brown);
             padding: 25px 20px;
-            border-radius: 12px;
+            border-radius: 4px;
             min-width: 90px;
-            box-shadow: 0 8px 20px rgba(68, 56, 44, 0.05);
+            box-shadow: 0 8px 20px rgba(197, 164, 109, 0.2);
         }
 
         .time-box span {
@@ -661,7 +624,7 @@
             font-size: 1.2rem;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(68, 56, 44, 0.15);
+            box-shadow: 0 4px 15px rgba(68, 56, 44, 0.2);
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -678,27 +641,18 @@
             .script-accent { font-size: 2.5rem; }
             .names-container h1 { font-size: 2.3rem; }
             .names-container .amharic-names { font-size: 1.6rem; }
-            section { padding: 90px 15px 40px 15px; }
+            section { padding: 80px 15px 40px 15px; }
             .time-box { min-width: 75px; padding: 15px; }
             .time-box span { font-size: 2rem; }
             .parents-section { font-size: 1.05rem; padding: 15px; }
-            .image-frame { border-radius: 150px 150px 8px 8px; }
-            .image-frame img { border-radius: 140px 140px 4px 4px; }
-            .large-frame { padding: 10px; }
+            .image-frame { border-width: 8px; margin-top: 20px; }
+            .large-frame { padding: 10px; border-width: 8px; }
             #page-border { top: 10px; bottom: 10px; left: 10px; right: 10px; }
-            .floating-nav { width: 90%; justify-content: space-between; padding: 12px 20px; font-size: 0.8rem; }
-            .floating-nav a { font-size: 0.75rem; letter-spacing: 1px; }
+            #welcome, #invitation { background-attachment: scroll; }
         }
     </style>
 </head>
 <body>
-
-    <!-- Minimalist Floating Navigation Menu -->
-    <nav class="floating-nav" id="main-nav">
-        <a href="#welcome">Welcome</a>
-        <a href="#countdown-section">Countdown</a>
-        <a href="#details">Details</a>
-    </nav>
 
     <!-- Classic Printed Card Golden Border -->
     <div id="page-border"></div>
@@ -728,17 +682,36 @@
         <img id="lightbox-img" src="image_f683fa.jpg" alt="Enlarged Wedding Invitation">
     </div>
 
-    <!-- Opening Reveal Overlay with Image Envelope -->
+    <!-- Opening Reveal Overlay with Beautiful Thick 3D Rings -->
     <div id="reveal-overlay">
+        <!-- JS will inject large white layered roses here -->
         
-        <div class="envelope-image-wrapper" onclick="openInvitation()">
-            <img src="envelope.jpg" alt="Tap to open invitation envelope">
-        </div>
-        <p class="click-hint" style="margin-top: 25px;">Tap envelope to open</p>
+        <!-- Thick, Luxury Interlocking Rings -->
+        <svg class="ring-icon" viewBox="0 0 140 80" width="150" height="90">
+            <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F2D59B" />
+                    <stop offset="25%" stop-color="#D4AF37" />
+                    <stop offset="50%" stop-color="#FFFDD0" />
+                    <stop offset="75%" stop-color="#B8860B" />
+                    <stop offset="100%" stop-color="#8B6508" />
+                </linearGradient>
+                <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="3" dy="6" stdDeviation="4" flood-opacity="0.5"/>
+                </filter>
+            </defs>
+            <circle cx="50" cy="40" r="26" stroke="url(#goldGrad)" stroke-width="11" fill="none" filter="url(#dropShadow)" />
+            <circle cx="90" cy="40" r="26" stroke="url(#goldGrad)" stroke-width="11" fill="none" filter="url(#dropShadow)" />
+            <path d="M 73 24 A 26 26 0 0 0 50 14" stroke="url(#goldGrad)" stroke-width="11.5" fill="none" />
+        </svg>
+
+        <h1 style="color: var(--deep-brown); font-size: 2.2rem; margin-bottom: 10px; z-index: 2;">Ahadu & Tigist</h1>
+        <p style="color: var(--champagne-gold); letter-spacing: 2px; font-weight: 600; z-index: 2;">21 . 11 . 2026</p>
+        <button class="reveal-btn" onclick="openInvitation()">Tap to Open Invitation</button>
     </div>
 
     <!-- 1. Welcome & Save the Date Section -->
-    <section id="welcome">
+    <section id="welcome" style="padding-top: 100px;">
         
         <!-- Save the Date Message -->
         <p class="script-accent fade-in" style="margin-top: 10px; font-size: 4rem;">Save the Date</p>
@@ -761,11 +734,11 @@
             </div>
         </div>
 
-        <!-- The Original Photo (Now Eventoly Arch-Shaped) -->
+        <!-- The Original Photo -->
         <div class="image-frame fade-in" onclick="openLightbox()">
             <img src="image_f683fa.jpg" alt="Ahadu and Tigist Original Wedding Invitation">
         </div>
-        <p class="click-hint fade-in" style="margin-bottom: 30px;">Tap the invitation to enlarge</p>
+        <p class="click-hint fade-in">Tap the invitation to enlarge</p>
         
         <!-- Beautiful Calendar with Image Background & Bold Red Heart -->
         <div class="calendar-container fade-in">
@@ -799,9 +772,10 @@
 
     <!-- 2. Countdown Section -->
     <section id="countdown-section" class="fade-in">
-        
-        <!-- Simple gold line divider -->
-        <div style="width: 2px; height: 60px; background-color: var(--champagne-gold); margin: 0 auto 20px auto; opacity: 0.5;"></div>
+        <svg class="ornament fade-in" viewBox="0 0 200 20" style="margin-bottom: 10px;">
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
+        </svg>
 
         <p class="script-accent fade-in" style="font-size: 2.8rem; margin-top: 10px;">Awaiting our special day...</p>
         
@@ -828,6 +802,10 @@
     <!-- 3. Invitation Section -->
     <section id="invitation" class="fade-in">
         
+        <svg viewBox="0 0 24 24" fill="var(--champagne-gold)" width="60" height="60" style="margin-bottom: 20px;">
+            <path d="M12 2.05c-.66 2.82-2.3 4.96-4.66 5.8 2.36.84 4 2.98 4.66 5.8.66-2.82 2.3-4.96 4.66-5.8-2.36-.84-4-2.98-4.66-5.8z"/>
+        </svg>
+
         <p class="script-accent fade-in" style="margin-bottom: 25px;">Joyfully invite you</p>
         
         <div class="scripture-box fade-in">
@@ -842,19 +820,19 @@
         
     </section>
 
-    <!-- 4. Wedding Details Section (Vertical Timeline Layout) -->
+    <!-- 4. Wedding Details Section -->
     <section id="details">
-        
+        <svg class="ornament fade-in" style="margin-bottom: 10px;" viewBox="0 0 200 20">
+            <path d="M0,10 L80,10 L100,2 L120,10 L200,10" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none"/>
+            <circle cx="100" cy="10" r="4" fill="var(--champagne-gold)"/>
+        </svg>
+
         <h2 class="fade-in">Wedding Details</h2>
         <p class="script-accent fade-in" style="font-size: 2.2rem; margin-bottom: 15px;">Reception to follow</p>
         
-        <!-- The Vertical Timeline Container -->
-        <div class="timeline-container">
+        <div class="cards-container">
             <!-- Event 1: Church Ceremony -->
             <div class="event-card fade-in">
-                <!-- Tiny dot on the line -->
-                <div style="position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: var(--champagne-gold); border-radius: 50%;"></div>
-                
                 <h3>Church Ceremony</h3>
                 <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የቃል ኪዳን ስርዓት</p>
                 
@@ -873,9 +851,6 @@
 
             <!-- Event 2: Lunch Celebration -->
             <div class="event-card fade-in">
-                <!-- Tiny dot on the line -->
-                <div style="position: absolute; top: -5px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: var(--champagne-gold); border-radius: 50%;"></div>
-
                 <h3>Lunch Celebration</h3>
                 <p class="amharic" style="color: var(--champagne-gold); font-size: 1.2rem;">የምሳ ግብዣ</p>
                 
@@ -905,7 +880,7 @@
         <p class="script-accent fade-in" style="margin-bottom: 30px; font-size: 3.5rem;">Forever & Always</p>
         
         <div class="image-frame large-frame fade-in">
-            <!-- Second Image (Also Arch-shaped now for consistency) -->
+            <!-- Second Image -->
             <img src="second-image.jpg" alt="Ahadu and Tigist">
         </div>
         
@@ -949,21 +924,15 @@
             }, 600); 
         });
 
-        // --- Image Envelope Reveal & Audio Fade-in Logic ---
+        // --- Cinematic Audio Fade-in & Reveal Logic ---
         const audio = document.getElementById("bg-music");
         const musicBtn = document.getElementById("music-toggle");
-        const mainNav = document.getElementById("main-nav");
         let isPlaying = false;
         
-        audio.volume = 0;
+        audio.volume = 0; // Start at 0 for smooth fade-in
 
         function openInvitation() {
-            const envWrapper = document.querySelector('.envelope-image-wrapper');
-            const hint = document.querySelector('.click-hint');
-            
-            envWrapper.style.transform = 'scale(1.1) translateY(-20px)';
-            envWrapper.style.opacity = '0';
-            if(hint) hint.style.opacity = '0';
+            overlay.classList.add('hidden');
             
             let playPromise = audio.play();
             if (playPromise !== undefined) {
@@ -971,6 +940,7 @@
                     isPlaying = true;
                     musicBtn.innerText = "⏸️";
                     
+                    // Smooth volume fade-in up to 40%
                     let vol = 0;
                     const fadeAudio = setInterval(() => {
                         if (vol < 0.4) {
@@ -986,16 +956,9 @@
                 });
             }
             
-            // Fade out the whole overlay screen smoothly
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                // Show the navigation menu
-                mainNav.classList.add('visible');
-            }, 600);
-            
             setTimeout(() => {
                 overlay.style.display = 'none';
-            }, 2000);
+            }, 1500);
         }
 
         // --- Music Toggle Button ---
