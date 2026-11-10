@@ -25,7 +25,7 @@
         body {
             font-family: 'Times New Roman', Times, serif;
             color: var(--deep-brown);
-            background-color: transparent; /* Lets the global video show through */
+            background-color: transparent;
             text-align: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -41,7 +41,7 @@
         }
         .global-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(250, 247, 240, 0.85); /* Frosted ivory overlay so text is readable */
+            background: rgba(250, 247, 240, 0.85); /* Frosted overlay */
             z-index: -1;
         }
 
@@ -50,40 +50,21 @@
         body.lang-am .lang-en { display: none !important; }
 
         .lang-switcher {
-            position: fixed;
-            top: 20px;
-            right: 25px;
-            z-index: 10001;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid rgba(197, 164, 109, 0.4);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            display: flex;
-            gap: 10px;
-            align-items: center;
+            position: fixed; top: 20px; right: 25px; z-index: 10001;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(5px);
+            padding: 8px 15px; border-radius: 30px; border: 1px solid rgba(197, 164, 109, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; gap: 10px; align-items: center;
         }
-
         .lang-btn {
-            background: none;
-            border: none;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: var(--deep-brown);
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s;
+            background: none; border: none; font-family: 'Times New Roman', Times, serif;
+            font-size: 0.95rem; font-weight: bold; color: var(--deep-brown); cursor: pointer;
+            opacity: 0.5; transition: opacity 0.3s;
         }
         .lang-btn.active { opacity: 1; color: var(--champagne-gold); }
         .lang-divider { color: var(--champagne-gold); opacity: 0.5; }
 
         .script-font { font-family: 'Alex Brush', cursive; }
         .amharic-text { font-family: 'Noto Serif Ethiopic', serif; line-height: 1.8; }
-
-        h1, h2, h3 { color: var(--champagne-gold); font-weight: normal; margin-bottom: 15px; }
-        p { line-height: 1.6; margin-bottom: 10px; }
 
         /* --- Minimalist Floating Navigation --- */
         .floating-nav {
@@ -101,35 +82,38 @@
         }
         .floating-nav a:hover { color: var(--champagne-gold); }
 
-        /* --- Audio Gate (Split Screen with Global Video Background) --- */
+        /* --- Audio Gate (Cover Page with Video Background & Photo 1) --- */
         #audio-gate {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: transparent; /* Lets the global video show through */
             z-index: 10000; overflow: hidden;
             display: flex; transition: opacity 1s ease, transform 1s ease;
         }
-        #audio-gate::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(250, 247, 240, 0.65); /* Soft overlay so video is visible but text is readable */
-            z-index: 0; backdrop-filter: blur(4px);
-        }
         #audio-gate.hidden { opacity: 0; transform: translateY(-20px); pointer-events: none; }
         
+        /* The specific flower video just for the opening screen */
+        .gate-video-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0;
+        }
+        
+        /* The left side containing Photo 1 */
         .gate-image-container {
             flex: 1.2; width: 55vw; height: 100vh; 
             display: flex; justify-content: center; align-items: center;
-            padding: 15px; /* Reduced padding for larger image */
-            position: relative; z-index: 2;
+            padding: 15px; position: relative; z-index: 2;
         }
         .gate-image-container img {
-            width: 100%; height: 100%; object-fit: contain; max-height: 98vh; /* Maximized height */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2); border-radius: 4px;
+            width: 100%; height: 100%; object-fit: contain; max-height: 98vh; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-radius: 4px;
         }
         
+        /* The right side containing the text (Frosted to make text legible over video) */
         .gate-content {
             flex: 0.8; width: 45vw; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 30px; position: relative; z-index: 2;
+            background: rgba(250, 247, 240, 0.88); /* Solid frosted white */
+            backdrop-filter: blur(8px);
         }
 
         .ring-icon { margin-bottom: 20px; animation: gentlePulse 3s infinite alternate; }
@@ -150,7 +134,7 @@
         .hero-section {
             position: relative; height: 100vh; width: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;
-            background-color: var(--deep-brown);
+            background-color: var(--solid-black);
         }
         .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         .hero-overlay {
@@ -165,33 +149,52 @@
         section { padding: 90px 20px; display: flex; flex-direction: column; align-items: center; }
         .bg-beige { background-color: rgba(244, 239, 230, 0.6); }
 
-        /* --- Welcome & Parents (FROSTED CARD FOR VISIBILITY) --- */
+        /* --- Welcome & Parents (PURE BOLD BLACK TEXT FIX) --- */
         .welcome-card {
             background: rgba(255, 255, 255, 0.95);
-            padding: 50px 30px;
-            border-radius: 16px;
+            padding: 50px 30px; border-radius: 16px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(197, 164, 109, 0.4);
-            max-width: 800px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            margin: 0 auto;
+            border: 2px solid var(--champagne-gold);
+            max-width: 800px; width: 100%; margin: 0 auto;
         }
-        .welcome-card h2 { color: var(--champagne-gold); }
-        .welcome-card .intro-text { color: var(--solid-black); font-weight: bold; }
         
-        .parents-block { display: flex; flex-direction: column; gap: 40px; margin: 40px auto; }
-        .parent-names p { font-size: 1.6rem; color: var(--solid-black); font-weight: bold; }
-        .parent-names span { display: block; font-size: 1.05rem; color: var(--solid-black); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.9; }
+        .welcome-card h2.script-font {
+            color: var(--solid-black); /* Changed from gold to pure black */
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        
+        .welcome-card .intro-text {
+            color: var(--solid-black); /* Pure black */
+            font-weight: 900;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        
+        .parents-block { display: flex; flex-direction: column; gap: 40px; }
+        
+        .parent-names p { 
+            font-size: 1.8rem; 
+            color: var(--solid-black); /* Pure black */
+            font-weight: bold; 
+            margin-bottom: 5px;
+        }
+        
+        .parent-names span { 
+            display: block; 
+            font-size: 1.1rem; 
+            color: var(--solid-black); /* Pure black */
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
 
         /* --- The Calendar Widget --- */
         .calendar-container {
             position: relative; max-width: 450px; width: 100%; margin: 30px auto 10px auto;
-            border: 1px solid var(--champagne-gold); border-radius: 12px; overflow: hidden;
+            border: 2px solid var(--champagne-gold); border-radius: 12px; overflow: hidden;
             box-shadow: 0 15px 35px rgba(68, 56, 44, 0.1); background-color: var(--white);
-            transition: transform 0.3s ease;
         }
-        .calendar-container:hover { transform: translateY(-5px); }
         .calendar-content { position: relative; z-index: 1; padding: 40px 20px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 20px; }
         .day-name { font-weight: bold; color: var(--champagne-gold); font-size: 1.1rem; text-transform: uppercase; }
@@ -200,9 +203,8 @@
         .heart-date { position: relative; color: var(--solid-black) !important; font-weight: bold; z-index: 1; }
         .heart-date::before {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 45px; height: 45px;
-            border: 2px solid var(--champagne-gold); border-radius: 50%;
-            background-color: rgba(197, 164, 109, 0.2); z-index: -1;
+            width: 45px; height: 45px; border: 3px solid var(--champagne-gold); border-radius: 50%;
+            background-color: rgba(197, 164, 109, 0.15); z-index: -1;
         }
 
         /* --- Photo Gallery --- */
@@ -247,7 +249,7 @@
 
         /* --- Countdown --- */
         .countdown-container { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;}
-        .time-box { background: rgba(255, 255, 255, 0.95); border: 1px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 90px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .time-box { background: rgba(255, 255, 255, 0.95); border: 2px solid var(--champagne-gold); padding: 20px; border-radius: 8px; min-width: 90px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .time-box span { display: block; font-size: 2.5rem; color: var(--solid-black); font-weight: bold; }
         .time-box .label { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; font-weight: bold; color: var(--champagne-gold); }
 
@@ -259,7 +261,7 @@
         .guestbook-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
         .guestbook-form input, .guestbook-form textarea {
             width: 100%; padding: 15px; border: 1px solid rgba(197, 164, 109, 0.4); border-radius: 8px;
-            font-family: 'Times New Roman', Times, serif; font-size: 1rem; background: var(--ivory);
+            font-family: 'Times New Roman', Times, serif; font-size: 1.1rem; background: var(--ivory);
         }
         .guestbook-form textarea { resize: vertical; min-height: 100px; }
         .guestbook-form input:focus, .guestbook-form textarea:focus { outline: none; border-color: var(--champagne-gold); }
@@ -292,31 +294,23 @@
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        /* =========================================
-           MOBILE RESPONSIVENESS FIXES
-           ========================================= */
+        /* --- Mobile Tweaks --- */
         @media screen and (max-width: 900px) {
-            /* Fix Typography for mobile screens */
-            .script-font { font-size: 2.8rem !important; }
-            h1 { font-size: 2.8rem !important; }
-            h2 .lang-am.amharic-text { font-size: 2.2rem !important; }
-            .hero-content h1 { font-size: 3rem !important; }
-            .hero-content .lang-am.amharic-text { font-size: 2.5rem !important; }
+            .script-font { font-size: 3rem !important; }
+            h1 { font-size: 3rem !important; }
+            .hero-content h1 { font-size: 3.2rem !important; }
+            .gate-content h2.script-font { font-size: 3rem !important; }
             
-            /* Fix Timeline so it aligns nicely on small screens */
             .timeline::before { left: 0; }
             .event-box { margin-left: 20px; padding: 20px; text-align: left; }
             .event-box::after { left: -20px; }
-            .event-box h3 { font-size: 1.6rem; }
             
-            /* Fix Photo Gallery to 2 columns on mobile */
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .gallery-item { height: 180px; }
             .gallery-item:nth-child(2n) { height: 220px; }
 
-            /* Adjust Menu and Buttons */
             .floating-nav { width: 95%; padding: 10px; gap: 10px; bottom: 20px; top: auto; justify-content: center; }
-            .floating-nav a { font-size: 0.75rem; letter-spacing: 1px; }
+            .floating-nav a { font-size: 0.8rem; letter-spacing: 1px; }
             .lang-switcher { top: 15px; right: 15px; padding: 5px 10px; }
             .time-box { min-width: 70px; padding: 15px; }
             .time-box span { font-size: 2rem; }
@@ -361,8 +355,12 @@
 
     <!-- Tap to Enter Gate (SPLIT SCREEN) -->
     <div id="audio-gate">
+        <!-- Flowers Video embedded directly on opening screen to ensure it plays -->
+        <video class="gate-video-bg" autoplay loop muted playsinline>
+            <source src="flowers-wind.mp4" type="video/mp4">
+        </video>
+        
         <div class="gate-image-container">
-            <!-- Maximized uncropped Photo 1 -->
             <img src="photo1.jpg" alt="Ahadu and Tigist">
         </div>
         <div class="gate-content">
@@ -384,11 +382,12 @@
                 <path d="M 73 24 A 26 26 0 0 0 50 14" stroke="url(#goldGrad)" stroke-width="8.5" fill="none" />
             </svg>
 
-            <h2 class="script-font" style="font-size: 3.5rem; color: var(--champagne-gold); margin-bottom: 10px;">
+            <!-- Black Text for high visibility -->
+            <h2 class="script-font" style="font-size: 4rem; color: var(--solid-black); margin-bottom: 10px; font-weight: bold;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text" style="font-size: 2.8rem;">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">አሐዱ እና ትግስት</span>
             </h2>
-            <p style="letter-spacing: 3px; font-size: 1rem; color: var(--solid-black); margin-bottom: 40px; font-weight: bold;">
+            <p style="letter-spacing: 3px; font-size: 1.1rem; color: var(--solid-black); margin-bottom: 40px; font-weight: bold;">
                 <span class="lang-en">NOVEMBER 21, 2026</span>
                 <span class="lang-am amharic-text" style="letter-spacing: 1px;">ኅዳር 12, 2019 ዓ.ም</span>
             </p>
@@ -410,9 +409,9 @@
                 <span class="lang-en">Save the Date</span>
                 <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን ያስታውሱ</span>
             </p>
-            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 4rem;">
+            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 4.5rem;">
                 <span class="lang-en">Ahadu & Tigist</span>
-                <span class="lang-am amharic-text" style="font-size: 3.5rem;">አሐዱ እና ትግስት</span>
+                <span class="lang-am amharic-text" style="font-size: 4rem;">አሐዱ እና ትግስት</span>
             </h1>
             <p class="hero-date">
                 <span class="lang-en">11 . 21 . 2026</span>
@@ -424,15 +423,15 @@
     <!-- 2. Welcome, Parents, and Calendar -->
     <section id="welcome">
         
-        <!-- FROSTED CARD ADDED HERE FOR GUARANTEED READABILITY -->
+        <!-- FROSTED CARD ADDED HERE FOR GUARANTEED BLACK TEXT READABILITY -->
         <div class="welcome-card fade-in">
-            <h2 class="script-font" style="font-size: 3.5rem;">
+            <h2 class="script-font">
                 <span class="lang-en">With Joyful Hearts</span>
-                <span class="lang-am amharic-text" style="font-size: 2.8rem;">በታላቅ ደስታ</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">በታላቅ ደስታ</span>
             </h2>
-            <p class="intro-text" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.95rem;">
-                <span class="lang-en">We invite you to our wedding</span>
-                <span class="lang-am amharic-text" style="letter-spacing: 0;">ወደ ሰርጋችን በደስታ እንጋብዛለን</span>
+            <p class="intro-text">
+                <span class="lang-en">WE INVITE YOU TO OUR WEDDING</span>
+                <span class="lang-am amharic-text">ወደ ሰርጋችን በደስታ እንጋብዛለን</span>
             </p>
             
             <div class="parents-block">
@@ -459,7 +458,6 @@
             </div>
         </div>
 
-        <!-- Beautiful Calendar with Gold Highlight -->
         <div class="calendar-container fade-in">
             <div class="calendar-content">
                 <h3 style="font-family: 'Times New Roman', Times, serif; font-size: 1.8rem; color: var(--champagne-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px;">
@@ -476,13 +474,13 @@
                     <div>29</div><div>30</div><div></div><div></div><div></div><div></div><div></div>
                 </div>
                 <div style="margin-top: 25px; border-top: 1px solid var(--champagne-gold); padding-top: 15px;">
-                    <p style="font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; color: var(--solid-black);">
+                    <p style="font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; color: var(--solid-black);">
                         Saturday, November 21, 2026
                     </p>
-                    <p class="amharic-text" style="font-weight: bold; font-size: 1.1rem; color: var(--champagne-gold); margin-bottom: 15px;">
+                    <p class="amharic-text" style="font-weight: bold; font-size: 1.2rem; color: var(--champagne-gold); margin-bottom: 15px;">
                         ቅዳሜ፣ 12 ኅዳር 2019 ዓ.ም.
                     </p>
-                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261121T080000Z%0ADTEND:20261121T140000Z%0ASUMMARY:Ahadu%20%26%20Tigist%20Wedding%0ALOCATION:Addis%20Ababa%2C%20Ethiopia%0ADESCRIPTION:Join%20us%20to%20celebrate%20the%20wedding%20of%20Ahadu%20and%20Tigist!%0AEND:VEVENT%0AEND:VCALENDAR" download="ahadu-tigist-wedding.ics" class="btn" style="padding: 10px 20px; font-size: 0.8rem;">
+                    <a href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261121T080000Z%0ADTEND:20261121T140000Z%0ASUMMARY:Ahadu%20%26%20Tigist%20Wedding%0ALOCATION:Addis%20Ababa%2C%20Ethiopia%0ADESCRIPTION:Join%20us%20to%20celebrate%20the%20wedding%20of%20Ahadu%20and%20Tigist!%0AEND:VEVENT%0AEND:VCALENDAR" download="ahadu-tigist-wedding.ics" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">
                         <span class="lang-en">Add to Calendar</span>
                         <span class="lang-am amharic-text">በቀን መቁጠሪያ ላይ አስቀምጥ</span>
                     </a>
@@ -494,21 +492,23 @@
     <!-- 3. Invitation Message -->
     <section id="invitation" class="bg-beige">
         <div class="scripture-box fade-in">
-            <p style="font-size: 1.3rem; font-style: italic; color: var(--solid-black); font-weight: bold;">
+            <p style="font-size: 1.4rem; font-style: italic; color: var(--solid-black); font-weight: bold;">
                 "O LORD, how great are thy works! and thy thoughts are very deep."<br>— Psalms 92:5
             </p>
-            <p class="amharic-text" style="margin-top: 15px; color: var(--champagne-gold); font-size: 1.2rem; font-weight: bold;">
+            <p class="amharic-text" style="margin-top: 15px; color: var(--champagne-gold); font-size: 1.3rem; font-weight: bold;">
                 "እግዚአብሔር ሆይ፤ ሥራህ እንዴት ታላቅ ነው! ሐሳብህስ ምን ያህል ጥልቅ ነው!"<br>— መዝሙረ ዳዊት 92:5
             </p>
         </div>
     </section>
 
-    <!-- 4. Our Memories (Photo Gallery: Photos 2 - 9) -->
+    <!-- 4. Our Memories (Photo Gallery) -->
     <section id="gallery">
-        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
-            <span class="lang-en">Our Memories</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">ትዝታዎቻችን</span>
-        </h2>
+        <div style="background: rgba(255,255,255,0.85); padding: 20px 40px; border-radius: 12px; margin-bottom: 30px;" class="fade-in">
+            <h2 class="script-font" style="font-size: 4.5rem; color: var(--solid-black); margin-bottom: 0;">
+                <span class="lang-en">Our Memories</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">ትዝታዎቻችን</span>
+            </h2>
+        </div>
         
         <div class="gallery-grid fade-in">
             <img src="photo2.jpg" alt="Ahadu and Tigist Memory" class="gallery-item">
@@ -524,15 +524,16 @@
 
     <!-- 5. Wedding Details (Timeline) -->
     <section id="details" class="bg-beige">
-        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
-            <span class="lang-en">The Celebration</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">የሰርጉ ፕሮግራም</span>
-        </h2>
+        <div style="background: rgba(255,255,255,0.85); padding: 20px 40px; border-radius: 12px; margin-bottom: 30px;" class="fade-in">
+            <h2 class="script-font" style="font-size: 4.5rem; color: var(--solid-black); margin-bottom: 0;">
+                <span class="lang-en">The Celebration</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">የሰርጉ ፕሮግራም</span>
+            </h2>
+        </div>
         
         <div class="timeline fade-in">
-            <!-- Event 1: Church Ceremony -->
             <div class="event-box">
-                <h3 style="font-size: 2rem; margin-bottom: 5px;">
+                <h3 style="font-size: 2.2rem; margin-bottom: 5px; color: var(--solid-black);">
                     <span class="lang-en">Church Ceremony</span>
                     <span class="lang-am amharic-text">የቃል ኪዳን ስርዓት</span>
                 </h3>
@@ -540,7 +541,7 @@
                     <span class="lang-en">11:00 AM (Intl) | 5:00 (Local)</span>
                     <span class="lang-am amharic-text">ከጠዋቱ 5፡00 ሰዓት</span>
                 </div>
-                <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
+                <p style="font-size: 1.2rem; color: var(--solid-black); font-weight: bold;">
                     <span class="lang-en"><strong>Mekanissa Addis Kidan Baptist Church</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
                     <span class="lang-am amharic-text"><strong>መካኒሳ አዲስ ኪዳን ባፕቲስት ቤተክርስቲያን</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
@@ -550,9 +551,8 @@
                 </a>
             </div>
 
-            <!-- Event 2: Lunch Celebration -->
             <div class="event-box">
-                <h3 style="font-size: 2rem; margin-bottom: 5px;">
+                <h3 style="font-size: 2.2rem; margin-bottom: 5px; color: var(--solid-black);">
                     <span class="lang-en">Lunch Celebration</span>
                     <span class="lang-am amharic-text">የምሳ ግብዣ</span>
                 </h3>
@@ -560,7 +560,7 @@
                     <span class="lang-en">1:00 PM (Intl) | 7:00 (Local)</span>
                     <span class="lang-am amharic-text">ከቀኑ 7፡00 ሰዓት</span>
                 </div>
-                <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
+                <p style="font-size: 1.2rem; color: var(--solid-black); font-weight: bold;">
                     <span class="lang-en"><strong>Mekane Yesus Seminary</strong><br>Mekanissa, Addis Ababa, Ethiopia</span>
                     <span class="lang-am amharic-text"><strong>መካነ ኢየሱስ ሴሚናሪ</strong><br>መካኒሳ፣ አዲስ አበባ፣ ኢትዮጵያ</span>
                 </p>
@@ -574,34 +574,28 @@
 
     <!-- 6. Countdown -->
     <section id="countdown">
-        <h2 class="script-font" style="font-size: 4rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);">
-            <span class="lang-en">Awaiting the Day</span>
-            <span class="lang-am amharic-text" style="font-size: 3rem;">ቀኑን በመጠባበቅ ላይ</span>
-        </h2>
+        <div style="background: rgba(255,255,255,0.85); padding: 20px 40px; border-radius: 12px; margin-bottom: 20px;" class="fade-in">
+            <h2 class="script-font" style="font-size: 4.5rem; color: var(--solid-black); margin-bottom: 0;">
+                <span class="lang-en">Awaiting the Day</span>
+                <span class="lang-am amharic-text" style="font-size: 3.5rem;">ቀኑን በመጠባበቅ ላይ</span>
+            </h2>
+        </div>
         <div class="countdown-container fade-in">
             <div class="time-box">
                 <span id="days">00</span>
-                <div class="label">
-                    <span class="lang-en">Days</span><span class="lang-am amharic-text">ቀናት</span>
-                </div>
+                <div class="label"><span class="lang-en">Days</span><span class="lang-am amharic-text">ቀናት</span></div>
             </div>
             <div class="time-box">
                 <span id="hours">00</span>
-                <div class="label">
-                    <span class="lang-en">Hours</span><span class="lang-am amharic-text">ሰዓታት</span>
-                </div>
+                <div class="label"><span class="lang-en">Hours</span><span class="lang-am amharic-text">ሰዓታት</span></div>
             </div>
             <div class="time-box">
                 <span id="minutes">00</span>
-                <div class="label">
-                    <span class="lang-en">Mins</span><span class="lang-am amharic-text">ደቂቃዎች</span>
-                </div>
+                <div class="label"><span class="lang-en">Mins</span><span class="lang-am amharic-text">ደቂቃዎች</span></div>
             </div>
             <div class="time-box">
                 <span id="seconds">00</span>
-                <div class="label">
-                    <span class="lang-en">Secs</span><span class="lang-am amharic-text">ሰከንዶች</span>
-                </div>
+                <div class="label"><span class="lang-en">Secs</span><span class="lang-am amharic-text">ሰከንዶች</span></div>
             </div>
         </div>
     </section>
@@ -610,15 +604,15 @@
     <section id="interactive" class="bg-beige">
         
         <div class="interactive-card fade-in" style="margin-bottom: 40px;">
-            <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
+            <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="2" fill="none" style="margin-bottom: 15px;">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                 <circle cx="12" cy="13" r="4"></circle>
             </svg>
-            <h2 style="font-size: 2.2rem;">
+            <h2 style="font-size: 2.5rem; color: var(--solid-black);">
                 <span class="lang-en">Share Your Photos</span>
                 <span class="lang-am amharic-text">ፎቶዎችን ያጋሩ</span>
             </h2>
-            <p style="margin-bottom: 20px; font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
+            <p style="margin-bottom: 20px; font-size: 1.2rem; color: var(--solid-black); font-weight: bold;">
                 <span class="lang-en">Please upload the photos and videos you take during our special day to our shared album.</span>
                 <span class="lang-am amharic-text">በሰርጋችን ቀን ያነሳችሁትን ፎቶ እና ቪዲዮ እዚህ ላይ ላኩልን።</span>
             </p>
@@ -629,14 +623,14 @@
         </div>
 
         <div class="interactive-card fade-in">
-            <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="1.5" fill="none" style="margin-bottom: 15px;">
+            <svg viewBox="0 0 24 24" width="40" height="40" stroke="var(--champagne-gold)" stroke-width="2" fill="none" style="margin-bottom: 15px;">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
-            <h2 style="font-size: 2.2rem;">
+            <h2 style="font-size: 2.5rem; color: var(--solid-black);">
                 <span class="lang-en">Digital Guestbook</span>
                 <span class="lang-am amharic-text">የማስታወሻ ደብተር</span>
             </h2>
-            <p style="font-size: 1.1rem; color: var(--solid-black); font-weight: bold;">
+            <p style="font-size: 1.2rem; color: var(--solid-black); font-weight: bold;">
                 <span class="lang-en">Leave a note of love, advice, or your favorite memory with the bride and groom.</span>
                 <span class="lang-am amharic-text">ለሙሽሮቹ መልካም ምኞትዎን እና ማስታወሻዎን እዚህ ያስቀምጡ።</span>
             </p>
@@ -656,24 +650,26 @@
     <section id="closing" style="padding-bottom: 120px;">
         <div class="closing-container">
             
-            <h2 class="script-font fade-in" style="font-size: 5rem; color: var(--deep-brown); text-shadow: 1px 1px 10px rgba(255,255,255,0.8); margin-bottom: 40px;">
-                <span class="lang-en">Forever and Ever</span>
-                <span class="lang-am amharic-text" style="font-size: 4rem;">ለዘላለም</span>
-            </h2>
+            <div style="background: rgba(255,255,255,0.9); padding: 15px 40px; border-radius: 12px; display: inline-block; margin-bottom: 30px;" class="fade-in">
+                <h2 class="script-font" style="font-size: 5rem; color: var(--solid-black); margin-bottom: 0;">
+                    <span class="lang-en">Forever and Ever</span>
+                    <span class="lang-am amharic-text" style="font-size: 4rem;">ለዘላለም</span>
+                </h2>
+            </div>
 
             <div class="closing-image-frame fade-in">
                 <img src="photo10.jpg" alt="Ahadu and Tigist - Forever">
             </div>
 
-            <div class="fade-in" style="margin-top: 40px; margin-bottom: 30px; background: rgba(255, 255, 255, 0.9); padding: 15px 30px; border-radius: 8px; display: inline-block;">
-                <p style="font-size: 1.3rem; font-weight: bold; color: var(--solid-black); margin-bottom: 0;">
+            <div class="fade-in" style="margin-top: 40px; margin-bottom: 30px; background: rgba(255, 255, 255, 0.95); padding: 20px 40px; border-radius: 12px; display: inline-block; border: 2px solid var(--champagne-gold);">
+                <p style="font-size: 1.4rem; font-weight: bold; color: var(--solid-black); margin-bottom: 0;">
                     <span class="lang-en">We look forward to celebrating this beautiful beginning with you.</span>
                     <span class="lang-am amharic-text">ይህንን ልዩ ቀን ከእናንተ ጋር ለማክበር በጉጉት እንጠብቃለን።</span>
                 </p>
             </div>
             
             <div class="names-container fade-in">
-                <h2 style="font-family: 'Times New Roman', Times, serif; font-size: 3.5rem; color: var(--champagne-gold); text-shadow: 1px 1px 5px rgba(0,0,0,0.8); margin-bottom: 5px;">
+                <h2 style="font-family: 'Times New Roman', Times, serif; font-size: 3.5rem; color: var(--solid-black); margin-bottom: 5px; font-weight: bold; background: rgba(255,255,255,0.8); padding: 10px 30px; border-radius: 8px; display: inline-block;">
                     <span class="lang-en">Ahadu & Tigist</span>
                     <span class="lang-am amharic-text">አሐዱ እና ትግስት</span>
                 </h2>
@@ -756,7 +752,7 @@
             
             if (distance < 0) {
                 clearInterval(updateCountdown);
-                document.querySelector(".countdown-container").innerHTML = "<h2 class='script-font' style='font-size: 3.5rem; color: var(--champagne-gold); text-shadow: 1px 1px 10px rgba(255,255,255,0.8);'>Today is the Day!</h2>";
+                document.querySelector(".countdown-container").innerHTML = "<h2 class='script-font' style='font-size: 3.5rem; color: var(--solid-black); background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 8px;'>Today is the Day!</h2>";
                 return;
             }
             if(daysEl) {
